@@ -1,0 +1,119 @@
+<!-- 
+Code written for the mapping community project
+First example of the clustering 
+Author: Daniel Hill
+8th April 2016
+danhilltravel@hotmail.c.ouk
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mapping.Community</title>
+
+<!-- Implements the javascript library without an API call -->
+
+
+<!-- links clustering -->
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+ 
+<!-- Latest compiled and minified CSS -->
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ 
+<!-- Load Leaflet from CDN-->
+ 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.css" />
+ 
+<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.js"></script>
+
+ 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ 
+<!-- Latest compiled and minified JavaScript -->
+ 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+ 
+
+
+
+<!-- Links required for the clustering to function -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="screen.css" />
+
+	<link rel="stylesheet" href="Leaflet.markercluster/dist/MarkerCluster.css" />
+	<link rel="stylesheet" href="Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+	<script src="Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+
+	   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+	   <!--Leaflet sidebar-->
+ 
+<script src="js/leaflet-sidebar.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("315187443");
+</script>
+
+<link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
+
+ <script type="text/javascript" src="js/dtasSQL.js"></script>
+ </head>
+<body>
+
+
+
+  <div id="page-content">
+        <section class="main-content">
+            <div class="container-wide">  
+                <div style="height: 575px;"> 
+                    <div id="sidebar" class="sidebar collapsed">
+                        <!-- Nav tabs -->
+                        <div class="sidebar-tabs">
+                            <ul role="tablist">
+                                <li><a href="#home" role="tab"><i class="fa fa-pencil"></i></a></li>
+                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
+                            </ul>
+
+                            <ul role="tablist">
+                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->   
+                            </ul>
+                        </div>
+
+                        <!-- Tab panes -->
+                        <div class="sidebar-content">
+                            <div class="sidebar-pane" id="home">
+                                <h1 class="sidebar-header">
+                                    Sidebar
+                                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                                </h1>
+                                <p id="sidebar-text"></p>
+                             </div>
+                        </div> <!--end div classs="sidebar-content"-->
+                    </div>
+                    <div id='map' class="sidebar-map"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+
+
+
+
+        console.log("data")
+        getData2();
+       // getData3();
+
+
+    </script>      
+</body>
+</html>
