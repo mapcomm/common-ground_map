@@ -1,8 +1,10 @@
-function getData(){$.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',     
+//getting data test
+function getData(){$.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "cityfarmsgardens_groups_gb_sct',     
     function(data) {
-      console.log(data);
+      //console.log(123);
     });
 }
+
 
 
 //change the file structure 
@@ -13,7 +15,7 @@ function getData(){$.getJSON('https://carto.mapping.community:9090/user/hilld/ap
 //insert the names on the onhover function so that you can see typeG
 
 
-function getData2(){
+function getDataAllSets(){
 var results = [];
    
           //open sidebar and more content when clicking button in popup
@@ -22,10 +24,10 @@ var results = [];
           /*This is the function to sort the results of the array passed below
           openSidebar(a.layer.feature.properties.name(aka ID), a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
           */
-          function openSidebar(ID,url,facebook_url,twitter_url,description) {
+          function openSidebar(network, ID,url,facebook_url,twitter_url,description) {
 
             if(url == null){
-              url = "No URL available";
+              url = "";
             }
             if(facebook_url == null){
               facebook_url = "No facebook available";
@@ -56,7 +58,8 @@ var results = [];
               var divToAddContent = document.getElementById('home');
               
               //This information is what is displayed in the pop out.
-              divToAddContent.innerHTML = "DTAS</br>" + "Name:</br>" + ID + "</br>Url:</br>" + url +  "</br> Facebook: </br>" + facebook_url + "</br>Twitter: </br>" + twitter_url + "</br>Description: </br>" + description;
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description;
           }
 
 /*
@@ -115,10 +118,41 @@ Display in infobox (omit whole field if data is null/blank)
 		var markers2List = [];
 
 		//create comm energy grouping
-		var markers3 = new L.MarkerClusterGroup(
+    //this is not a cluster group
+		var markers3 = new L.layerGroup(
+
+      );
+		var markers3List = [];
+/*
+     if (map.getZoom() == 5) {
+    map.removeLayer (markers3);     
+};*/
+
+//ComLand linked to the markers4 list and group 
+  var markers4 = new L.MarkerClusterGroup(
       {spiderfyOnMaxZoom: true,
       showCoverageOnHover: false});
-		var markers3List = [];
+    var markers4List = [];
+
+//City farms linked to the markers4 list and group 
+  var markers5 = new L.MarkerClusterGroup(
+      {spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false});
+    var markers5List = [];
+   
+//Sccan linked to the markers4 list and group 
+  var markers6 = new L.MarkerClusterGroup(
+      {spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false});
+    var markers6List = [];
+   
+//Permaculture
+  var markers7 = new L.MarkerClusterGroup(
+      {spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false});
+    var markers7List = [];
+
+   
 
 
   
@@ -278,6 +312,180 @@ function populateEco() {
 
 
 
+function populateComLand() {
+
+   var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
+    function(data1) {
+      console.log(data1);    
+
+              var geojsonMarkerOptions = {
+                  radius: 8,
+                  fillColor: "#FFC0CB",
+                  color: "#000",
+                  weight: 1,
+                  opacity: 1,
+                  fillOpacity: 0.8
+              };
+
+              
+
+
+              L.geoJSON(data1, {
+                  pointToLayer: function (feature, latlng) {
+                      var marker = L.circleMarker(latlng, geojsonMarkerOptions);
+                     
+
+    //add onHover functionality
+                      marker.bindPopup(feature.properties.name + "<br/>" + '<br/><button type="button" class="btn btn-primary sidebar-open-button" data = "' + feature.properties.url);
+                      
+                results.push(feature.properties);
+
+              
+        markers4List.push(marker);
+        markers4.addLayer(marker);
+                  
+                      return marker;
+                  }
+                  })
+  //pop ups added and these are the custom options.
+//using this?????????
+ 
+    })
+      return false;
+    }
+
+function populateCityFarms() {
+
+   var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',     
+    function(data1) {
+      console.log(data1);    
+
+              var geojsonMarkerOptions = {
+                  radius: 8,
+                  fillColor: "#FFC0CB",
+                  color: "#000",
+                  weight: 1,
+                  opacity: 1,
+                  fillOpacity: 0.8
+              };
+
+              
+
+
+              L.geoJSON(data1, {
+                  pointToLayer: function (feature, latlng) {
+                      var marker = L.circleMarker(latlng, geojsonMarkerOptions);
+                     
+
+    //add onHover functionality
+                      marker.bindPopup(feature.properties.name + "<br/>" + '<br/><button type="button" class="btn btn-primary sidebar-open-button" data = "' + feature.properties.url);
+                      
+                results.push(feature.properties);
+
+              
+        markers5List.push(marker);
+        markers5.addLayer(marker);
+                  
+                      return marker;
+                  }
+                  })
+  //pop ups added and these are the custom options.
+//using this?????????
+ 
+    })
+      return false;
+    }
+
+
+
+
+function populateSccan() {
+
+   var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',     
+    function(data1) {
+      console.log(data1);    
+
+              var geojsonMarkerOptions = {
+                  radius: 8,
+                  fillColor: "#FFC0CB",
+                  color: "#000",
+                  weight: 1,
+                  opacity: 1,
+                  fillOpacity: 0.8
+              };
+
+              
+
+
+              L.geoJSON(data1, {
+                  pointToLayer: function (feature, latlng) {
+                      var marker = L.circleMarker(latlng, geojsonMarkerOptions);
+                     
+
+    //add onHover functionality
+                      marker.bindPopup(feature.properties.name + "<br/>" + '<br/><button type="button" class="btn btn-primary sidebar-open-button" data = "' + feature.properties.url);
+                      
+                results.push(feature.properties);
+
+              
+        markers6List.push(marker);
+        markers6.addLayer(marker);
+                  
+                      return marker;
+                  }
+                  })
+  //pop ups added and these are the custom options.
+//using this?????????
+ 
+    })
+      return false;
+    }
+
+
+
+function populatePermaculture() {
+
+   var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".permaculture_groups_gb_sct',     
+    function(data1) {
+      console.log(data1);    
+
+              var geojsonMarkerOptions = {
+                  radius: 8,
+                  fillColor: "#FFC0CB",
+                  color: "#000",
+                  weight: 1,
+                  opacity: 1,
+                  fillOpacity: 0.8
+              };
+
+              
+
+
+              L.geoJSON(data1, {
+                  pointToLayer: function (feature, latlng) {
+                      var marker = L.circleMarker(latlng, geojsonMarkerOptions);
+                     
+
+    //add onHover functionality
+                      marker.bindPopup(feature.properties.name + "<br/>" + '<br/><button type="button" class="btn btn-primary sidebar-open-button" data = "' + feature.properties.url);
+                      
+                results.push(feature.properties);
+
+              
+        markers7List.push(marker);
+        markers7.addLayer(marker);
+                  
+                      return marker;
+                  }
+                  })
+  //pop ups added and these are the custom options.
+//using this?????????
+ 
+    })
+      return false;
+    }
+
+
 		//The cluster click which focuses in on a grouping of points 
 		markers1.on('clusterclick', function (a) {
 			//alert('cluster ' + a.layer.getAllChildMarkers().length);
@@ -289,47 +497,16 @@ function populateEco() {
 
             map.addControl(sidebar);
 
-		        markers1.on('click', function (a) {
+//add sideBar functionality onclick
+		           markers1.on('click', function (a) {
              
-              console.log(a.layer.feature.properties.twitter_url);
-              
+              console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
-              openSidebar(a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
-      /*        
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+		          });
 
-
-● facebook_url
-
-● twitter_url
-
-● description
-
-● 5 nearest neighbors (each shown as "name" which is rendered as hyperlink which on click will move focus to new item; possibly also include icon after name to represent network of each neighbor item (provided via table name)
-
-● demographics? 
-*/
-              //add sidebar panel to map
-          
-         
-
-		   //add sidebar panel to map
-         
-
-			
-		});
-
-
-        
-        /*
-        markers.on('mouseover', function (e) {
-            this.openPopup();
-            markers.bindPopup("Popup content");
-            console.log(e.layer.feature.properties.name);
-        });
-        */
-
-      
 
 //Change the content of the pop up boxes here on mouse over
          markers1.on('mouseover', function(e) {
@@ -351,12 +528,20 @@ function populateEco() {
   		//make calls to methods to populate the space with the markers 
 		populateDTAS();
 		populateEco();
-		populateComEnergy()
+		populateComEnergy();
+    populateComLand();
+    populateCityFarms()
+    populateSccan()
+    populatePermaculture()
 
 		map.addLayer(markers1);
 		map.addLayer(markers2);
-		//add comm energy layer
-		map.addLayer(markers3);
+		//removes initial view of comm energy layer
+		//map.addLayer(markers3);
+    map.addLayer(markers4);
+    map.addLayer(markers5);
+    map.addLayer(markers6);
+    map.addLayer(markers7);
 		
 
 
@@ -375,38 +560,25 @@ var osm = L.tileLayer(
     'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
     {maxZoom: 18}).addTo(map);
 */
-var hhLayer = new L.geoJson({
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-2.464459,36.83711]
-  },
-  "properties": {
-    "name": "My House"
-  }
-});
-var wpLayer = new L.geoJson({
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-2.464459,36.836]
-  },
-  "properties": {
-    "name": "Your Mom's House"
-  }
-});
+
 //map.addLayer(tile);
 //map.addLayer(osm);
 //map.addLayer();
-map.addLayer(wpLayer);
+//map.addLayer(wpLayer);
 var baseLayer = { 
    //"Satellite": tile,
    //"OSM Data": osm
 };
 var overlay = {
-    "Data1": markers1,
-    "Data2": markers2,
-    "Community Energy": markers3
+    "DTAS": markers1,
+    "ECS": markers2,
+    "Community Energy": markers3,
+    "Community Land": markers4,
+    "City Farms Gardens": markers5,
+    "Sccan": markers6,
+    "Permaculture": markers7,
+
+
 
     
     

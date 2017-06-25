@@ -24,7 +24,7 @@
          } 
 
     #info-pane {
-    position: absolute;
+    position: left;
     height: 550px;
     top: 0px;
     right: 10px;

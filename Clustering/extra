@@ -1,6 +1,0 @@
-$.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT * FROM "mapcomm-admin".church_of_scotland',     
-    function(data) {
-    console.log(data);
-  
-  
-});

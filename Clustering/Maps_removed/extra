@@ -1,0 +1,61 @@
+$.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT * FROM "mapcomm-admin".church_of_scotland',     
+    function(data) {
+    console.log(data);
+  
+  
+});
+
+var hhLayer = new L.geoJson({
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-2.464459,36.83711]
+  },
+  "properties": {
+    "name": "My House"
+  }
+});
+var wpLayer = new L.geoJson({
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-2.464459,36.836]
+  },
+  "properties": {
+    "name": "Your Mom's House"
+  }
+});
+
+
+
+        
+        /*
+        markers.on('mouseover', function (e) {
+            this.openPopup();
+            markers.bindPopup("Popup content");
+            console.log(e.layer.feature.properties.name);
+        });
+        */
+
+ /*        
+
+
+● facebook_url
+
+● twitter_url
+
+● description
+
+● 5 nearest neighbors (each shown as "name" which is rendered as hyperlink which on click will move focus to new item; possibly also include icon after name to represent network of each neighbor item (provided via table name)
+
+● demographics? 
+*/
+              //add sidebar panel to map
+          
+         
+
+		   //add sidebar panel to map
+         
+
+			
+      
