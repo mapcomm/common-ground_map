@@ -30,13 +30,13 @@ var results = [];
               url = "";
             }
             if(facebook_url == null){
-              facebook_url = "No facebook available";
+              facebook_url = "";
             }
             if(twitter_url == null){
-              twitter_url = "No twitter available";
+              twitter_url = "";
             }
             if(description == null){
-              description = "No description available";
+              description = "";
             }
 
              console.log(ID);
@@ -119,10 +119,10 @@ Display in infobox (omit whole field if data is null/blank)
 
 		//create comm energy grouping
     //this is not a cluster group
-		var markers3 = new L.layerGroup(
-
-      );
-		var markers3List = [];
+	var markers3 = new L.MarkerClusterGroup(
+      {spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false});
+    var markers3List = [];
 /*
      if (map.getZoom() == 5) {
     map.removeLayer (markers3);     
@@ -227,7 +227,7 @@ permaculture_groups_gb_sct
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#FFC0CB",
+                  fillColor: "#FFC0CB", //pink
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -272,7 +272,7 @@ function populateEco() {
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#ff7800",
+                  fillColor: "#00FF00", //green
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -320,7 +320,7 @@ function populateComLand() {
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#FFC0CB",
+                  fillColor: "#FF0000", //red
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -362,7 +362,7 @@ function populateCityFarms() {
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#FFC0CB",
+                  fillColor: "#FFFF00", //yellow
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -407,7 +407,7 @@ function populateSccan() {
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#FFC0CB",
+                  fillColor: "#BFFFF4", //aqua
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -451,7 +451,7 @@ function populatePermaculture() {
 
               var geojsonMarkerOptions = {
                   radius: 8,
-                  fillColor: "#FFC0CB",
+                  fillColor: "#0e470f", //dark green
                   color: "#000",
                   weight: 1,
                   opacity: 1,
@@ -508,7 +508,7 @@ function populatePermaculture() {
 		          });
 
 
-//Change the content of the pop up boxes here on mouse over
+        //Change the content of the pop up boxes here on mouse over
          markers1.on('mouseover', function(e) {
     		var popup = L.popup()
 
@@ -521,6 +521,237 @@ function populatePermaculture() {
             map.closePopup();
         });
 		
+
+
+
+    //markers 2 clustering functionality
+    //The cluster click which focuses in on a grouping of points 
+    markers2.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers2.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers2.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers2.on('mouseout', function (e) {
+            map.closePopup();
+        });
+    
+
+
+    //add the third set of markers clustering functionality
+    //***removed
+
+
+    //The cluster click which focuses in on a grouping of points 
+    markers3.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers3.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers3.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers3.on('mouseout', function (e) {
+            map.closePopup();
+        });
+
+
+
+    //group four clustering added
+    //The cluster click which focuses in on a grouping of points 
+    markers4.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers4.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers4.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers4.on('mouseout', function (e) {
+            map.closePopup();
+        });
+    
+
+
+
+        //group five clustering added
+    //The cluster click which focuses in on a grouping of points 
+    markers5.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers5.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers5.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers5.on('mouseout', function (e) {
+            map.closePopup();
+        });
+    
+
+
+
+//group six clustering added
+    //The cluster click which focuses in on a grouping of points 
+    markers6.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers6.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers6.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers6.on('mouseout', function (e) {
+            map.closePopup();
+        });
+    
+//group seventh clustering added
+    //The cluster click which focuses in on a grouping of points 
+    markers7.on('clusterclick', function (a) {
+      //alert('cluster ' + a.layer.getAllChildMarkers().length);
+    });
+    
+        var sidebar = L.control.sidebar('sidebar', {
+            position: 'right'
+          });
+
+            map.addControl(sidebar);
+
+//add sideBar functionality onclick
+               markers7.on('click', function (a) {
+             
+              console.log("test here" + a.layer.feature.properties);      
+              //pushes the features to the sideBar which are pushed to the function above and need to be printed there
+              //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
+              openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
+     
+              });
+
+
+//Change the content of the pop up boxes here on mouse over
+         markers7.on('mouseover', function(e) {
+        var popup = L.popup()
+
+        .setLatLng(e.latlng) 
+        .setContent( "</br>" + e.layer.feature.properties.name + "</br>" + "</br>" + "Click for more information")
+        .openOn(map);
+      });
+
+      markers7.on('mouseout', function (e) {
+            map.closePopup();
+        });
 
 
 
@@ -570,8 +801,8 @@ var baseLayer = {
    //"OSM Data": osm
 };
 var overlay = {
-    "DTAS": markers1,
-    "ECS": markers2,
+    "ECS": markers1,
+    "DTAS": markers2,
     "Community Energy": markers3,
     "Community Land": markers4,
     "City Farms Gardens": markers5,
