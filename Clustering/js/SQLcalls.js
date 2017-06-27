@@ -1,9 +1,3 @@
-//getting data test
-function getData(){$.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "cityfarmsgardens_groups_gb_sct',     
-    function(data) {
-      //console.log(123);
-    });
-}
 
 
 
@@ -14,17 +8,42 @@ function getData(){$.getJSON('https://carto.mapping.community:9090/user/hilld/ap
 //change the methods for each of those so it has on hover etc
 //insert the names on the onhover function so that you can see typeG
 
+ 
+
 
 function getDataAllSets(){
 var results = [];
    
           //open sidebar and more content when clicking button in popup
           var thisResult;
+
           
           /*This is the function to sort the results of the array passed below
           openSidebar(a.layer.feature.properties.name(aka ID), a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
           */
           function openSidebar(network, ID,url,facebook_url,twitter_url,description) {
+
+            //account for http
+            //if url first few elements  != http then add http maybe???
+
+            
+
+            //parser needed to change the url formatting if incorrect in the database
+            var parser = document.createElement('a');
+            parser.href = url;
+            parser.protocol; // => "http:"
+            parser.hostname; // => "example.com"
+            parser.port;     // => "3000"
+            parser.pathname; // => "/pathname/"
+            parser.search;   // => "?search=test"
+            parser.hash;     // => "#hash"
+            parser.host; // => "example.com:3000"
+
+            if(url != null && parser.protocol != "http://" && network == "Community Land Scotland"){
+              //alert(network);
+              url = "http://" + url;
+              //alert(url)
+            }
 
             if(url == null){
               url = "";
@@ -39,7 +58,7 @@ var results = [];
               description = "";
             }
 
-             console.log(ID);
+             //console.log(ID);
               if ($('#sidebar-text').text().length > 0) {
                   $("#sidebar-text").removeText();
               }
@@ -81,12 +100,12 @@ Display in infobox (omit whole field if data is null/blank)
 */
 
  
-       		const tonerUrl = "http://{S}tile.stamen.com/toner/{Z}/{X}/{Y}.png";
+       		const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
               
             const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
               
 
-		   var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
+		   var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
 		    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 		    subdomains: 'abcd',
 		    minZoom: 0,
@@ -130,6 +149,9 @@ Display in infobox (omit whole field if data is null/blank)
 
 //ComLand linked to the markers4 list and group 
   var markers4 = new L.MarkerClusterGroup(
+      
+
+
       {spiderfyOnMaxZoom: true,
       showCoverageOnHover: false});
     var markers4List = [];
@@ -806,7 +828,7 @@ var overlay = {
     "Community Energy": markers3,
     "Community Land": markers4,
     "City Farms Gardens": markers5,
-    "Sccan": markers6,
+    "SCCAN": markers6,
     "Permaculture": markers7,
 
 
