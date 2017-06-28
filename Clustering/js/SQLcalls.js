@@ -822,8 +822,13 @@ var baseLayer = {
    //"Satellite": tile,
    //"OSM Data": osm
 };
+
+ var str = "Hello World!";
+var result = str.fontcolor("green");
+
+
 var overlay = {
-    "ECS": markers1,
+    "ECS" : markers1,
     "DTAS": markers2,
     "Community Energy": markers3,
     "Community Land": markers4,
