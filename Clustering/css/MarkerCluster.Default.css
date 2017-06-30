@@ -1,9 +1,19 @@
+.legend .circle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+}
+
 .marker-cluster-small {
 	background-color: rgba(181, 226, 140, 0.6);
 	}
 .marker-cluster-small div {
 	background-color: rgba(110, 204, 57, 0.6);
 	}
+
+
+
 
 .marker-cluster-medium {
 	background-color: rgba(241, 211, 87, 0.6);

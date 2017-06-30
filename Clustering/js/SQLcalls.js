@@ -102,7 +102,7 @@ Display in infobox (omit whole field if data is null/blank)
  
        		const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
               
-            const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
+          const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
               
 
 		   var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
@@ -125,10 +125,23 @@ Display in infobox (omit whole field if data is null/blank)
 				basemap.addTo(map);
 //change the options for clustering includes region control see carto documentation
 //for more info https://github.com/Leaflet/Leaflet.markercluster
-		var markers1 = new L.MarkerClusterGroup(
-      {spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false});
-		var markers1List = [];
+		//var markers1 = new L.MarkerClusterGroup(
+     // {spiderfyOnMaxZoom: true,
+      //showCoverageOnHover: false});
+	
+  	var markers1List = [];
+
+    //document.getElementsByClassName(".marker-cluster-large").background-color;
+ var markers1 = L.markerClusterGroup(
+ 
+ {
+  iconCreateFunction: function(cluster) {
+
+
+
+    return L.divIcon({ html:  cluster.getChildCount() });
+  }
+});
 
 		//create second grouping
 		var markers2 = new L.MarkerClusterGroup(
@@ -828,7 +841,8 @@ var result = str.fontcolor("green");
 
 
 var overlay = {
-    "ECS" : markers1,
+
+    "ECS + herro" : markers1,
     "DTAS": markers2,
     "Community Energy": markers3,
     "Community Land": markers4,
@@ -837,10 +851,23 @@ var overlay = {
     "Permaculture": markers7,
 
 
-
     
     
 };
+
+   var legend = L.control({position: 'topright'});
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legend');
+    div.innerHTML +=   '     BCT Owned Land' + '<br>'
+    div.innerHTML +=   '     Conservation Restriction on Private Land' + '<br>'
+    div.innerHTML +=   '     Conservation Restriction on Town Land'
+
+    return div;
+};
+
+legend.addTo(map); 
+
 
 var layerControl = new L.control.layers(baseLayer, overlay, {position: 'topleft', collapsed: false});
 map.addControl(layerControl);

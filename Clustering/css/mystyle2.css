@@ -3,7 +3,9 @@
 
 
 .leaflet-popup {
-            margin-right: 17px;        
+            margin-right: 47px; 
+            background-color: lightblue; 
+
         }
         
 .scroll-bar-wrap:hover .cover-bar {
@@ -16,6 +18,9 @@
             height: 100px;
             margin-right: 17px;
             overflow:  auto;
+             font-weight: bold;
+            font-size: 110%;
+             text-align: center;
         }
         
          #map { 
@@ -32,6 +37,9 @@
     padding: 1em;
     background: white;
     text-align: right;
+     font-weight: bold;
+      font-size: 110%;
+       text-align: center;
   }
 
   #sidebar {
