@@ -1,3 +1,27 @@
+/*
+//knn start
+var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geography(geom),ST_GeographyFromText('POINT(newLon newLat)') 
+FROM "mapcomm-admin".communityenergy_groups_gb_sct
+ORDER BY
+"mapcomm-admin".communityenergy_groups_gb_sct.geom <->'SRID=4326;POINT(newLon newLat)'::geometry
+LIMIT 10, function(data1) {
+  console.log(data1);
+};    
+*/
+   
+/*
+ var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct WHERE ST_DWithin(geog, ref_geog, 1000) As r Limit 5' ,     
+    function(data1) {
+      console.log("data");
+    console.log(data1);
+  });
+*/  
+
+//SELECT *,ST_Distance(geom,'SRID=4326;POINT(newLon newLat)'::geometry) 
+//FROM yourDbTable
+//ORDER BY
+//yourDbTable.geom <->'SRID=4326;POINT(newLon newLat)'::geometry
+//LIMIT 10;
 
 
 
@@ -8,7 +32,7 @@
 //change the methods for each of those so it has on hover etc
 //insert the names on the onhover function so that you can see typeG
 
- 
+
 
 
 function getDataAllSets(){
@@ -129,20 +153,12 @@ Display in infobox (omit whole field if data is null/blank)
 		//var markers1 = new L.MarkerClusterGroup(
      // {spiderfyOnMaxZoom: true,
       //showCoverageOnHover: false});
-	
-  	var markers1List = [];
+	//create second grouping
+    var markers1 = new L.MarkerClusterGroup(
+      {spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false});
+    var markers1List = [];
 
-    //document.getElementsByClassName(".marker-cluster-large").background-color;
- var markers1 = L.markerClusterGroup(
- 
- {
-  iconCreateFunction: function(cluster) {
-
-
-
-    return L.divIcon({ html:  cluster.getChildCount() });
-  }
-});
 
 		//create second grouping
 		var markers2 = new L.MarkerClusterGroup(
@@ -178,6 +194,10 @@ Display in infobox (omit whole field if data is null/blank)
    
 //Sccan linked to the markers4 list and group 
   var markers6 = new L.MarkerClusterGroup(
+    
+
+    
+
       {spiderfyOnMaxZoom: true,
       showCoverageOnHover: false});
     var markers6List = [];
@@ -239,6 +259,7 @@ permaculture_groups_gb_sct
               
 				markers3List.push(marker);
 				markers3.addLayer(marker);
+
                   
                       return marker;
                   }
@@ -352,7 +373,7 @@ function populateComLand() {
 
    var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
     function(data1) {
-      console.log(data1);    
+      //console.log(data1);    
 
               var geojsonMarkerOptions = {
                   radius: 8,
@@ -394,7 +415,7 @@ function populateCityFarms() {
 
    var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',     
     function(data1) {
-      console.log(data1);    
+     // console.log(data1);    
 
               var geojsonMarkerOptions = {
                   radius: 8,
@@ -439,7 +460,7 @@ function populateSccan() {
 
    var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',     
     function(data1) {
-      console.log(data1);    
+     // console.log(data1);    
 
               var geojsonMarkerOptions = {
                   radius: 8,
@@ -483,7 +504,7 @@ function populatePermaculture() {
 
    var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".permaculture_groups_gb_sct',     
     function(data1) {
-      console.log(data1);    
+      //console.log(data1);    
 
               var geojsonMarkerOptions = {
                   radius: 8,
@@ -525,6 +546,10 @@ function populatePermaculture() {
 		//The cluster click which focuses in on a grouping of points 
 		markers1.on('clusterclick', function (a) {
 			//alert('cluster ' + a.layer.getAllChildMarkers().length);
+
+
+   
+
 		});
 		
 		    var sidebar = L.control.sidebar('sidebar', {
@@ -536,7 +561,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
 		           markers1.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+              //console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -575,7 +600,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers2.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+              //console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -616,7 +641,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers3.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+             // console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -654,7 +679,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers4.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+             // console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -693,7 +718,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers5.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+              //console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -732,7 +757,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers6.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+              //console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -768,7 +793,7 @@ function populatePermaculture() {
 //add sideBar functionality onclick
                markers7.on('click', function (a) {
              
-              console.log("test here" + a.layer.feature.properties);      
+              //console.log("test here" + a.layer.feature.properties);      
               //pushes the features to the sideBar which are pushed to the function above and need to be printed there
               //you have to send the name as the first parameter as it is checked in the function against stored values for ID. Then you can send any other parameters after this if you specify them. 
               openSidebar(a.layer.feature.properties.network, a.layer.feature.properties.name, a.layer.feature.properties.url,a.layer.feature.properties.facebook_url,a.layer.feature.properties.twitter_url,a.layer.feature.properties.description);
@@ -843,13 +868,15 @@ var result = str.fontcolor("green");
 
 var overlay = {
 
-    "ECS + herro" : markers1,
-    "DTAS": markers2,
-    "Community Energy": markers3,
-    "Community Land": markers4,
-    "City Farms Gardens": markers5,
-    "SCCAN": markers6,
-    "Permaculture": markers7,
+    "<div style= 'display: inline-block; color: green'>  ECS </div>" : markers1,
+    "<div style= 'display: inline-block; color: pink'>  DTAS </div>" : markers2,
+    "<div style= 'display: inline-block; color: blue'>  Community Energy </div>" : markers3,
+    "<div style= 'display: inline-block; color: red'>  Community Land </div>" : markers4,
+    "<div style= 'display: inline-block; color: yellow'>  City Farms Gardens </div>" : markers5,
+    "<div style= 'display: inline-block; color: aqua'>  SCCAN </div>" : markers6,
+    "<div style= 'display: inline-block; color: DarkGreen'>  Permaculture </div>" : markers7,
+   
+  
 
 
     
@@ -857,7 +884,7 @@ var overlay = {
 };
 
    var legend = L.control({position: 'topright'});
-
+/*
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
     div.innerHTML +=   '     BCT Owned Land' + '<br>'
@@ -867,14 +894,16 @@ legend.onAdd = function (map) {
     return div;
 };
 
-legend.addTo(map); 
+legend.addTo(map); */
 
 
 var layerControl = new L.control.layers(baseLayer, overlay, {position: 'topleft', collapsed: false});
 map.addControl(layerControl);
 
 }
-   
+
+
+
 
 
 
