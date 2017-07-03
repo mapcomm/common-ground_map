@@ -1,11 +1,3 @@
-/*
-ecs_groups_gb_sct
-communityenergy_groups_gb_sct
-communityland_groups_gb_sct 
-cityfarmsgardens_groups_gb_sct 
-sccan_groups_gb_sct
-permaculture_groups_gb_sct  
-*/
 function getData3(){
 var results = [];
    
@@ -49,7 +41,7 @@ var results = [];
               var divToAddContent = document.getElementById('home');
               
               //This information is what is displayed in the pop out.
-              divToAddContent.innerHTML = "ecs_groups" + "Name:</br>" + ID + "</br>Url:</br>" + url +  "</br> Facebook: </br>" + facebook_url + "</br>Twitter: </br>" + twitter_url + "</br>Description: </br>" + description;
+              divToAddContent.innerHTML = "Name:</br>" + ID + "</br>Url:</br>" + url +  "</br> Facebook: </br>" + facebook_url + "</br>Twitter: </br>" + twitter_url + "</br>Description: </br>" + description;
           }
 
 /*
@@ -84,18 +76,16 @@ Display in infobox (omit whole field if data is null/blank)
 		    ext: 'png'
 		});
 
-         /* var map = L.map('map', {
+          var map = L.map('map', {
               center: [55.3781, -4.4360],
               zoom: 5,
               layers: [basemap]
-
           });
-          basemap.addTo(map);*/
 
 
                                           
 
-				
+				basemap.addTo(map);
 		var markers = new L.MarkerClusterGroup();
 		var markersList = [];
 
@@ -111,7 +101,7 @@ Display in infobox (omit whole field if data is null/blank)
 
 		function populateDTAS() {
 
-   var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',     
+   var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',     
     function(data1) {
     
 
@@ -119,7 +109,7 @@ Display in infobox (omit whole field if data is null/blank)
                   radius: 8,
                   fillColor: "#ff7800",
                   color: "#000",
-                  weight: 8,
+                  weight: 1,
                   opacity: 1,
                   fillOpacity: 0.8
               };
@@ -213,7 +203,7 @@ function populateEco() {
             position: 'right'
           });
 
-            // map.addControl(sidebar);
+            map.addControl(sidebar);
 
 		        markers.on('click', function (a) {
              
@@ -278,7 +268,7 @@ function populateEco() {
 		populateDTAS();
 		populateEco();
 
-		// map.addLayer(markers);
+		map.addLayer(markers);
 
 
 
@@ -318,7 +308,7 @@ var wpLayer = new L.geoJson({
 //map.addLayer(tile);
 //map.addLayer(osm);
 //map.addLayer();
-// map.addLayer(wpLayer);
+map.addLayer(wpLayer);
 var baseLayer = { 
    //"Satellite": tile,
    //"OSM Data": osm
@@ -328,8 +318,8 @@ var overlay = {
     "Water Data": wpLayer
 };
 
-/*var layerControl = new L.control.layers(baseLayer, overlay, {collapsed: false});
+var layerControl = new L.control.layers(baseLayer, overlay, {collapsed: false});
 map.addControl(layerControl);
 
-}*/
+}
    
