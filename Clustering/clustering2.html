@@ -132,16 +132,8 @@
 map.addControl(sidebar);
 
 
-    function openSidebar(){
-    //deleted for now add later
-    //(network, ID,url,facebook_url,twitter_url,description) {
-            var network = null;
-            var ID = null;
-            var url = null;
-            var facebook_url = null;
-            var twitter_url = null;
-            var description = null;
-            var results = [];
+    function openSidebar(network, ID,url,facebook_url,twitter_url,description) {
+           
             //account for http
             //if url first few elements  != http then add http maybe???
 
@@ -182,7 +174,7 @@ map.addControl(sidebar);
                   $("#sidebar-text").removeText();
               }
 
-              for (var i = 0, len = results.length; i < len; i++) {
+              /*for (var i = 0, len = results.length; i < len; i++) {
                  
                
                //this loop matches the array element to the passed ID  
@@ -190,7 +182,7 @@ map.addControl(sidebar);
                       thisResult = (results[i]);            
                   }
               }
-              
+              */
               //remove name from thisResult and others
               sidebar.open('home');
               var divToAddContent = document.getElementById('home');
@@ -292,7 +284,7 @@ map.addControl(sidebar);
     var markers = [];
 
 
-     var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
+ /*    var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
     function(data2) {
              L.geoJSON(data2, {
                   pointToLayer: function (feature, latlng) {
@@ -310,7 +302,11 @@ map.addControl(sidebar);
              L.geoJSON(data1, {
                   pointToLayer: function (feature, latlng) {
                     //console.log(latlng.lat, latlng.lng);
+
+
                     var marker = new PruneCluster.Marker(latlng.lat, latlng.lng);
+                   
+                      
                     marker.category = 1;
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker);
@@ -326,7 +322,9 @@ map.addControl(sidebar);
         L.geoJSON(data1, {
                   pointToLayer: function (feature, latlng) {
                     //console.log(latlng.lat, latlng.lng);
-                    var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng);
+                    var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#222'});
+
+
                     marker3.category = 2;
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker3);
@@ -335,15 +333,19 @@ map.addControl(sidebar);
                   })
 
 });   
-
+*/
 
   var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',     
     function(data1) {
-        console.log(data1);
+        
         L.geoJSON(data1, {
-                  pointToLayer: function (feature, latlng) {
+                  pointToLayer: function (feature, latlng, properties) {
                     //console.log(latlng.lat, latlng.lng);
-                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng);
+                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#222', feature}
+
+                        );
+                   
+
                     marker4.category = 3;
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker4);
@@ -391,12 +393,18 @@ map.addControl(sidebar);
 
 
 
-leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
-        console.log(data.properties);
+leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
+        
    
+    leafletMarker.on('mouseover', function(){
+    //do click event logic here
+    })
+
     leafletMarker.on('click', function(){
-       
-        openSidebar();
+        
+       console.log(data.feature.properties.network)
+       openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
+     
     //do click event logic here
     })
 };
