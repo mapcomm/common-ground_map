@@ -158,9 +158,18 @@ map.addControl(sidebar);
 
             if(url == null){
               url = "";
+            } else if (url.length > 20){
+                //parse and remove 
+               
+                url = parser.hostname;
+                
+            } else{
+                url = parser.host;
             }
+
             if(facebook_url == null){
               facebook_url = "";
+
             }
             if(twitter_url == null){
               twitter_url = "";
@@ -395,9 +404,13 @@ map.addControl(sidebar);
 
 leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
         
-   
+   //???
     leafletMarker.on('mouseover', function(){
     //do click event logic here
+     leafletMarker.bindPopup(data.name);
+   
+
+   
     })
 
     leafletMarker.on('click', function(){
@@ -407,11 +420,24 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
      
     //do click event logic here
     })
+
+   if (leafletMarker.getPopup()) {
+        leafletMarker.setPopupContent(data.feature.properties.name);
+    } else {
+        leafletMarker.bindPopup(data.feature.properties.name);
+    }
+
+
+
+
 };
 
     map.addLayer(leafletView);
 
+
  
+  
+
 
 
 
