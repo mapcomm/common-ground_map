@@ -451,7 +451,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
             var popup = L.popup()
 
             .setLatLng(e.latlng) 
-            .setContent( data.feature.properties.name + "</br>" + "</br>"  + "Click for more information")
+            .setContent( "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>"  + "<i>Click for more information<i>")
             .openOn(map);
         });
    
@@ -493,7 +493,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 
     map.addLayer(leafletView);
 
-    
+
 
 
  
