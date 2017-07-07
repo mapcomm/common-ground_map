@@ -150,13 +150,16 @@ map.addControl(sidebar);
             parser.hash;     // => "#hash"
             parser.host; // => "example.com:3000"
 
+            //This is functionality for entries that are incorrect
             if(url != null && parser.protocol != "http://" && network == "Community Land Scotland"){
               //alert(network);
               url = "http://" + url;
               //alert(url)
             }
 
-            if(url == null){
+
+            //This is to format the length of the text in the sidebar
+            if(url == null || url == " "){
               url = "";
             } else if (url.length > 20){
                 //parse and remove 
@@ -167,23 +170,45 @@ map.addControl(sidebar);
                 url = parser.host;
             }
 
-            if(facebook_url == null){
-               
+            //this is to drop content if it is null
+            
+            
+            alert(twitter_url +" "+ facebook_url + "" + url);
+
+             if(twitter_url == undefined){
+                   
                 sidebar.open('home');
               var divToAddContent = document.getElementById('home');
               
               //This information is what is displayed in the pop out.
-              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
-              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
+               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
+            }
+            else if(url == undefined){
+
+
+
+              sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
               +"</br></br></br></br>"+ "KNN placement:";
 
-
-            }
-            else if(twitter_url == null){
+            //(twitter_url == null){
                
               
+            }else if (facebook_url == undefined){
+
+                   sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
             }
-            else if(description == null){
+            /*else if(description == null){
                 sidebar.open('home');
               var divToAddContent = document.getElementById('home');
               
@@ -201,7 +226,7 @@ map.addControl(sidebar);
               '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
               +"</br></br></br></br>"+ "KNN placement:";
             }
-
+*/
              //console.log(ID);
               if ($('#sidebar-text').text().length > 0) {
                   $("#sidebar-text").removeText();
