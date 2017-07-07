@@ -159,21 +159,21 @@ map.addControl(sidebar);
 
 
             //This is to format the length of the text in the sidebar
-            if(url == null || url == " "){
-              url = "";
+            if(url == null){
+              url1 = "";
             } else if (url.length > 20){
                 //parse and remove 
                
-                url = parser.hostname;
+                url1 = parser.hostname;
                 
             } else{
-                url = parser.host;
+                url1 = parser.host;
             }
 
             //this is to drop content if it is null
             
             
-            alert(twitter_url +" "+ facebook_url + "" + url);
+           // alert(twitter_url +" "+ face + "" + url);
 
              if(twitter_url == undefined){
                    
@@ -182,10 +182,10 @@ map.addControl(sidebar);
               
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
-              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' + "</br><b>Description:</b> " + description
+              '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
               +"</br></br></br></br>"+ "KNN placement:";
             }
-            else if(url == undefined){
+            else if(url == undefined || url == null || url == ""){
 
 
 
@@ -407,18 +407,24 @@ map.addControl(sidebar);
 
 
 
-                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, icon: myIcon}
+                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, icon: myIcon,
+                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true}
 
                         );
-                   //console.log(latlng.lat, latlng.lng);
-                    
+                 
+                   marker4.BuildLeafletClusterIcon = function(cluster) {
+              var e = new L.Icon.MarkerCluster();
 
-//add a custom icon to the marker set???????
+                e.stats = cluster.stats;
+                e.population = cluster.population;
+                return e;
+            };
 
 
                     
 
                     marker4.category = 3;
+
                     
 
 

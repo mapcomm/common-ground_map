@@ -1,5 +1,24 @@
 
+//This is to format the length of the text in the sidebar
+            if(url == null){
+              url1 = "";
+            } else if (url.length > 20){
+                //parse and remove 
+               
+                url1 = parser.hostname;
+                
+            } else{
+                url1 = parser.host;
+            }
 
+             sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
+            //this is to drop content if it is null
  <!DOCTYPE html>
 <html>
 
