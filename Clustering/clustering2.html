@@ -168,14 +168,38 @@ map.addControl(sidebar);
             }
 
             if(facebook_url == null){
-              facebook_url = "";
+               
+                sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
+
 
             }
-            if(twitter_url == null){
-              twitter_url = "";
+            else if(twitter_url == null){
+               
+              
             }
-            if(description == null){
-              description = "";
+            else if(description == null){
+                sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
+            } else {
+
+                  sidebar.open('home');
+              var divToAddContent = document.getElementById('home');
+              
+              //This information is what is displayed in the pop out.
+              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
+              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
+              +"</br></br></br></br>"+ "KNN placement:";
             }
 
              //console.log(ID);
@@ -193,24 +217,19 @@ map.addControl(sidebar);
               }
               */
               //remove name from thisResult and others
-              sidebar.open('home');
-              var divToAddContent = document.getElementById('home');
-              
-              //This information is what is displayed in the pop out.
-              divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
-              '<a href="'+ url + '" target="_blank"' + '>' + url + '</a>' +  "</br><b> Facebook: </b>" + facebook_url + "</br><b>Twitter: </b>" + twitter_url + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement:";
+            
           }
-
-
-
-
 
 
 
     var leafletView = new PruneClusterForLeaflet();
 
+    
+
+
+
     leafletView.BuildLeafletClusterIcon = function(cluster) {
+        
         var e = new L.Icon.MarkerCluster();
 
         e.stats = cluster.stats;
@@ -223,7 +242,7 @@ map.addControl(sidebar);
 
     L.Icon.MarkerCluster = L.Icon.extend({
         options: {
-            iconSize: new L.Point(44, 44),
+            iconSize: new L.Point(144, 60),
             className: 'prunecluster leaflet-markercluster-icon'
         },
 
@@ -349,16 +368,40 @@ map.addControl(sidebar);
         
         L.geoJSON(data1, {
                   pointToLayer: function (feature, latlng, properties) {
-                    //console.log(latlng.lat, latlng.lng);
-                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#222', feature}
+
+
+                    var myIcon = L.icon({
+                       // iconUrl: 'pruneCluster.png',
+                        iconSize: [90, 95],
+                        iconAnchor: [22, 94],
+                        popupAnchor: [-3, -76],
+                        //shadowUrl: 'my-icon-shadow.png',
+                        shadowSize: [68, 95],
+                        shadowAnchor: [22, 94]
+                    });
+
+
+
+                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, icon: myIcon}
 
                         );
-                   
+                   //console.log(latlng.lat, latlng.lng);
+                    
+
+//add a custom icon to the marker set???????
+
+
+                    
 
                     marker4.category = 3;
+                    
+
+
+                    
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker4);
-                    leafletView.RegisterMarker(marker4);    
+                    leafletView.RegisterMarker(marker4); 
+
 }
                   })
 
@@ -404,15 +447,36 @@ map.addControl(sidebar);
 
 leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
         
+         leafletMarker.on('mouseover', function(e) {
+            var popup = L.popup()
+
+            .setLatLng(e.latlng) 
+            .setContent( data.feature.properties.name + "</br>" + "</br>"  + "Click for more information")
+            .openOn(map);
+        });
+   
+    leafletMarker.on('mouseout', function (e) {
+            map.closePopup();
+        });
    //???
-    leafletMarker.on('mouseover', function(){
+    /*leafletMarker.on('mouseover', function(){
     //do click event logic here
-     leafletMarker.bindPopup(data.name);
+
+    leafletMarker.openOn(map);
+
+     if (leafletMarker.getPopup()) {
+        leafletMarker.setPopupContent(data.feature.properties.name);
+
+    } else {
+        leafletMarker.bindPopup(data.feature.properties.name);
+
+    }
+
    
 
    
     })
-
+*/
     leafletMarker.on('click', function(){
         
        console.log(data.feature.properties.network)
@@ -421,18 +485,15 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     //do click event logic here
     })
 
-   if (leafletMarker.getPopup()) {
-        leafletMarker.setPopupContent(data.feature.properties.name);
-    } else {
-        leafletMarker.bindPopup(data.feature.properties.name);
-    }
-
+   
 
 
 
 };
 
     map.addLayer(leafletView);
+
+    
 
 
  
