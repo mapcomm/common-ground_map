@@ -267,7 +267,7 @@ map.addControl(sidebar);
 
     L.Icon.MarkerCluster = L.Icon.extend({
         options: {
-            iconSize: new L.Point(144, 60),
+            iconSize: new L.Point(180, 90),
             className: 'prunecluster leaflet-markercluster-icon'
         },
 
@@ -336,11 +336,11 @@ map.addControl(sidebar);
     var size = 10000;
     var markers = [];
 
-
- /*    var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
+/*
+    var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
     function(data2) {
              L.geoJSON(data2, {
-                  pointToLayer: function (feature, latlng) {
+                  pointToLayer: function (feature, latlng, properties) {
                     //console.log(latlng.lat, latlng.lng);
                     var marker2 = new PruneCluster.Marker(latlng.lat, latlng.lng);
                     marker2.category = 0;
@@ -348,8 +348,8 @@ map.addControl(sidebar);
                     leafletView.RegisterMarker(marker2);
                   }
             })
-    });
-
+    });*/
+/*
      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
     function(data1) {
              L.geoJSON(data1, {
@@ -395,36 +395,50 @@ map.addControl(sidebar);
                   pointToLayer: function (feature, latlng, properties) {
 
 
-                    var myIcon = L.icon({
+                    /*var myIcon = L.icon({
                        // iconUrl: 'pruneCluster.png',
+                       iconUrl: 'leaflet.jpeg',
                         iconSize: [90, 95],
                         iconAnchor: [22, 94],
                         popupAnchor: [-3, -76],
                         //shadowUrl: 'my-icon-shadow.png',
                         shadowSize: [68, 95],
                         shadowAnchor: [22, 94]
-                    });
+                    });*/
 
 
 
-                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, icon: myIcon,
-                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true}
+                    var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
+                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [48, 48]
+            })
 
-                        );
+                        });
+
                  
-                   marker4.BuildLeafletClusterIcon = function(cluster) {
-              var e = new L.Icon.MarkerCluster();
-
-                e.stats = cluster.stats;
-                e.population = cluster.population;
-                return e;
-            };
+                   
 
 
                     
 
                     marker4.category = 3;
+                 //   marker.data.icon = L.icon(...); 
 
+
+             /*   marker4.data.icon = L.icon({
+                    options: {
+                        iconUrl: 'leaflet.jpeg',
+                        iconSize:     [38, 95],
+                        shadowSize:   [50, 64],
+                        iconAnchor:   [22, 94],
+                        shadowAnchor: [4, 62],
+                        popupAnchor:  [-3, -76]
+                    }
+                });
+
+      
+*/
                     
 
 
@@ -474,9 +488,40 @@ map.addControl(sidebar);
     }, 500);*/
 
 
+  var  myIcon =           L.icon({
+    iconUrl: 'leaflet.jpeg',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+   
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
+  var  myIcon2 =           L.icon({
+                     iconUrl: 'leaflet.jpeg',
+    iconSize: [10, 25],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+   
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+              });
+
+
+
 
 
 leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
+    
+   // console.log(data.feature.properties.network);
+
+    if(data.feature.properties.network == "DTAS"){
+        leafletMarker.setIcon(myIcon2);
+    }
+
+       // leafletMarker.setIcon(myIcon2);
+    
         
          leafletMarker.on('mouseover', function(e) {
             var popup = L.popup()
@@ -489,25 +534,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     leafletMarker.on('mouseout', function (e) {
             map.closePopup();
         });
-   //???
-    /*leafletMarker.on('mouseover', function(){
-    //do click event logic here
 
-    leafletMarker.openOn(map);
-
-     if (leafletMarker.getPopup()) {
-        leafletMarker.setPopupContent(data.feature.properties.name);
-
-    } else {
-        leafletMarker.bindPopup(data.feature.properties.name);
-
-    }
-
-   
-
-   
-    })
-*/
     leafletMarker.on('click', function(){
         
        console.log(data.feature.properties.network)
