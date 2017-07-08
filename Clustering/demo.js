@@ -1,152 +1,35 @@
-<!DOCTYPE html>
+var map = L.map('map').setView([39.9897471840457, -75.13893127441406], 11)
 
-<html lang="en">
-<head>
-<script type="text/javascript" src="us-states.js"></script>
+// Add basemap
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  maxZoom: 10,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map)
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
-        
-       
-    
+// Add GeoJSON
+$.getJSON('./crimes_by_district.geojson', function (geojson) {
+  L.choropleth(geojson, {
+    valueProperty: 'incidents',
+    scale: ['white', 'red'],
+    steps: 5,
+    mode: 'q',
+    style: {
+      color: '#fff',
+      weight: 2,
+      fillOpacity: 0.8
+    },
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup('District ' + feature.properties.dist_num + '<br>' +
+          feature.properties.incidents.toLocaleString() + ' incidents')
+    }
+  }).addTo(map)
+})
 
-    <meta charset="utf-8" />
-    <title>PruneCluster - Realworld 50k</title>
-
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.js"></script>
-
-    <script src="PruneCluster.js"></script>
-
-    
-
-
-
-
-<!-- links clustering -->
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
- 
-<!-- Latest compiled and minified CSS -->
- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
- 
-<!-- Load Leaflet from CDN-->
- 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.css" />
- 
-
- 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- 
-<!-- Latest compiled and minified JavaScript -->
- 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
- 
-
-
-
-<!-- Links required for the clustering to function -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-       <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-
-       <!--Leaflet sidebar-->
- 
-<script src="js/leaflet-sidebar.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
-      heap.load("315187443");
-</script>
-
-<link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
-<link rel="Stylesheet" href="css/mystyle2.css" type="text/css" />
-
- <script type="text/javascript" src="js/SQLcalls.js"></script>
-
-
-
- </head>
-<body>
-
-
-
-  <div id="page-content">
-        <section class="main-content">
-            <div class="container-wide">  
-                <div style="height: 575px;"> 
-                    <div id="sidebar" class="sidebar collapsed">
-                        <!-- Nav tabs -->
-                        <div class="sidebar-tabs">
-                            <ul role="tablist">
-                                <li><a href="#home" role="tab"><i class="fa fa-pencil"></i></a></li>
-                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-                                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
-                            </ul>
-
-                            <ul role="tablist">
-                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->   
-                            </ul>
-                        </div>
-
-                        <!-- Tab panes -->
-                        <div class="sidebar-content">
-                            <div class="sidebar-pane" id="home">
-                                <h1 class="sidebar-header">
-                                    Sidebar
-                                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
-                                </h1>
-                                <p id="sidebar-text"></p>
-                             </div>
-                        </div> <!--end div classs="sidebar-content"-->
-                    </div>
-                    <div id='map' class="sidebar-map"></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <script>
-
-
-
-
-        console.log("data")
-        //getDataAllSets();
-          var map = L.map("map", {
-        attributionControl: false,
-        zoomControl: false
-    }).setView(new L.LatLng(55.3781, -4.4360), 5);
-
-    L.control.zoom({
+  L.control.zoom({
      position:'topleft'
     }).addTo(map);
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        detectRetina: true,
-        maxNativeZoom: 17
-    }).addTo(map);
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
    
    var sidebar = L.control.sidebar('sidebar', {
@@ -574,146 +457,3 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 };
 
     map.addLayer(leafletView);
-
-
-
-    //add the key token from mapbox 
-    //
-
-   
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFuaGlsbGNvZGUiLCJhIjoiY2o0dmR3aG1lMG05djMzbzE2dW42OHZkNSJ9.FC7U0-Wz5UBLBu45_w9c_w', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        id: 'mapbox.light'
-    }).addTo(map);
-
-
-    // control that shows state info on hover
-    var info = L.control();
-
-
-//L.geoJson('us-states.js').addTo(map);
-
-
-    info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info');
-        this.update();
-        return this._div;
-    };
-
-    info.update = function (props) {
-        this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
-            '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-            : 'Hover over a state');
-    };
-
-    info.addTo(map);
-
-
-    // get color depending on population density value
-    function getColor(d) {
-        return d > 1000 ? '#800026' :
-                d > 500  ? '#BD0026' :
-                d > 200  ? '#E31A1C' :
-                d > 100  ? '#FC4E2A' :
-                d > 50   ? '#FD8D3C' :
-                d > 20   ? '#FEB24C' :
-                d > 10   ? '#FED976' :
-                            '#FFEDA0';
-    }
-
-    function style(feature) {
-        return {
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.4,
-            fillColor: getColor(feature.properties.density)
-        };
-    }
-
-    function highlightFeature(e) {
-        var layer = e.target;
-
-        layer.setStyle({
-            weight: 5,
-            color: '#000',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
-
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-        }
-
-        info.update(layer.feature.properties);
-    }
-
-    var geojson;
-
-    function resetHighlight(e) {
-        geojson.resetStyle(e.target);
-        info.update();
-    }
-
-    function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
-    }
-
-    function onEachFeature(feature, layer) {
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: zoomToFeature
-        });
-    }
-
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-
-    map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
-
-    var legend = L.control({position: 'bottomright'});
-
-    legend.onAdd = function (map) {
-
-        var div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-            labels = [],
-            from, to;
-
-        for (var i = 0; i < grades.length; i++) {
-            from = grades[i];
-            to = grades[i + 1];
-
-            labels.push(
-                '<i style="background:' + getColor(from + 1) + '"></i> ' +
-                from + (to ? '&ndash;' + to : '+'));
-        }
-
-        div.innerHTML = labels.join('<br>');
-        return div;
-    };
-
-    legend.addTo(map);
-
-
-
-
-
-
-
-    </script>     
-
-
-
-
-
-</body>
-</html>
