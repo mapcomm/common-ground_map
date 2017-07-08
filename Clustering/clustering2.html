@@ -118,6 +118,10 @@
         zoomControl: false
     }).setView(new L.LatLng(55.3781, -4.4360), 5);
 
+    L.control.zoom({
+     position:'topleft'
+    }).addTo(map);
+
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         detectRetina: true,
         maxNativeZoom: 17
@@ -517,7 +521,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
    // console.log(data.feature.properties.network);
 
     if(data.feature.properties.network == "DTAS"){
-        leafletMarker.setIcon(myIcon2);
+       // leafletMarker.setIcon(myIcon2);
     }
 
        // leafletMarker.setIcon(myIcon2);
