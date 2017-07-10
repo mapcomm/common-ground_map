@@ -1,6 +1,6 @@
-# Data Sets in Use
+# Directory Contents
 
-We've made use of some efficient transformation of government data sets here:
+This directory contains data sets used for layers on the common ground map. We are working with standard demographics, but have made use of some efficient transformations of these government data sets as follows:
 
 - imd2015eng.csv: English Index of Multiple Deprivation (2015) also from the [CDRC](https://data.cdrc.ac.uk/dataset/english-indices-of-deprivation-2010-and-2015-data-pack)
 - simd2016withinds.csv: Scottish Index of Multiple Deprivation (2016) also from the [CDRC](https://data.cdrc.ac.uk/dataset/simd2016)
