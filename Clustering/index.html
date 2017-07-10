@@ -95,6 +95,18 @@
     L.control.zoom({
        position:'topleft'
     }).addTo(map);
+	
+	L.control.scale({
+		imperial: 'true'
+	}).addTo(map);
+
+    setInterval(function(){
+        map.setView([0, 0]);
+        setTimeout(function(){
+            map.setView([60, 0]);
+        }, 2000);
+    }, 4000);
+
 
       //Adds the layer of the map which can be changed by altering the png file
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
