@@ -115,13 +115,25 @@
 
     var map = L.map("map", {
                 attributionControl: false,
-                zoomControl: false
-    }).setView(new L.LatLng(55.3781, -4.4360), 5);
+                zoomControl: false,
+    }).setView(new L.LatLng(55.3781, -4.4360), 9);
 
 
     L.control.zoom({
        position:'topleft'
     }).addTo(map);
+	
+	L.control.scale({
+		imperial: 'true'
+	}).addTo(map);
+
+    setInterval(function(){
+        map.setView([0, 0]);
+        setTimeout(function(){
+            map.setView([60, 0]);
+        }, 2000);
+    }, 4000);
+
 
 
   
