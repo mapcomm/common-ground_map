@@ -2,6 +2,21 @@
 
 <html lang="en">
 <head>
+
+
+
+    <!-- include this stylesheet in your <head> -->
+    <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />
+ 
+<!-- And the oldIE version of course. Just think, one day we'll no longer have to do this! -->
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+<![endif]-->
+ 
+<!-- then include the script file. if you're not sure where to include it, just before the </body> is probably a good choice -->
+<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+
 <!-- This is a file which adds the chloropleth layer -->
     <script type="text/javascript" src="us-states.js"></script>
 
@@ -40,6 +55,12 @@
     </script>
     <link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
     <link rel="Stylesheet" href="css/mystyle2.css" type="text/css" />
+
+
+    
+  
+   
+
 
  </head>
 <body>
@@ -92,9 +113,14 @@
                 zoomControl: false
     }).setView(new L.LatLng(55.3781, -4.4360), 5);
 
+
     L.control.zoom({
        position:'topleft'
     }).addTo(map);
+
+
+
+
 
       //Adds the layer of the map which can be changed by altering the png file
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -293,28 +319,22 @@
     //The getJSON call is used which requires specific url for your carto account ad then a specific sql call check the sql table name on carto as it may not be the same name as you uploaded from your original machine eg "mapcomm-admin".communityenergy_groups_gb_sct' was originally communityenergy_groups_gb_sct. Also, check the port number is correct.
 
 
-/*
-    var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
-    function(data2) {
-             L.geoJSON(data2, {
-                  pointToLayer: function (feature, latlng, properties) {
-                    //console.log(latlng.lat, latlng.lng);
-                    var marker2 = new PruneCluster.Marker(latlng.lat, latlng.lng);
-                    marker2.category = 0;
-                    markers.push(marker2);
-                    leafletView.RegisterMarker(marker2);
-                  }
-            })
-    });*/
-/*
+
+
      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
     function(data1) {
              L.geoJSON(data1, {
-                  pointToLayer: function (feature, latlng) {
+                  pointToLayer: function (feature, latlng, properties) {
                     //console.log(latlng.lat, latlng.lng);
 
 
-                    var marker = new PruneCluster.Marker(latlng.lat, latlng.lng);
+                     var marker = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
+                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [48, 48]
+
+                 })
+                    });
                    
                       
                     marker.category = 1;
@@ -330,10 +350,15 @@
     function(data1) {
         console.log(data1);
         L.geoJSON(data1, {
-                  pointToLayer: function (feature, latlng) {
+                  pointToLayer: function (feature, latlng, properties) {
                     //console.log(latlng.lat, latlng.lng);
-                    var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#222'});
+                    var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
+                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [48, 48]
 
+                 })
+                    });
 
                     marker3.category = 2;
                    // marker.category = Math.floor(Math.random() * colors.length);
@@ -343,7 +368,31 @@
                   })
 
 });   
-*/
+
+
+    //duplicate data
+    var query2 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
+    function(data2) {
+             L.geoJSON(data2, {
+                  pointToLayer: function (feature, latlng, properties) {
+                    //console.log(latlng.lat, latlng.lng);
+                     var marker2 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
+                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [48, 48]
+
+                 })
+                    });
+
+
+                    marker2.category = 4;
+                    markers.push(marker2);
+                    leafletView.RegisterMarker(marker2);
+                  }
+            })
+    });
+
+
 
   var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',     
     function(data1) {
@@ -352,54 +401,16 @@
                   pointToLayer: function (feature, latlng, properties) {
 
 
-                    /*var myIcon = L.icon({
-                       // iconUrl: 'pruneCluster.png',
-                       iconUrl: 'leaflet.jpeg',
-                        iconSize: [90, 95],
-                        iconAnchor: [22, 94],
-                        popupAnchor: [-3, -76],
-                        //shadowUrl: 'my-icon-shadow.png',
-                        shadowSize: [68, 95],
-                        shadowAnchor: [22, 94]
-                    });*/
-
-
-
                     var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
                         'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
-                iconUrl: 'leaflet.jpeg',
+                iconUrl: 'layer.png',
                 iconSize: [48, 48]
 
             })
                     });
 
                  
-                   
-
-
-                    
-
-                    marker4.category = 3;
-                 //   marker.data.icon = L.icon(...); 
-
-
-             /*   marker4.data.icon = L.icon({
-                    options: {
-                        iconUrl: 'leaflet.jpeg',
-                        iconSize:     [38, 95],
-                        shadowSize:   [50, 64],
-                        iconAnchor:   [22, 94],
-                        shadowAnchor: [4, 62],
-                        popupAnchor:  [-3, -76]
-                    }
-                });
-
-      
-*/
-                    
-
-
-                    
+                    marker4.category = 5;                    
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker4);
                     leafletView.RegisterMarker(marker4); 
@@ -408,6 +419,7 @@
                       })
 
     });   
+
         
 
   //An attemp to change the icons this is work in progress
@@ -439,9 +451,9 @@
 leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 
 
-    if(data.feature.properties.network == "DTAS"){
+    
        // leafletMarker.setIcon(myIcon2);
-    }
+   
 
        // leafletMarker.setIcon(myIcon2);
     
@@ -459,6 +471,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
         });
 
     leafletMarker.on('click', function(){
+        console.log(data);
         
        console.log(data.feature.properties.network)
        openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
@@ -466,9 +479,21 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     //do click event logic here
     })
 
+     
+
 };
 
     map.addLayer(leafletView);
+
+
+
+
+
+
+
+
+
+
 
 
     //This is work in progress which is for the additional layers of the areas of deprivation in the uk using  amap box overlay 
@@ -574,7 +599,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
         onEachFeature: onEachFeature
     }).addTo(map);
 
-    map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+    //map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
 
@@ -605,7 +630,40 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     legend.addTo(map);
 
 
+    //add geolocation
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+
+//     // e.heading will contain the user's heading (in degrees) if it's available, and if not it will be NaN. This would allow you to point a marker in the same direction the user is pointed. 
+//     L.marker(position.coords.latitude +","+ position.coords.longitude).addTo(map);
+// });
+
+function success(pos) {
+  var crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+   var marker = L.marker([crd.latitude, crd.longitude],{}).addTo(map);
+
+
+};
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
     </script>     
+
 
 </body>
 </html>
