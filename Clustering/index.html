@@ -116,23 +116,13 @@
     var map = L.map("map", {
                 attributionControl: false,
                 zoomControl: false,
-    }).setView(new L.LatLng(55.3781, -4.4360), 9);
+    }).setView(new L.LatLng(55.3781, -4.4360), 6);
 
 
     L.control.zoom({
        position:'topleft'
     }).addTo(map);
 	
-	L.control.scale({
-		imperial: 'true'
-	}).addTo(map);
-
-    setInterval(function(){
-        map.setView([0, 0]);
-        setTimeout(function(){
-            map.setView([60, 0]);
-        }, 2000);
-    }, 4000);
 
 
 
@@ -199,7 +189,7 @@
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement:";
+              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>" + '<button type="button"  class="intro" >Click Me!</button>' ;
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -210,7 +200,7 @@
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement:";
+              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>" +'<button type="button"  class="intro">Click Me!</button>' ;
 
             //(twitter_url == null){
                
@@ -222,13 +212,24 @@
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement:";
+              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>" + '  <button type="button"  class="intro">Click Me!</button>'  ;
             }
 
             //This removes previous text upon updating the side bar
               if ($('#sidebar-text').text().length > 0) {
                   $("#sidebar-text").removeText();
               }
+
+
+              console.log(markers.length);
+
+              /* for(var i = 0, markers.length ; i++){
+                console.log(markers);
+
+              }
+             */
+
+             
 
               /*for (var i = 0, len = results.length; i < len; i++) {
                    
