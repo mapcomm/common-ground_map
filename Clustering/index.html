@@ -614,16 +614,30 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     
         
          leafletMarker.on('mouseover', function(e) {
+
+          
+
+         
+
+
             var popup = L.popup()
 
             .setLatLng(e.latlng) 
             .setContent( "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>"  + "<i>Click for more information<i>")
             .openOn(map);
         });
-   
+
+
+//This is the mouse out function which has a timer added to delay it by half a second as it was buggy without this functionality and the pop up would flash and not display correctly   
     leafletMarker.on('mouseout', function (e) {
+
+    var delayMillis = 500; //0.5 second
+       setTimeout(function() {
             map.closePopup();
+          }, delayMillis);        
         });
+
+
 
     leafletMarker.on('click', function(){
         console.log(data);
