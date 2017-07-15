@@ -95,15 +95,17 @@
                                 </h1>
 
 
-                                  <div class="tab">
+                                
+
+
+                                <p id="sidebar-text"></p>
+
+                             </div>
+                               <div class="tab">
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
                                   </div>
-
-
-                                <p id="sidebar-text"></p>
-                             </div>
                         </div> <!--end div classs="sidebar-content"-->
                     </div>
                     <div id='map' class="sidebar-map"></div>
@@ -151,8 +153,9 @@
               zoom: 5,
               layers: [basemap]
           });
-          map.setView([55.3781, -4.4360], 5);
           map.setView([55.3781, -4.4360], 4);
+          map.setView([55.3781, -4.4360], 5);
+         
 
 
                                           
@@ -191,18 +194,18 @@
 
     if(group == commLand){
     DTAS();
-    map.setView([55.3781, -4.4361], 5);
-    map.setView([55.3781, -4.4361], 4);
+    map.setView([55.3781, -4.4361], 7);
+    map.setView([55.3781, -4.4361], 6);
     }else if(group == DTAS) {
     commLand(); 
-    map.setView([55.3781, -4.4361], 5);
-    map.setView([55.3781, -4.4361], 4);
+    map.setView([55.3781, -4.4361], 7);
+    map.setView([55.3781, -4.4361], 6);
     }
     else{
     DTAS();
     commLand(); 
-    map.setView([55.3781, -4.4361], 5);
-    map.setView([55.3781, -4.4361], 4);
+    map.setView([55.3781, -4.4361], 7);
+    map.setView([55.3781, -4.4361], 6);
 
     
 
