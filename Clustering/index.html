@@ -102,6 +102,13 @@
 
                              </div>
                                <div class="tab">
+                                    <button class="tablinks" onclick="removeElements();">KNN</button>
+                                    </br></br>
+                                    <p>KNN1</p>
+                                    <p>KNN2</p>
+                                    <p>KNN3</p>
+                                    <p>KNN4</p>
+                               </br></br></br></br>
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
@@ -215,6 +222,13 @@
     //console.log(leafletView.Cluster._markers);
           }  
 
+//This will be the functionality to select the nearest location in relation to the point selected
+//Make call within div above and then sql gets execueed and displays the results which will be clickable 
+//Have to access the elements with something like KNN.get1() etc
+  function KNN(){
+
+  }
+
 
 
 
@@ -266,7 +280,7 @@
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>" + '<button type="button"  class="intro" onclick="removeElements()" >Click Me!</button>' ;
+              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>"+"</br>"+"</br>";
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -277,7 +291,7 @@
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>" +'<button type="button"  class="intro" onclick="removeElements()">Click Me!</button>' ;
+              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>"+"</br>"+"</br>";
 
             //(twitter_url == null){
                
@@ -289,7 +303,7 @@
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>" + '  <button type="button"  class="intro" onclick="removeElements()">Click Me!</button>'  ;
+              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>"+"</br>"+"</br>";
             }
 
             //This removes previous text upon updating the side bar
