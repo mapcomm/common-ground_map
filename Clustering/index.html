@@ -67,6 +67,7 @@
 
 
 
+
   <div id="page-content">
         <section class="main-content">
             <div class="container-wide">  
@@ -92,6 +93,15 @@
                                     Sidebar
                                     <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
                                 </h1>
+
+
+                                  <div class="tab">
+                                    <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
+                                    <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
+                                    <button class="tablinks" onclick="removeElements();">All</button>
+                                  </div>
+
+
                                 <p id="sidebar-text"></p>
                              </div>
                         </div> <!--end div classs="sidebar-content"-->
@@ -102,7 +112,16 @@
         </section>
     </div>
 
+   
+
+
     <script>
+
+
+
+
+
+
 
 
 
@@ -113,31 +132,45 @@
 
 
 
-    var map = L.map("map", {
-                attributionControl: false,
-                zoomControl: false,
-    }).setView(new L.LatLng(55.3781, -4.4360), 6);
+
+        const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
+              
+          const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
+              
+
+       var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: 'abcd',
+        minZoom: 0,
+        maxZoom: 18,
+        ext: 'png'
+    });
+
+          var map = L.map('map', {
+              center: [55.3781, -4.4360],
+              zoom: 5,
+              layers: [basemap]
+          });
+          map.setView([55.3781, -4.4360], 5);
+          map.setView([55.3781, -4.4360], 4);
+
+
+                                          
+
+        basemap.addTo(map);
+
+
+
 
 
     L.control.zoom({
-       position:'topleft'
+       position:'topright'
     }).addTo(map);
 	
-
-
-
   
 
 
 
-
-
-
-      //Adds the layer of the map which can be changed by altering the png file
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        detectRetina: true,
-        maxNativeZoom: 5
-    }).addTo(map);
 
 
 
@@ -148,7 +181,48 @@
     map.addControl(sidebar);
 
 
-    function openSidebar(network, ID,url,facebook_url,twitter_url,description) {           
+//This functionality removes the elements that are clicked on in the top of the side bar. This code needs to be in the body tag or it will throw a error
+  function removeElements(group){
+    console.log("first set");
+    //console.log(markers.length);
+    
+    console.log("second");
+    leafletView.Cluster._markers = [];
+
+    if(group == commLand){
+    DTAS();
+    map.setView([55.3781, -4.4361], 5);
+    map.setView([55.3781, -4.4361], 4);
+    }else if(group == DTAS) {
+    commLand(); 
+    map.setView([55.3781, -4.4361], 5);
+    map.setView([55.3781, -4.4361], 4);
+    }
+    else{
+    DTAS();
+    commLand(); 
+    map.setView([55.3781, -4.4361], 5);
+    map.setView([55.3781, -4.4361], 4);
+
+    
+
+    
+    }
+    leafletView.ProcessView();
+    //console.log(leafletView.Cluster._markers);
+          }  
+
+
+
+
+    function openSidebar(network, ID,url,facebook_url,twitter_url,description) {   
+
+   
+            
+
+
+
+        
             
             //This adds a parser funcionality if the input from the database contains errors needed to change the url formatting if incorrect in the database
             var parser = document.createElement('a');
@@ -189,7 +263,7 @@
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>" + '<button type="button"  class="intro" >Click Me!</button>' ;
+              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>" + '<button type="button"  class="intro" onclick="removeElements()" >Click Me!</button>' ;
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -200,7 +274,7 @@
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>" +'<button type="button"  class="intro">Click Me!</button>' ;
+              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>" +'<button type="button"  class="intro" onclick="removeElements()">Click Me!</button>' ;
 
             //(twitter_url == null){
                
@@ -212,7 +286,7 @@
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>" + '  <button type="button"  class="intro">Click Me!</button>'  ;
+              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>" + '  <button type="button"  class="intro" onclick="removeElements()">Click Me!</button>'  ;
             }
 
             //This removes previous text upon updating the side bar
@@ -220,9 +294,16 @@
                   $("#sidebar-text").removeText();
               }
 
+           
 
-              console.log(markers.length);
 
+           
+
+
+
+
+              //This will remove the elements of the selected button type
+              
               /* for(var i = 0, markers.length ; i++){
                 console.log(markers);
 
@@ -269,7 +350,8 @@
         options: {
             //This had an error as it was trowing off the marker alignment so had to be reduced
             iconSize: new L.Point(80, 50),
-            className: 'prunecluster leaflet-markercluster-icon'
+            // iconSize:     [38, 95], // size of the icon
+            //className: 'prunecluster leaflet-markercluster-icon'
         },
 
         createIcon: function () {
@@ -371,9 +453,11 @@
 **/
 
 //2nd call - community land 
+function commLand(){
+
  var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
     function(data1) {
-        console.log(data1);
+        //console.log(data1);
         L.geoJSON(data1, {
                   pointToLayer: function (feature, latlng, properties) {
                     //console.log(latlng.lat, latlng.lng);
@@ -388,17 +472,24 @@
                     marker1.category = 1;
                    // marker.category = Math.floor(Math.random() * colors.length);
                     markers.push(marker1);
-                    leafletView.RegisterMarker(marker1);    
+                    leafletView.RegisterMarker(marker1);  
 }
-                  })
 
-});   
+})
+                  }
+          
+
+);
+};
+commLand(); 
 
 
   
 
 
     //3rd call - dtas
+
+    function DTAS(){
   var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',     
     function(data1) {
         
@@ -423,8 +514,10 @@
     }
                       })
 
-    });   
-
+    });
+  }   
+  DTAS();
+/*
  //4th - ecs
  var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',     
     function(data1) {
@@ -566,7 +659,7 @@
                       })
 
     }));        
-
+*/
 
   //An attemp to change the icons this is work in progress
       var  myIcon =           L.icon({
@@ -655,6 +748,10 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 };
 
     map.addLayer(leafletView);
+   console.log("here");
+   // console.log(leafletView.Cluster._markers);
+
+  
 
 
 
@@ -665,8 +762,8 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 
 
 
-
-
+//This is an implementation of adding layers with mapbox API
+/*
     //This is work in progress which is for the additional layers of the areas of deprivation in the uk using  amap box overlay 
     //This is work in progress
     //add the key token from mapbox 
@@ -799,6 +896,9 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
     };
 
     legend.addTo(map);
+*/
+
+
 
 
     //add geolocation
@@ -812,7 +912,7 @@ var options = {
 //     // e.heading will contain the user's heading (in degrees) if it's available, and if not it will be NaN. This would allow you to point a marker in the same direction the user is pointed. 
 //     L.marker(position.coords.latitude +","+ position.coords.longitude).addTo(map);
 // });
-
+/*
 var baseLayers = {
     "Mapbox": mapbox,
     "OpenStreetMap": osm
@@ -822,7 +922,7 @@ var overlays = {
     "Roads": roadsLayer
 };
 
-
+*/
 
 
 
