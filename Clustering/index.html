@@ -101,14 +101,17 @@
                                 <p id="sidebar-text"></p>
 
                              </div>
-                               <div class="tab">
-                                    <button class="tablinks" onclick="removeElements();">KNN</button>
+                             <button id="tab" onclick="">KNN</button>
+                               <div class="tab" id="tabKNN">
+                                    
                                     </br></br>
                                     <p>KNN1</p>
                                     <p>KNN2</p>
                                     <p>KNN3</p>
                                     <p>KNN4</p>
+                              </div>
                                </br></br></br></br>
+                                <div class="tab2" id="tab2">
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
@@ -225,7 +228,23 @@
 //This will be the functionality to select the nearest location in relation to the point selected
 //Make call within div above and then sql gets execueed and displays the results which will be clickable 
 //Have to access the elements with something like KNN.get1() etc
-  function KNN(){
+//This adds the data to the side bar which is just a set up but needs to be dynamic so on click it will update the opnSideBar function and pass params 
+
+  function KNN(num1,num2){
+
+    var divToAddContent1 = document.getElementById('tabKNN');
+    
+
+
+ var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
+    function(data1) {
+      console.log(data1.features[0].properties.name,data1.features[1].properties.name);
+       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name;
+    });
+
+
+
+
 
   }
 
@@ -272,6 +291,8 @@
                 url1 = parser.host;
             }
 
+
+
              if(twitter_url == undefined){
                    
                 sidebar.open('home');
@@ -309,9 +330,14 @@
             //This removes previous text upon updating the side bar
               if ($('#sidebar-text').text().length > 0) {
                   $("#sidebar-text").removeText();
+                 
+
+                  
+
               }
 
-           
+          // $("#tabKNN").removeText();
+           KNN(7,8);
 
 
            
