@@ -103,7 +103,7 @@
                              </div>
                              <button id="tab" onclick="">KNN</button>
                                <div class="tab" id="tabKNN">
-                                    
+                                    <p id="sidebar-text2"></p>
                                     </br></br>
                                     <p>KNN1</p>
                                     <p>KNN2</p>
@@ -112,6 +112,7 @@
                               </div>
                                </br></br></br></br>
                                 <div class="tab2" id="tab2">
+
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
@@ -238,8 +239,12 @@
 
  var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
     function(data1) {
-      console.log(data1.features[0].properties.name,data1.features[1].properties.name);
-       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name;
+      console.log(data1.features[0].properties.name,data1.features[1].properties);
+      
+      //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
+
+       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name + data1.features[0].properties.name + data1.features[1].properties.name 
+        + '<button class="tablinks3" onclick="removeElements()"> name  </button>';
     });
 
 
@@ -301,7 +306,7 @@
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!" + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+  "KNN placement" + "</br>"+"</br>"+"</br>";
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -312,7 +317,7 @@
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement: Click Me!"   + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+  "KNN placement"   + "</br>"+"</br>"+"</br>";
 
             //(twitter_url == null){
                
@@ -324,12 +329,14 @@
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement: Click Me!" + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+ "KNN placement" + "</br>"+"</br>"+"</br>";
             }
 
             //This removes previous text upon updating the side bar
               if ($('#sidebar-text').text().length > 0) {
                   $("#sidebar-text").removeText();
+                  $("#sidebar-text2").removeText();
+
                  
 
                   
@@ -337,7 +344,8 @@
               }
 
           // $("#tabKNN").removeText();
-           KNN(7,8);
+           KNN(Math.floor (Math.random()*10),Math.floor (Math.random()*10));
+
 
 
            
