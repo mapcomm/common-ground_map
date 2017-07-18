@@ -113,6 +113,8 @@
                                </br></br></br></br>
                                 <div class="tab2" id="tab2">
 
+                                <button class="link" style="{ background:none;border:none;}">Clicky</button>
+
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
@@ -231,29 +233,89 @@
 //Have to access the elements with something like KNN.get1() etc
 //This adds the data to the side bar which is just a set up but needs to be dynamic so on click it will update the opnSideBar function and pass params 
 
-  function KNN(num1,num2){
+//need to send data here but not going
 
+
+//popUp would not send the data from the onlcick  function so had to call the data again within popUp method
+ function popUp(num1, num2){
+    
+
+     var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
+    function(data1) {
+    
+   
+
+     //call side bar
+    //(network, ID,url,facebook_url,twitter_url,description)
+    var network = data1.features[num1].properties.network;
+    var ID = data1.features[num1].properties.name;
+   // alert(ID);
+    var url = data1.features[num1].properties.url;
+    var facebook_url = data1.features[num1].properties.facebook_url;
+    var twitter_url = data1.features[num1].properties.twitter_url;
+    var url = data1.features[num1].properties.url;
+    var description = data1.features[num1].properties.description;
+
+    openSidebar(network, ID,url,facebook_url,twitter_url,description);
+    
+     var long = data1.features[num1].geometry.coordinates[0];
+    var lat = data1.features[num1].geometry.coordinates[1];
+    map.setView([lat,long ], 9);
+   
+
+     });
+
+    
+
+
+
+//opensidenetwork, ID,url,facebook_url,twitter_url,description
+
+    //console.log("data what" + lat.features[0].properties.name);
+    // //openSidebar(network, ID,url,facebook_url,twitter_url,description);
+    //    openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
+     
+            //alert("open");
+
+  };
+
+
+  function KNN(num1,num2){
+    //alert(num1);
     var divToAddContent1 = document.getElementById('tabKNN');
     
 
 
  var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
     function(data1) {
-      console.log(data1.features[0].properties.name,data1.features[1].properties);
-      
-      //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
+      //console.log(data1.features[0].properties.name,data1.features[1].properties);
+      var data = data1;
 
-       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name + data1.features[0].properties.name + data1.features[1].properties.name 
-        + '<button class="tablinks3" onclick="removeElements()"> name  </button>';
+      console.log("data")
+      console.log( data);
+      var name = data1.features[0].properties.name;
+
+      //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
+    
+
+   
+
+       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name  +
+         '<button class="tablinks3" onclick="popUp('+ num1+','+ num2+ ')"> name  </button>';
     });
 
+//four NN removed
+//+ data1.features[0].properties.name + data1.features[1].properties.name
 
+  };
 
+  
 
+   
 
-  }
+ 
 
-
+ 
 
 
     function openSidebar(network, ID,url,facebook_url,twitter_url,description) {   
@@ -344,8 +406,8 @@
               }
 
           // $("#tabKNN").removeText();
-           KNN(Math.floor (Math.random()*10),Math.floor (Math.random()*10));
-
+          // KNN(Math.floor (Math.random()*10),Math.floor (Math.random()*10));
+          KNN(0,1);
 
 
            
