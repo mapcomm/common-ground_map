@@ -101,19 +101,15 @@
                                 <p id="sidebar-text"></p>
 
                              </div>
-                             <button id="tab" onclick="">KNN</button>
                                <div class="tab" id="tabKNN">
                                     <p id="sidebar-text2"></p>
                                     </br></br>
-                                    <p>KNN1</p>
-                                    <p>KNN2</p>
-                                    <p>KNN3</p>
-                                    <p>KNN4</p>
+                        
                               </div>
                                </br></br></br></br>
                                 <div class="tab2" id="tab2">
 
-                                <button class="link" style="{ background:none;border:none;}">Clicky</button>
+                               
 
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
@@ -237,7 +233,10 @@
 
 
 //popUp would not send the data from the onlcick  function so had to call the data again within popUp method
- function popUp(num1, num2){
+//The param is a reference to the group reference in the data1 array which will be used within this function
+//It would not accept the sql data so there is a seconfd sql call possibly too large a data set within this method to fetch the data
+//It resets the sidebar and zoom to match the KNN point clicked in the KNN function below 
+ function popUp(num1){
     
 
      var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
@@ -258,9 +257,9 @@
 
     openSidebar(network, ID,url,facebook_url,twitter_url,description);
     
-     var long = data1.features[num1].geometry.coordinates[0];
+    var long = data1.features[num1].geometry.coordinates[0];
     var lat = data1.features[num1].geometry.coordinates[1];
-    map.setView([lat,long ], 9);
+    map.setView([lat,long ], 11);
    
 
      });
@@ -275,7 +274,7 @@
     // //openSidebar(network, ID,url,facebook_url,twitter_url,description);
     //    openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
      
-            //alert("open");
+  //KNN is a function which will display the 4 nearest neighbours for the currently selected point which is called from the OpensideBar function below  updates the KNN sidebar section and then has functionality to on click the buttons calls the popUp function above 
 
   };
 
@@ -300,8 +299,17 @@
 
    
 
-       divToAddContent1.innerHTML = data1.features[num1].properties.name + data1.features[num2].properties.name  +
-         '<button class="tablinks3" onclick="popUp('+ num1+','+ num2+ ')"> name  </button>';
+       divToAddContent1.innerHTML =  
+       
+         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ data1.features[num1].properties.name + '  </button>'
+         +
+         '<button class="tablinks3" onclick="popUp('+ num2+ ')"> '+ data1.features[num2].properties.name + '  </button>'
+
+         +
+         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ data1.features[num1].properties.name + '  </button>'
+         +
+         '<button class="tablinks3" onclick="popUp('+ num2+ ')"> '+ data1.features[num2].properties.name + '  </button>'
+         ;
     });
 
 //four NN removed
@@ -368,7 +376,7 @@
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement" + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+  "<b>"+ "KNN placement" + "</b>";
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -379,7 +387,7 @@
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "KNN placement"   + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+ "<b>"+ "KNN placement" + "</b>" + "</br>";
 
             //(twitter_url == null){
                
@@ -391,7 +399,7 @@
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "KNN placement" + "</br>"+"</br>"+"</br>";
+              +"</br></br></br></br>"+ "<b>"+ "KNN placement" + "</b>" + "</br>";
             }
 
             //This removes previous text upon updating the side bar
