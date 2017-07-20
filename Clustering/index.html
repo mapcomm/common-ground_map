@@ -114,6 +114,7 @@
                                     <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
                                     <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
                                     <button class="tablinks" onclick="removeElements();">All</button>
+                                    <button class="tablinks" onclick="geolocation();">GeoLocation</button>
                                   </div>
                         </div> <!--end div classs="sidebar-content"-->
                     </div>
@@ -178,8 +179,6 @@
     L.control.zoom({
        position:'topright'
     }).addTo(map);
-	
-  
 
 
 
@@ -191,6 +190,39 @@
     });
 
     map.addControl(sidebar);
+
+
+
+
+//add geolocation on click button
+//ref https://stackoverflow.com/questions/3397585/navigator-geolocation-getcurrentposition-sometimes-works-sometimes-doesnt#3885172
+    function geolocation(){ 
+       if (navigator.geolocation) {
+
+    var location_timeout = setTimeout("geolocFail()", 10000);
+
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+          
+        //clearTimeout(location_timeout);
+
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        map.setView([lat, lng], 10);
+        //could add a marker here to show persons current location
+        
+
+        geocodeLatLng(lat + " " +  lng);
+
+    }, function(error) {
+        clearTimeout(location_timeout);
+        geolocFail();
+    });
+} else {
+    // Fallback for no geolocation
+    geolocFail();
+}
+}
 
 
 //This functionality removes the elements that are clicked on in the top of the side bar. This code needs to be in the body tag or it will throw a error
