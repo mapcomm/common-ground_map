@@ -54,7 +54,7 @@
           heap.load("315187443");
     </script>
     <link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
-    <link rel="Stylesheet" href="css/mystyle2.css" type="text/css" />
+    <link rel="Stylesheet" href="css/mystyle.css" type="text/css" />
 
 
     
@@ -68,10 +68,78 @@
 
 
 
+
+
   <div id="page-content">
         <section class="main-content">
             <div class="container-wide">  
+
+
+  
+
+
                 <div style="height: 575px;"> 
+
+
+
+
+                    <div id="sidebar-left" class="sidebar collapsed">
+                        <!-- Nav tabs -->
+                        <div class="sidebar-tabs">
+                            <ul role="tablist">
+                                <li><a href="#home" role="tab"><i class="fa fa-pencil"></i></a></li>
+                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
+                            </ul>
+
+                            <ul role="tablist">
+                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->   
+                            </ul>
+                        </div>
+
+                        <!-- Tab panes -->
+                        <div class="sidebar-content">
+                            <div class="sidebar-pane" id="home">
+                                <h1 class="sidebar-header">
+                                    Sidebar
+                                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                                </h1>
+
+
+                                
+
+
+                                <p id="sidebar-text"></p>
+
+                             </div>
+                               <div class="tab" id="tabKNN">
+                                    <p id="sidebar-text2"></p>
+                                    </br></br>
+                        
+                              </div>
+                               </br></br></br></br>
+                                <div class="tab2" id="tab2">
+
+                               
+
+                                    <button class="commLandButton" onclick="removeElements(commLand);">CommLand</button>
+
+                                    <button class="DTASButton" onclick="removeElements(DTAS);">DTAS</button>
+
+                                    <button class="ECSButton" onclick="removeElements(ECS);">ECS</button>
+
+                                    <button class="AllElementsButton" onclick="removeElements();">All</button>
+                                    <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
+                                  </div>
+                        </div> <!--end div classs="sidebar-content"-->
+                    </div>
+                   
+
+   <div style="height: 575px;"> 
+
+
+
+
                     <div id="sidebar" class="sidebar collapsed">
                         <!-- Nav tabs -->
                         <div class="sidebar-tabs">
@@ -111,10 +179,14 @@
 
                                
 
-                                    <button class="tablinks" onclick="removeElements(commLand);">DTAS</button>
-                                    <button class="tablinks" onclick="removeElements(DTAS);">CommLand</button>
-                                    <button class="tablinks" onclick="removeElements();">All</button>
-                                    <button class="tablinks" onclick="geolocation();">GeoLocation</button>
+                                    <button class="commLandButton" onclick="removeElements(commLand);">CommLand</button>
+
+                                    <button class="DTASButton" onclick="removeElements(DTAS);">DTAS</button>
+
+                                    <button class="ECSButton" onclick="removeElements(ECS);">ECS</button>
+
+                                    <button class="AllElementsButton" onclick="removeElements();">All</button>
+                                    <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
                                   </div>
                         </div> <!--end div classs="sidebar-content"-->
                     </div>
@@ -123,6 +195,9 @@
             </div>
         </section>
     </div>
+
+
+
 
    
 
@@ -192,6 +267,12 @@
     map.addControl(sidebar);
 
 
+        var leftSidebar = L.control.sidebar('sidebar-left', {
+            position: 'left'
+        });
+        map.addControl(leftSidebar);
+        
+
 
 
 //add geolocation on click button
@@ -226,25 +307,62 @@
 
 
 //This functionality removes the elements that are clicked on in the top of the side bar. This code needs to be in the body tag or it will throw a error
+//This code works by overwriting the leaflet library functionality firstly setting the leafletView.Cluster._markers = [] as empty. It then makes calls to the different groups sql calls 
+//as seen with the group names e.g. DTAS these functions are below 
+    var commLandCount;
+    var DTAScount = 0;
+
+
   function removeElements(group){
-    console.log("first set");
-    //console.log(markers.length);
-    
-    console.log("second");
-    leafletView.Cluster._markers = [];
 
-    if(group == commLand){
-    DTAS();
-    map.setView([55.3781, -4.4361], 7);
-    map.setView([55.3781, -4.4361], 6);
-    }else if(group == DTAS) {
-    commLand(); 
-    map.setView([55.3781, -4.4361], 7);
-    map.setView([55.3781, -4.4361], 6);
+
+    //if button css is clicked dont call it else call it for every one  
+    //1st Job - work out how to distinguish the css functionality
+    //give it a marker of some kind 
+
+
+
+
+   
+    var property = document.getElementsByClassName("commLandButton");
+    console.log(property);
+
+    if(num == 0){
+    //var property = document.getElementByClass(tablinks1);
+    var property = document.getElementsByClassName("commLandButton");
+    $(property).css({"background-color":"black"});
+    //DTAS();
+    //ECS();
+    
+
+    //map.setView([55.3781, -4.4361], 7);
+    //map.setView([55.3781, -4.4361], 6);
+    
+    $('commLandButton').attr('id', '1');
+    }else{
+      var property = document.getElementsByClassName("commLandButton");
+      $(property).css({"background-color":"red"});
+      $('commLandButton').attr('id', '0');
+      
     }
-    else{
+
+
+/*     if(group == DTAS) {
+    DTAS(); 
+    ECS();
+
+    map.setView([55.3781, -4.4361], 7);
+    map.setView([55.3781, -4.4361], 6);
+    }else if(group == ECS){
     DTAS();
     commLand(); 
+  
+
+    }else{
+    DTAS();
+    commLand(); 
+
+
     map.setView([55.3781, -4.4361], 7);
     map.setView([55.3781, -4.4361], 6);
 
@@ -252,9 +370,12 @@
 
     
     }
-    leafletView.ProcessView();
+*/    leafletView.ProcessView();
     //console.log(leafletView.Cluster._markers);
           }  
+
+
+
 
 //This will be the functionality to select the nearest location in relation to the point selected
 //Make call within div above and then sql gets execueed and displays the results which will be clickable 
@@ -670,8 +791,9 @@ commLand();
     });
   }   
   DTAS();
-/*
+
  //4th - ecs
+function ECS(){
  var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',     
     function(data1) {
         
@@ -697,7 +819,10 @@ commLand();
                       })
 
     }); 
+}
+ECS();
 
+/*
 //4th - city farms
  var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',     
     function(data1) {

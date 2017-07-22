@@ -1,10 +1,36 @@
+/*['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e']
+colors for marker groups*/
+#commLandButton{
+  
+}
+
+.commLandButton {
+
+    
+background-color: #bac900; 
+}
 
 
+
+
+.DTASButton {
+
+   
+   background-color: #ff4b00; 
+}
+
+.ECSButton{
+
+   background-color: #55BCBE; 
+
+}
 
 
 
 .leaflet-popup {
-            margin-right: 17px;        
+            margin-right: 47px; 
+            background-color: lightblue; 
+
         }
         
 .scroll-bar-wrap:hover .cover-bar {
@@ -14,18 +40,23 @@
         
         .leaflet-popup-content {
             max-width: 300px;
-            height: 100px;
-            margin-right: 17px;
+            height: 70px;
+            margin-right: 10px;
             overflow:  auto;
+            
+            font-size: 90%;
+             text-align: center;
+             padding: 1em;
+
         }
         
          #map { 
           position: absolute; 
-           
+          top:0px; bottom:0; right:0; left:0; 
          } 
 
     #info-pane {
-    position: absolute;
+    position: left;
     height: 550px;
     top: 0px;
     right: 10px;
@@ -33,6 +64,9 @@
     padding: 1em;
     background: white;
     text-align: right;
+     font-weight: bold;
+      font-size: 110%;
+       text-align: center;
   }
 
   #sidebar {
@@ -261,4 +295,3 @@
 @media (min-width: 768px) {
   .sidebar-right.collapsed ~ .sidebar-map .leaflet-right {
     right: 50px; } }
-
