@@ -83,63 +83,6 @@
 
 
 
-                    <div id="sidebar-left" class="sidebar collapsed">
-                        <!-- Nav tabs -->
-                        <div class="sidebar-tabs">
-                            <ul role="tablist">
-                                <li><a href="#home" role="tab"><i class="fa fa-pencil"></i></a></li>
-                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-                                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
-                            </ul>
-
-                            <ul role="tablist">
-                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->   
-                            </ul>
-                        </div>
-
-                        <!-- Tab panes -->
-                        <div class="sidebar-content">
-                            <div class="sidebar-pane" id="home">
-                                <h1 class="sidebar-header">
-                                    Sidebar
-                                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
-                                </h1>
-
-
-                                
-
-
-                                <p id="sidebar-text"></p>
-
-                             </div>
-                               <div class="tab" id="tabKNN">
-                                    <p id="sidebar-text2"></p>
-                                    </br></br>
-                        
-                              </div>
-                               </br></br></br></br>
-                                <div class="tab2" id="tab2">
-
-                               
-
-                                    <button class="commLandButton" onclick="removeElements(commLand);">CommLand</button>
-
-                                    <button class="DTASButton" onclick="removeElements(DTAS);">DTAS</button>
-
-                                    <button class="ECSButton" onclick="removeElements(ECS);">ECS</button>
-
-                                    <button class="AllElementsButton" onclick="removeElements();">All</button>
-                                    <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
-                                  </div>
-                        </div> <!--end div classs="sidebar-content"-->
-                    </div>
-                   
-
-   <div style="height: 575px;"> 
-
-
-
-
                     <div id="sidebar" class="sidebar collapsed">
                         <!-- Nav tabs -->
                         <div class="sidebar-tabs">
@@ -187,7 +130,48 @@
 
                                     <button class="AllElementsButton" onclick="removeElements();">All</button>
                                     <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
+                                     <button class="HelpButton" onclick="getHelp();">Get Help!</button>
                                   </div>
+                        </div> <!--end div classs="sidebar-content"-->
+                    </div>
+                   
+
+   <div style="height: 575px;"> 
+
+
+
+
+                    <div id="sidebar-left" class="sidebar collapsed">
+                        <!-- Nav tabs -->
+                        <div class="sidebar-tabs">
+                            <ul role="tablist">
+                                <li><a href="#home1" role="tab"><i class="fa fa-pencil"></i></a></li>
+                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
+                            </ul>
+
+                            <ul role="tablist">
+                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->   
+                            </ul>
+                        </div>
+
+                        <!-- Tab panes -->
+                        <div class="sidebar-content">
+                            <div class="sidebar-pane" id="home">
+                                <h1 class="sidebar-header">
+                                    Sidebar
+                                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                                </h1>
+
+
+                                
+
+
+                                <p id="sidebar-text"></p>
+
+                             </div>
+                         
+                         
                         </div> <!--end div classs="sidebar-content"-->
                     </div>
                     <div id='map' class="sidebar-map"></div>
@@ -251,9 +235,7 @@
 
 
 
-    L.control.zoom({
-       position:'topright'
-    }).addTo(map);
+
 
 
 
@@ -271,7 +253,14 @@
             position: 'left'
         });
         map.addControl(leftSidebar);
-        
+
+
+  function getHelp(){
+
+leftSidebar.open('home1');
+
+  }
+
 
 
 
