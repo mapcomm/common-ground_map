@@ -1,0 +1,162 @@
+
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>leaflet-sidebar example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <link rel="stylesheet" href="css/L.Control.Sidebar.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" /><![endif]-->
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+        }
+        .lorem {
+            font-style: italic;
+            color: #AAA;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar-left">
+        <h1>left sidebar</h1>
+    </div>
+    <div id="sidebar-right">
+        <h1>right sidebar</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <a href="https://github.com/Turbo87/leaflet-sidebar/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 3000" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="js/L.Control.Sidebar.js"></script>
+
+    <script>
+        var map = L.map('map');
+        map.setView([51.2, 7], 9);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; OpenStreetMap contributors'
+        }).addTo(map);
+       
+        var leftSidebar = L.control.sidebar('sidebar-left', {
+            position: 'left'
+        });
+        map.addControl(leftSidebar);
+        var rightSidebar = L.control.sidebar('sidebar-right', {
+            position: 'right'
+        });
+      
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="../dist/L.Control.Locate.min.css" />
+
+    <!-- This is a file which adds the chloropleth layer -->
+    <script type="text/javascript" src="us-states.js"></script>
+
+<!-- Basic jquery and leaflet javascript,css and boot strap files -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css"/>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
+    
+
+    <style type="text/css">
+      html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      #map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+ 
+
+<script type="text/javascript">
+
+var mapconfig = {
+  "version": "1.3.1",
+  "layers": [{
+    "type": "cartodb",
+    "options": {
+      "cartocss_version": "2.1.1",
+      "cartocss": "#layer { polygon-fill: #FFF; }",
+      "sql": 'SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct'
+    }
+  }]
+}
+
+$.ajax({
+  crossOrigin: true,
+  type: 'POST',
+  dataType: 'json',
+  contentType: 'application/json',
+  url: 'https://carto.mapping.community:9090/user/hilld/api/v2',
+  //https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',  
+  data: JSON.stringify(mapconfig),
+  success: function(data) {
+    var templateUrl = 'https://carto.mapping.community:9090/user/hilld/api/v2/map/' + data.layergroupid + '/{z}/{x}/{y}.png'
+    console.log(templateUrl);
+    alert("happen");
+
+  }
+})
+
+
+    </script>>
+
+
+  </body>
+</html>
+
+<!-- error is .... index1.html:1 XMLHttpRequest cannot load https://carto.mapping.community:9090/user/hilld/api/v2. Request header field Content-Type is not allowed by Access-Control-Allow-Headers in preflight response.
+ -->
+
+
+ 
