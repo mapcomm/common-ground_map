@@ -78,7 +78,7 @@
   
 
 
-                <div style="height: 575px;"> 
+                
 
 
 
@@ -120,7 +120,7 @@
                                </br></br></br></br>
                                 <div class="tab2" id="tab2">
 
-                               
+
 
                                     <button class="commLandButton" onclick="removeElements(commLand);">CommLand</button>
 
@@ -135,9 +135,6 @@
                         </div> <!--end div classs="sidebar-content"-->
                     </div>
                    
-
-   <div style="height: 575px;"> 
-
 
 
 
@@ -157,7 +154,7 @@
 
                         <!-- Tab panes -->
                         <div class="sidebar-content">
-                            <div class="sidebar-pane" id="home">
+                            <div class="sidebar-pane" id="home1">
                                 <h1 class="sidebar-header">
                                     Sidebar
                                     <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
@@ -241,7 +238,6 @@
 
 
 
-
   var sidebar = L.control.sidebar('sidebar', {
     position: 'right'
     });
@@ -257,8 +253,39 @@
 
   function getHelp(){
 
-leftSidebar.open('home1');
+              var selector = '.HelpButton';
+              
+              $(selector).on('click', function(){
+                  var myClass = $(this).attr("class");
+                  //alert(myClass);
+                  if(myClass != "HelpButton active"){
+                   $(this).addClass('active');
+                   leftSidebar.open('home1');
 
+                    }else{
+                      leftSidebar.close('home1');
+
+
+                  $(this).removeClass('active');
+                  }
+                }
+                );
+
+
+
+              //leftSidebar.toggle();
+              
+              
+             // leftSidebar.close('home1');
+             //set the button to active 
+             //if active then toggle
+
+              var divToAddContent1 = document.getElementById('home1');
+              
+              //This information is what is displayed in the pop out.
+                divToAddContent1.innerHTML = "<b>" + "Help" + "</b>" + "<br>" + "Help docs to be added";
+
+              
   }
 
 
@@ -305,61 +332,59 @@ leftSidebar.open('home1');
   function removeElements(group){
 
 
+      var selector = '.commLandButton';
+      
+      //console.log(selector);
+
+// $(selector).on('click', function(){
+//     $(selector).removeClass('active');
+//     leafletView.Cluster._markers = [];
+//     DTAS();
+//     commLand(); 
+//     map.setView([55.3781, -4.4361], 7);
+//     map.setView([55.3781, -4.4361], 6);
+   
+//     console.log(this);
+//     $(this).addClass('button');
+// });
+
+
+
+ $(selector).on('click', function(){
+      var myClass = $(this).attr("class");
+      alert(myClass);
+      if(myClass == "commLandButton active"){
+       $(this).addClass('active');
+      }
+    });
+
+ $(selector).on('dblclick', function(){
+      var myClass = $(this).attr("class");
+      alert(myClass);
+    
+     $(this).addClass('inactive');
+ });
+
+
     //if button css is clicked dont call it else call it for every one  
     //1st Job - work out how to distinguish the css functionality
     //give it a marker of some kind 
+// temp = []
+//     for (i = 0; i < leafletView.Cluster._markers.length; i++) {
+//     //leafletView.Cluster._markers[i];
+    
 
-
-
-
+// if(leafletView.Cluster._markers[i].category == 1){
+// leafletView.Cluster._markers[i]
+// console.log(leafletView.Cluster._markers[i]);
+// temp = leafletView.Cluster._markers[i]
+//   //.splice(0, 2));
+// }
+// }
    
-    var property = document.getElementsByClassName("commLandButton");
-    console.log(property);
-
-    if(num == 0){
-    //var property = document.getElementByClass(tablinks1);
-    var property = document.getElementsByClassName("commLandButton");
-    $(property).css({"background-color":"black"});
-    //DTAS();
-    //ECS();
-    
-
-    //map.setView([55.3781, -4.4361], 7);
-    //map.setView([55.3781, -4.4361], 6);
-    
-    $('commLandButton').attr('id', '1');
-    }else{
-      var property = document.getElementsByClassName("commLandButton");
-      $(property).css({"background-color":"red"});
-      $('commLandButton').attr('id', '0');
-      
-    }
-
-
-/*     if(group == DTAS) {
-    DTAS(); 
-    ECS();
-
-    map.setView([55.3781, -4.4361], 7);
-    map.setView([55.3781, -4.4361], 6);
-    }else if(group == ECS){
-    DTAS();
-    commLand(); 
-  
-
-    }else{
-    DTAS();
-    commLand(); 
-
-
-    map.setView([55.3781, -4.4361], 7);
-    map.setView([55.3781, -4.4361], 6);
-
-    
-
-    
-    }
-*/    leafletView.ProcessView();
+ 
+//   leafletView.Cluster._markers = [];
+    leafletView.ProcessView();
     //console.log(leafletView.Cluster._markers);
           }  
 
@@ -471,7 +496,7 @@ leftSidebar.open('home1');
     function openSidebar(network, ID,url,facebook_url,twitter_url,description) {   
 
    
-            
+
 
 
 

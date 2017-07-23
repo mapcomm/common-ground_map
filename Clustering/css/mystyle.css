@@ -1,3 +1,21 @@
+.commLandButton.active {
+    color: red;
+}
+
+.commLandButton.inactive {
+    color: black;
+}
+
+
+.button {
+    display:inline-block;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 20px;
+    box-shadow: inset 2px 3px 5px #000000, 0px 1px 1px #333;
+}
+
+
 /*['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e']
 colors for marker groups*/
 #commLandButton{
