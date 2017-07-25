@@ -117,37 +117,37 @@
                                     </br></br>
                         
                               </div>
-                               </br></br></br></br>
+                             
 
-                                <div class="tab2" id="tab2">
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="button" class="btn btn-secondary">DTAS</button>
-    <button type="button" class="btn btn-secondary">ABCS</button>
-    <button type="button" class="btn btn-secondary">TTTT</button>
-    <button type="button" class="btn btn-secondary">ECSS</button>
-  </div>
-  <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="button" class="btn btn-secondary">5</button>
-    <button type="button" class="btn btn-secondary">6</button>
-    <button type="button" class="btn btn-secondary">7</button>
-  </div>
-  <div class="btn-group" role="group" aria-label="Third group">
-    <button type="button" class="btn btn-secondary">8</button>
-  </div>
-</div>
-
-
+                                                              <div class="tab2" id="tab2">
+                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group">
+                                  <button type="button" class="btn btn-secondary">DTAS</button>
+                                  <button type="button" class="btn btn-secondary">ABCS</button>
+                                  <button type="button" class="btn btn-secondary">TTTT</button>
+                                  <button type="button" class="btn btn-secondary">ECSS</button>
+                                </div>
+                                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                  <button type="button" class="btn btn-secondary">5</button>
+                                  <button type="button" class="btn btn-secondary">6</button>
+                                  <button type="button" class="btn btn-secondary">7</button>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Third group">
+                                  <button type="button" class="btn btn-secondary">8</button>
+                                </div>
+                              </div>
 
 
 
-                                    <button class="commLandButton" onclick="removeElements(commLand);">CommLand</button>
 
-                                    <button class="DTASButton" onclick="removeElements(DTAS);">DTAS</button>
 
-                                    <button class="ECSButton" onclick="removeElements(ECS);">ECS</button>
+                                    <button class="commLandButton" onclick="AddElements(commLand);">CommLand</button>
 
-                                    <button class="AllElementsButton" onclick="removeElements();">All</button>
+                                    <button class="DTASButton" onclick="AddElements(DTAS);">DTAS</button>
+
+                                    <button class="ECSButton" onclick="AddElements(ECS);">ECS</button>
+
+                                    <button class="AllElementsButton" onclick="AddElements();">All</button>
                                     <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
                                      <button class="HelpButton" onclick="getHelp();">Get Help!</button>
                                 
@@ -353,42 +353,33 @@
     var DTAScount = 0;
 
 
-  function removeElements(group){
+  function AddElements(group){
 
 
-      var selector = '.commLandButton';
-      
-      //console.log(selector);
+leafletView.Cluster._markers = [];
+leafletView.ProcessView();
 
-// $(selector).on('click', function(){
-//     $(selector).removeClass('active');
-//     leafletView.Cluster._markers = [];
-//     DTAS();
-//     commLand(); 
-//     map.setView([55.3781, -4.4361], 7);
-//     map.setView([55.3781, -4.4361], 6);
-   
-//     console.log(this);
-//     $(this).addClass('button');
-// });
-
-
-
- $(selector).on('click', function(){
-      var myClass = $(this).attr("class");
-      alert(myClass);
-      if(myClass == "commLandButton active"){
-       $(this).addClass('active');
-      }
-    });
-
- $(selector).on('dblclick', function(){
-      var myClass = $(this).attr("class");
-      alert(myClass);
-    
-     $(this).addClass('inactive');
- });
-
+     var selector = '.commLandButton';
+              
+              $(selector).on('click', function(){
+                  var myClass = $(this).attr("class");
+                  
+                  if(myClass == ".commLandButton active"){
+                   alert(myClass);
+                 
+                  $(this).removeClass('active');
+                   commLand(); 
+                    alert(myClass);
+                  
+                 
+                    }else{
+                       alert(myClass);
+                  $(this).addClass('active');
+                  
+                 
+                  alert(myClass);
+                  }
+                })
 
     //if button css is clicked dont call it else call it for every one  
     //1st Job - work out how to distinguish the css functionality
@@ -407,7 +398,7 @@
 // }
    
  
-//   leafletView.Cluster._markers = [];
+//   
     leafletView.ProcessView();
     //console.log(leafletView.Cluster._markers);
           }  
