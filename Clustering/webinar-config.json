@@ -1,0 +1,61 @@
+{
+    "auth": {
+        "method": "open"
+    },
+    "layergroup": {
+        "layers": [
+            {
+                "options": {
+                    "cartocss": "#meteorites{ marker-fill: #5CA2D1; marker-width: 10; marker-line-color: #FFF; marker-line-width: 0; marker-line-opacity: 1; marker-fill-opacity: 0.6; marker-comp-op: multiply; marker-type: ellipse; marker-placement: point; marker-allow-overlap: true; marker-clip: false; marker-multi-policy: largest; }",
+                    "cartocss_version": "2.1.1",
+                    "interactivity": [
+                        "cartodb_id",
+                        "mass"
+                    ],
+                    "sql": "SELECT * FROM meteorites WHERE <%= layer0 %> = 1 AND mass <= 900000"
+                },
+                "type": "cartodb"
+            },
+            {
+                "options": {
+                    "cartocss": "#meteorites{ marker-fill: #FFCC00; marker-width: 10; marker-line-color: #FFF; marker-line-width: 0; marker-line-opacity: 1; marker-fill-opacity: 0.6; marker-comp-op: multiply; marker-type: ellipse; marker-placement: point; marker-allow-overlap: true; marker-clip: false; marker-multi-policy: largest; }",
+                    "cartocss_version": "2.1.1",
+                    "interactivity": [
+                        "cartodb_id",
+                        "mass"
+                    ],
+                    "sql": "SELECT * FROM meteorites WHERE <%= layer1 %> = 1 AND mass > 900000 AND mass <= 20000000"
+                },
+                "type": "cartodb"
+            },
+            {
+                "options": {
+                    "cartocss": "#meteorites{ marker-fill: #F84F40; marker-width: 10; marker-line-color: #FFF; marker-line-width: 0; marker-line-opacity: 1; marker-fill-opacity: 0.6; marker-comp-op: multiply; marker-type: ellipse; marker-placement: point; marker-allow-overlap: true; marker-clip: false; marker-multi-policy: largest; }",
+                    "cartocss_version": "2.1.1",
+                    "interactivity": [
+                        "cartodb_id",
+                        "mass"
+                    ],
+                    "sql": "SELECT * FROM meteorites WHERE <%= layer2 %> = 1 AND mass > 20000000"
+                },
+                "type": "cartodb"
+            }
+        ]
+    },
+    "name": "webinar_namedmaps_sample",
+    "placeholders": {
+        "layer0": {
+            "default": 1,
+            "type": "number"
+        },
+        "layer1": {
+            "default": 1,
+            "type": "number"
+        },
+        "layer2": {
+            "default": 1,
+            "type": "number"
+        }
+    },
+    "version": "0.0.1"
+}
