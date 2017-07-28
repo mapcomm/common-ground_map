@@ -8,10 +8,18 @@ name bigger on hover
  -->
 <!DOCTYPE html>
 
+
+
 <html lang="en">
 <head>
 
-
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+         <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+    
+  
 
     <!-- include this stylesheet in your <head> -->
     <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />
@@ -52,8 +60,7 @@ name bigger on hover
     <script src="js/PruneCluster.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
      
-<!-- Links required for cartoDB -->    
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
 
 <!--Leaflet sidebar javascript and css files--> 
     <script src="js/leaflet-sidebar.js" type="text/javascript"></script>
@@ -216,6 +223,7 @@ name bigger on hover
 
 
     <script>
+ 
 
 /*KNN
         var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',    
@@ -242,7 +250,7 @@ name bigger on hover
 
 
 
-
+  function main(){
         const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
               
           const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
@@ -269,6 +277,20 @@ name bigger on hover
                                           
 
         basemap.addTo(map);
+
+
+        // var map = L.map('map', { 
+        //     zoomControl: false,
+        //     scrollWheelZoom: false,
+        //     center: [0, 0],
+        //     zoomControl: true,
+        //     zoom: 3
+        //    });
+
+        //   // add a base layer
+        //   L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        //   }).addTo(map);
 
 
 
@@ -330,6 +352,10 @@ name bigger on hover
               
   }
 
+//This makes an SQL which sets the zoom level but all data sets are shown as they are called below
+function setInitialData(){
+  DTAS()
+}
 
 
 
@@ -1259,10 +1285,112 @@ var overlays = {
 };
 
 */
-
-
+}
+  window.onload = main;
 
     </script>     
+
+
+
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+
+       <div id="layers" class="layer_selector">
+        <p>Meteor Mass Selector</p>
+        <ul>
+            <li data="0">Show all meteorites with mass below 900000 g
+            </li>
+            <li data="1">Show meteorites with mass between 900000 g and 20000000 g
+            </li>
+            <li data="2">Show meteorites with mass above 20000000 g
+            </li>
+            <li data="-1">Show all
+            </li>
+        </ul>
+    </div>
+
+    
+    <!-- Drop your code between the script tags below! -->
+    <script>
+        function main1() {
+          // create leaflet map
+         
+        
+
+      
+          function createSelector(layer) {
+              var layerchosen = "";
+              var $options = $(".layer_selector").find("li");
+              $options.click(function(e) {
+                  var $li = $(e.target);
+                  var selected = +$li.attr('data');
+
+                  $options.removeClass('selected');
+                  $li.addClass('selected');
+
+                  if (selected !== -1) {
+                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
+                          if (i !== selected) {
+                              layer.getSubLayer(i).hide();
+                          } else {
+                              layer.getSubLayer(i).show();
+                          }
+                      }
+                  } else {
+                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
+                          layer.getSubLayer(i).show();
+                      }
+                  }
+              });
+          }
+
+          // add cartodb layer with one sublayer
+          cartodb.createLayer(
+            map, {
+            user_name: 'andye',
+            type: 'namedmap',
+            named_map: {
+              name: "webinar_namedmaps_sample",
+              layers: [{
+                  layer_name: "small_mass",
+                  interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "medium_mass",
+                   interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "large_mass",
+                   interactivity: "cartodb_id, mass"
+               }]
+             }
+            })
+            .addTo(map)
+            .done(function(layer) {
+                // for all layers...
+                for (var i = 0; i < layer.getSubLayerCount(); ++i ) {
+                    // turn on interaction
+                    layer.getSubLayer(i).setInteraction(true);
+
+                    // show infowindows on click
+                    cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(i), ['mass']);
+
+                    // show data in console on mouseover
+                    layer.getSubLayer(0).on('featureOver', function(e, pos, pixel, data) {
+                      // print data to console log
+                      console.log("Event #" + data.cartodb_id + ", mass " + data.mass);
+                    });
+                }
+                
+                createSelector(layer);
+            });
+        }
+
+      
+       // window.onload = setInitialData;
+    </script>
+
+
 
 
 </body>
