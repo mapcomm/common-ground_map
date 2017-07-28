@@ -1,4 +1,4 @@
-<!-- 
+<!-- https://github.com/CartoDB/cartodb.js/blob/develop/examples/custom_infowindow.html -sort this!!!!! divs?
 ?
 name or no name url etc
 zoom level 
@@ -13,15 +13,12 @@ name bigger on hover
 <html lang="en">
 <head>
 
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-         <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
-    
+
   
 
-    <!-- include this stylesheet in your <head> -->
+    <!-- include this stylesheet in your <head>
+
+    With leaflet links the maps dont work with layers but points work and vice versa  -->
     <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />
  
 <!-- And the oldIE version of course. Just think, one day we'll no longer have to do this! -->
@@ -31,6 +28,10 @@ name bigger on hover
  
 <!-- then include the script file. if you're not sure where to include it, just before the </body> is probably a good choice -->
 <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+
+
+
 
 
 <!-- This is a file which adds the chloropleth layer -->
@@ -38,7 +39,7 @@ name bigger on hover
 
 <!-- Basic jquery and leaflet javascript,css and boot strap files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css"/>
     
@@ -72,6 +73,11 @@ name bigger on hover
     <link rel="Stylesheet" href="css/mystyle.css" type="text/css" />
 
 
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+<script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    
+
+
     
   
    
@@ -79,6 +85,27 @@ name bigger on hover
 
  </head>
 <body>
+
+  </div>
+                    <div id='map' class="sidebar-map"></div>
+                     <script type="infowindow/html" id="infowindow_template">
+      <span> custom </span>
+      <div class="cartodb-popup">
+        <a href="#close" class="cartodb-popup-close-button close">x</a>
+         <div class="cartodb-popup-content-wrapper">
+           <div class="cartodb-popup-content">
+             <img style="width: 100%" src="http://rambo.webcindario.com/images/18447755.jpg">
+             <!-- content.data contains the field info -->
+             <h4>{{content.data.name}}</h4>
+           </div>
+         </div>
+         <div class="cartodb-popup-tip-container"></div>
+      </div>
+    </script>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
 
@@ -209,12 +236,7 @@ name bigger on hover
                          
                          
                         </div> <!--end div classs="sidebar-content"-->
-                    </div>
-                    <div id='map' class="sidebar-map"></div>
-                </div>
-            </div>
-        </section>
-    </div>
+
 
 
 
@@ -246,37 +268,196 @@ name bigger on hover
 
         //Add the map to the page with all the features note zoom control is used here which adds a zoom icon however below L.control.zoom can be used and add more detailed functionality  
    
+        //Stamen doesn't work with the carto API
 
 
 
-
-  function main(){
-        const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
+    //     const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
               
-          const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
+    //       const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
               
 
-       var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: 'abcd',
-        minZoom: 0,
-        maxZoom: 18,
-        ext: 'png'
-    });
+    //    var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
+    //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    //     subdomains: 'abcd',
+    //     minZoom: 0,
+    //     maxZoom: 18,
+    //     ext: 'png'
+    // });
 
-          var map = L.map('map', {
-              center: [55.3781, -4.4360],
-              zoom: 5,
-              layers: [basemap]
+    //       var map = L.map('map', {
+    //           center: [55.3781, -4.4360],
+    //           zoom: 5,
+    //           //layers: [basemap]
+    //       });
+
+
+    //       // add a base layer
+    //       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    //         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+    //       }).addTo(map);
+    
+
+                  var map = L.map('map', { 
+            zoomControl: false,
+            scrollWheelZoom: false,
+            center: [0, 0],
+            zoomControl: true,
+            zoom: 3
+           });
+
+
+         
+        //  add a base layer
+          L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+          }).addTo(map);
+
+          
+  
+       
+        cartodb.createLayer(map, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json')
+         .addTo(map)
+         .on('done', function(layer) {
+           // get sublayer 0 and set the infowindow template
+           var sublayer = layer.getSubLayer(0);
+           sublayer.infowindow.set('template', $('#infowindow_template').html());
+          }).on('error', function() {
+            console.log("some error occurred");
           });
-          map.setView([55.3781, -4.4360], 4);
-          map.setView([55.3781, -4.4360], 5);
+     
+
+// cartodb.createLayer(map, {
+//   user_name: 'hilld',
+//   type: 'cartodb',
+//   sublayers: [{
+//     sql: "SELECT * FROM 'mapcomm-admin'.permaculture_groups_gb_sct",
+//     //cartocss: '#table_name {marker-fill: #F0F0F0;}'
+//   }]
+// })
+// .addTo(map) // add the layer to our map which already contains 1 sublayer
+// .done(function(layer) {
+
+// alert(layer);
+//   // create and add a new sublayer
+//   // layer.createSubLayer({
+//   //   sql: "SELECT * FROM table_name limit 200",
+//   //   cartocss: '#table_name {marker-fill: #F0F0F0;}'
+//   // });
+
+//   // // change the query for the first layer
+//   // layer.getSubLayer(0).setSQL("SELECT * FROM table_name limit 10");
+// });
+
+
+
+
+
+
+         
+function addL(){
+             // add cartodb layer with one sublayer
+          cartodb.createLayer(
+            map, {
+            user_name: 'andye',
+            type: 'namedmap',
+            named_map: {
+              name: "webinar_namedmaps_sample",
+              layers: [{
+                  layer_name: "small_mass",
+                  interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "medium_mass",
+                   interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "large_mass",
+                   interactivity: "cartodb_id, mass"
+               }]
+             }
+            })
+             .addTo(map)
+ function createSelector(layer) {
+              var layerchosen = "";
+              var $options = $(".layer_selector").find("li");
+              $options.click(function(e) {
+                  var $li = $(e.target);
+                  var selected = +$li.attr('data');
+
+                  $options.removeClass('selected');
+                  $li.addClass('selected');
+
+                  if (selected !== -1) {
+                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
+                          if (i !== selected) {
+                              layer.getSubLayer(i).hide();
+                          } else {
+                              layer.getSubLayer(i).show();
+                          }
+                      }
+                  } else {
+                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
+                          layer.getSubLayer(i).show();
+                      }
+                  }
+              });
+          }
+
+          // add cartodb layer with one sublayer
+          cartodb.createLayer(map, {
+            user_name: 'andye',
+            type: 'namedmap',
+            named_map: {
+              name: "webinar_namedmaps_sample",
+              layers: [{
+                  layer_name: "small_mass",
+                  interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "medium_mass",
+                   interactivity: "cartodb_id, mass"
+               },
+               {
+                   layer_name: "large_mass",
+                   interactivity: "cartodb_id, mass"
+               }]
+             }
+            })
+            .addTo(map)
+            .done(function(layer) {
+                // for all layers...
+                for (var i = 0; i < layer.getSubLayerCount(); ++i ) {
+                    // turn on interaction
+                    layer.getSubLayer(i).setInteraction(true);
+
+                    // show infowindows on click
+                    cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(i), ['mass']);
+
+                    // show data in console on mouseover
+                    layer.getSubLayer(0).on('featureOver', function(e, pos, pixel, data) {
+                      // print data to console log
+                      console.log("Event #" + data.cartodb_id + ", mass " + data.mass);
+                    });
+                }
+                
+                createSelector(layer);
+            });
+    
+    }
+    addL();
+
+
+
+
+         
+
          
 
 
                                           
-
-        basemap.addTo(map);
+            //removed!
+        //basemap.addTo(map);
 
 
         // var map = L.map('map', { 
@@ -1285,6 +1466,11 @@ var overlays = {
 };
 
 */
+
+  function main(){
+       
+          map.setView([55.3781, -4.4360], 5);
+
 }
   window.onload = main;
 
@@ -1292,102 +1478,12 @@ var overlays = {
 
 
 
-    <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
-
-       <div id="layers" class="layer_selector">
-        <p>Meteor Mass Selector</p>
-        <ul>
-            <li data="0">Show all meteorites with mass below 900000 g
-            </li>
-            <li data="1">Show meteorites with mass between 900000 g and 20000000 g
-            </li>
-            <li data="2">Show meteorites with mass above 20000000 g
-            </li>
-            <li data="-1">Show all
-            </li>
-        </ul>
-    </div>
+   
 
     
     <!-- Drop your code between the script tags below! -->
     <script>
-        function main1() {
-          // create leaflet map
-         
-        
 
-      
-          function createSelector(layer) {
-              var layerchosen = "";
-              var $options = $(".layer_selector").find("li");
-              $options.click(function(e) {
-                  var $li = $(e.target);
-                  var selected = +$li.attr('data');
-
-                  $options.removeClass('selected');
-                  $li.addClass('selected');
-
-                  if (selected !== -1) {
-                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
-                          if (i !== selected) {
-                              layer.getSubLayer(i).hide();
-                          } else {
-                              layer.getSubLayer(i).show();
-                          }
-                      }
-                  } else {
-                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
-                          layer.getSubLayer(i).show();
-                      }
-                  }
-              });
-          }
-
-          // add cartodb layer with one sublayer
-          cartodb.createLayer(
-            map, {
-            user_name: 'andye',
-            type: 'namedmap',
-            named_map: {
-              name: "webinar_namedmaps_sample",
-              layers: [{
-                  layer_name: "small_mass",
-                  interactivity: "cartodb_id, mass"
-               },
-               {
-                   layer_name: "medium_mass",
-                   interactivity: "cartodb_id, mass"
-               },
-               {
-                   layer_name: "large_mass",
-                   interactivity: "cartodb_id, mass"
-               }]
-             }
-            })
-            .addTo(map)
-            .done(function(layer) {
-                // for all layers...
-                for (var i = 0; i < layer.getSubLayerCount(); ++i ) {
-                    // turn on interaction
-                    layer.getSubLayer(i).setInteraction(true);
-
-                    // show infowindows on click
-                    cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(i), ['mass']);
-
-                    // show data in console on mouseover
-                    layer.getSubLayer(0).on('featureOver', function(e, pos, pixel, data) {
-                      // print data to console log
-                      console.log("Event #" + data.cartodb_id + ", mass " + data.mass);
-                    });
-                }
-                
-                createSelector(layer);
-            });
-        }
-
-      
-       // window.onload = setInitialData;
     </script>
 
 

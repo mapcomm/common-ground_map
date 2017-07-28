@@ -1,166 +1,91 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Named Maps Webinar | CartoDB</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-    
-    <style>
-      html, body, #map {
-        height: 100%;
-        padding: 0;
-        margin: 0;
+<head>
+  <meta charset="utf-8">
+  <!-- cartodb.js comes with Leaflet @0.7 and jQuery -->
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <!-- This script makes it easy to use Stamen basemaps   -->
+  <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    #map {
+      height: 100%;
+    }
+    .popup-content p {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+    // necessary for making AJAX calls on Blockbuilder.org as of 2016-11-02
+    jQuery.support.cors = true;
+    // create a new map centered on the U.S.
+    var map = L.map('map').setView([39.69, -99.185], 5);
+    // create a tile layer for our toner basemap
+    var darkmatterLayer = new L.TileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png');
+    // add the tile layer to the map
+    map.addLayer(darkmatterLayer);
+    // function to make our popup-content
+    var makePopUpContent = function(props) {
+      return '<div class="popup-content">' +
+               '<p><strong>Date:</strong> ' + props.date + '</p>' +
+               '<p><strong>Magnitude:</strong> ' + props.mag + '</p>' +
+               '<p><strong>Injured:</strong> ' + props.inj + '</p>' +
+             '</div>'
+    }
+    // color ramp via ColorBrewer: http://colorbrewer2.org/#type=sequential&scheme=Purples&n=5
+    var ramp = ['#f2f0f7','#cbc9e2','#9e9ac8','#6a51a3'];
+    // returns a color based on a value passed, in this case we are using the value for "mag"
+    var getColor = function(d) {
+      console.log(d);
+      return d >= 4  ? ramp[0] :
+             d >= 3  ? ramp[1] :
+             d >= 2  ? ramp[2] :
+             d >= 1  ? ramp[3] :
+                      '#333';
+    }
+    // style function for styling the GeoJSON layer, uses getColor function above
+    var style = function(feature) {
+      return {
+        color: getColor(feature.properties.mag),
+        weight: 3,
+        opacity: 1
       }
-      #layers {
-          position: absolute;
-          top: 20px;
-          right: 20px;
+    }
+    // function we can use to filter what data is added to the GeoJSON layer
+    // eg try changing the value from 0 to 3 or 4
+    var filter = function(feature) {
+      return feature.properties.mag > 0;
+    }
+    // this will be called on each of the GeoJSON features and can be used to create Popups
+    // for each GeoJSON feature on our map
+    var onEachFeature = function(feature, layer) {
+      if (feature.properties) {
+        var popUpContent = makePopUpContent(feature.properties);
+        layer.bindPopup(popUpContent);
       }
-      .layer_selector {
-          background: rgba(255,255,255,0.9);
-          border-radius: 5px;
-          padding: 0;
-          border: 1px solid #999;
-          width: 250px;
-      }
-      
-      .layer_selector > p {
-          padding: 15px 30px;
-          border-bottom: 1px solid #999;
-      }
-      
-      .layer_selector ul {
-          padding: 0; margin: 0;
-          list-style-type: none;
-      }
-      .layer_selector li {
-          padding: 15px 30px;
-          font-family: Helvetica, Arial;
-          font-size: 13px;
-          color: #444;
-          cursor: pointer;
-      }
-      .layer_selector li:not(:last-child) {
-          border-bottom: 1px solid #999;
-      }
-      .layer_selector li:hover {
-          background-color: #F0F0F0;
-          cursor: pointer;
-      }
-      .layer_selector li.selected {
-          background-color: #A6CEE3;
-      }
-    </style>
-
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-  </head>
-  <body>
-    <div id="map"></div>
-    <div id="layers" class="layer_selector">
-        <p>Meteor Mass Selector</p>
-        <ul>
-            <li data="0">Show all meteorites with mass below 900000 g
-            </li>
-            <li data="1">Show meteorites with mass between 900000 g and 20000000 g
-            </li>
-            <li data="2">Show meteorites with mass above 20000000 g
-            </li>
-            <li data="-1">Show all
-            </li>
-        </ul>
-    </div>
-
-    <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
-
-    
-    <!-- Drop your code between the script tags below! -->
-    <script>
-        function main() {
-          // create leaflet map
-          var map = L.map('map', { 
-            zoomControl: false,
-            scrollWheelZoom: false,
-            center: [0, 0],
-            zoomControl: true,
-            zoom: 3
-           });
-
-          // add a base layer
-          L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-          }).addTo(map);
-          
-          function createSelector(layer) {
-              var layerchosen = "";
-              var $options = $(".layer_selector").find("li");
-              $options.click(function(e) {
-                  var $li = $(e.target);
-                  var selected = +$li.attr('data');
-
-                  $options.removeClass('selected');
-                  $li.addClass('selected');
-
-                  if (selected !== -1) {
-                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
-                          if (i !== selected) {
-                              layer.getSubLayer(i).hide();
-                          } else {
-                              layer.getSubLayer(i).show();
-                          }
-                      }
-                  } else {
-                      for (var i = 0; i < layer.getSubLayerCount(); i++) {
-                          layer.getSubLayer(i).show();
-                      }
-                  }
-              });
-          }
-
-          // add cartodb layer with one sublayer
-          cartodb.createLayer(map, {
-            user_name: 'andye',
-            type: 'namedmap',
-            named_map: {
-              name: "webinar_namedmaps_sample",
-              layers: [{
-                  layer_name: "small_mass",
-                  interactivity: "cartodb_id, mass"
-               },
-               {
-                   layer_name: "medium_mass",
-                   interactivity: "cartodb_id, mass"
-               },
-               {
-                   layer_name: "large_mass",
-                   interactivity: "cartodb_id, mass"
-               }]
-             }
-            })
-            .addTo(map)
-            .done(function(layer) {
-                // for all layers...
-                for (var i = 0; i < layer.getSubLayerCount(); ++i ) {
-                    // turn on interaction
-                    layer.getSubLayer(i).setInteraction(true);
-
-                    // show infowindows on click
-                    cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(i), ['mass']);
-
-                    // show data in console on mouseover
-                    layer.getSubLayer(0).on('featureOver', function(e, pos, pixel, data) {
-                      // print data to console log
-                      console.log("Event #" + data.cartodb_id + ", mass " + data.mass);
-                    });
-                }
-                
-                createSelector(layer);
-            });
-        }
-
-        window.onload = main;
-    </script>
-
-  </body>
-</html>
+    }
+    // Set up our GeoJSON layer with options: filter, onEachFeature, & style
+    // add it to the map, but don't add data just yet
+    var tornadoLayer = L.geoJson(null, {
+      filter: filter,
+      onEachFeature: onEachFeature,
+      style: style
+    }).addTo(map);
+    // sample query for our Tornado table
+    var query = "SELECT * FROM tornado WHERE \"timestamp\" >= '2012-01-01' and \"timestamp\" < '2013-01-01'";
+    // load our data asynchronously from Carto
+    var sql = new cartodb.SQL({ user: 'stamen-builder' });
+    sql.execute(query, null, { format: 'geojson' })
+    .done(function(data) {
+      console.log(data);
+      // add the tornado data to our tornadoLayer
+      tornadoLayer.addData(data);
+    });
+  </script>
+</body>
