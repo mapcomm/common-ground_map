@@ -1,5 +1,5 @@
 #sidebar-left {
-    position: absolute;
+    position: fixed;
     height:  550px;
     top: 10px; 
     right: 10px;
@@ -35,7 +35,7 @@
         }
         
          #map { 
-          position: absolute; 
+          position: fixed; 
           top:0px; bottom:0; right:0; left:0; 
          } 
 
@@ -57,7 +57,7 @@
     right: 10px;
     z-index: 1000;
     padding: 1em;
-    background: black;
+    background: white;
   }     
   
   .sidebar {

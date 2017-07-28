@@ -217,7 +217,17 @@ name bigger on hover
 
     <script>
 
+/*KNN
+        var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',    
+   
+   function(data1) {
 
+
+   }));
+*/
+
+
+//Insert method which will add data sets individually
 
 
 
