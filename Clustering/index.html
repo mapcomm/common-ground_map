@@ -306,9 +306,11 @@ function type(d) {
 						  
 
 
-						    <div id="chart"></div>
+						    <div id="chart"><button class="HelpButton" onclick="chartLoad();">Display Chart</button></div>
 						    
 						    <script type="text/javascript">
+
+						    function chartLoad(){
 
 var chart = c3.generate({
     bindto: '#chart',
@@ -337,11 +339,12 @@ var chart = c3.generate({
       }
     }
 });
+}
 
 </script>
 
 
-                             </br></br></br></br> </br></br></br></br> </br></br></br></br> </br></br></br></br>
+                             </br></br></br></br> 
                          
                           <!-- style for commEnergy,commLand,DTAS,ECS,cityFarms,sccan,permaculture buttons in bootstrap.css   -->
 
@@ -963,6 +966,9 @@ main();
                 url1 = parser.host;
             }
 
+            //for now needs deleting after
+            var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id massa gravida nunc dapibus finibus vitae ac lorem. Fusce laoreet risus at ultricies tempor. Sed gravida ipsum nec cursus tempor. Nullam vehicula, neque ut sollicitudin sollicitudin, erat massa auctor purus.";
+
 
 
              if(twitter_url == undefined){
@@ -973,7 +979,7 @@ main();
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>";
+              ;
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -984,7 +990,7 @@ main();
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>";
+              ;
 
             //(twitter_url == null){
                
@@ -996,7 +1002,7 @@ main();
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>";
+              ;
             }
 
             //This removes previous text upon updating the side bar
