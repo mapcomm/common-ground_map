@@ -5,6 +5,10 @@ zoom level
 have some kind of selected state 
 pencil change state when open ?
 name bigger on hover
+
+
+get d3 in the side bar working
+get all data sets loaded with buttons in help sidebar
  -->
 <!DOCTYPE html>
 
@@ -12,6 +16,9 @@ name bigger on hover
 
 <html lang="en">
 <head>
+
+
+
 
 
   
@@ -43,7 +50,12 @@ name bigger on hover
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css"/>
     
+    <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    -->
+       <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+       <link rel="stylesheet" href="css/bootstrap.css" />
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -72,6 +84,8 @@ name bigger on hover
     <link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
     <link rel="Stylesheet" href="css/mystyle.css" type="text/css" />
 
+
+ <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
 
     
   
@@ -107,7 +121,7 @@ name bigger on hover
                         <!-- Nav tabs -->
                         <div class="sidebar-tabs">
                             <ul role="tablist">
-                                <li><a href="#home" role="tab"><i class="fa fa-pencil"></i></a></li>
+                                <li><a href="#home" role="tab"><i class="fa-pencil1"></i></a></li>
                                 <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
                                 <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>--> 
                             </ul>
@@ -121,7 +135,7 @@ name bigger on hover
                         <div class="sidebar-content">
                             <div class="sidebar-pane" id="home">
                                 <h1 class="sidebar-header">
-                                    Sidebar
+                                    Information Window
                                     <!-- This is where the pencil class is and need them -->
                                     <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
                                 </h1>
@@ -132,41 +146,110 @@ name bigger on hover
 
                                 <p id="sidebar-text"></p>
 
-                             </div>
-                               <div class="tab" id="tabKNN">
-                                    <p id="sidebar-text2"></p>
-                                    </br></br>
-                        
-                              </div>
-                             
-<!-- 
-new button types
 
-                                                              <div class="tab2" id="tab2">
-                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                <div class="btn-group mr-2" role="group" aria-label="First group">
-                                  <button type="button" class="btn btn-secondary">DTAS</button>
-                                  <button type="button" class="btn btn-secondary">ABCS</button>
-                                  <button type="button" class="btn btn-secondary">TTTT</button>
-                                  <button type="button" class="btn btn-secondary">ECSS</button>
-                                </div>
-                                <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                  <button type="button" class="btn btn-secondary">5</button>
-                                  <button type="button" class="btn btn-secondary">6</button>
-                                  <button type="button" class="btn btn-secondary">7</button>
-                                </div>
-                                <div class="btn-group" role="group" aria-label="Third group">
-                                  <button type="button" class="btn btn-secondary">8</button>
-                                </div>
-                              </div>
+
+                             </div>
+
+
+
+
+                              
+                             
+
+
+                                                         
+
+
+<!--                                
+<script>
+
+var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var formatPercent = d3.format(".0%");
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(formatPercent);
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+  })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+d3.tsv("data.tsv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequency");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+});
+
+function type(d) {
+  d.frequency = +d.frequency;
+  return d;
+}
+
+</script>
  -->
 
 
-                                    </br></br></br>
+                                    </br></br></br> </br></br></br> </br></br></br></br>
 
                                     <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
-                                    <button class="HelpButton" onclick="getHelp();">Get Help!</button>
+                                    <button class="HelpButton" onclick="getHelp();">Addional Features</button>
                                 
+                                <!--This tab is for the KNN placement-->
+                                </br></br>
+                                 <div class="tabKNN" id="tabKNN">
+                                    <p id="sidebar-text2"></p>                        
+                              </div>
 
 
 
@@ -199,7 +282,7 @@ new button types
                         <div class="sidebar-content">
                             <div class="sidebar-pane" id="home1">
                                 <h1 class="sidebar-header">
-                                    Sidebar
+                                    Addional Features
                                     <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
                                 </h1>
 
@@ -210,16 +293,60 @@ new button types
                                 <p id="sidebar-text"></p>
 
                              </div>
-                             </br></br></br></br>
+
+     
+                                <div id="viz"></div>
+						   
+
+						    <script type="text/javascript">
+
+						    var sampleSVG = d3.select("#viz")
+						        .append("svg")
+						        .attr("width", 100)
+						        .attr("height", 100);    
+
+						    sampleSVG.append("circle")
+						        .style("stroke", "gray")
+						        .style("fill", "white")
+						        .attr("r", 40)
+						        .attr("cx", 50)
+						        .attr("cy", 50)
+						        .on("mouseover", function(){d3.select(this).style("fill", "aliceblue");})
+						        .on("mouseout", function(){d3.select(this).style("fill", "white");});
+						    
+						    </script>
+
+
+                             </br></br></br></br> </br></br></br></br> </br></br></br></br> </br></br></br></br>
                          
-                                 <button class="commLandButton" onclick="AddElements(commLand);">CommLand</button>
+                          <!-- style for commEnergy,commLand,DTAS,ECS,cityFarms,sccan,permaculture buttons in bootstrap.css   -->
 
-                                    <button class="DTASButton" onclick="AddElements(DTAS);">DTAS</button>
 
-                                    <button class="ECSButton" onclick="AddElements(ECS);">ECS</button>
+                                         <div class="tab2" id="tab2">
+                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group">
+                                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS);">DTAS</button>
+                                  <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS);">ECS</button>
+                                  <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand);">CommLand</button>
+                                  <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All);">_All_</button>
+                                  <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy);">CommEnergy</button>
 
-                                    <button class="AllElementsButton" onclick="AddElements(All);">All</button>
-                         
+                                  <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms);">City Farms   </button>
+
+                                  <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN);">SCCAN</button>
+
+                                  <button type="button" class="btn btn-secondary" id="perma" onclick="AddElements(permaculture);">Permaculture</button>
+
+	                               
+</div>                                
+     
+                            <!--
+                                <div class="btn-group" role="group" aria-label="Third group">
+                                  <button type="button" class="btn btn-secondary">8</button>
+                                </div>
+
+                              </div>
+                         -->
                         </div> <!--end div classs="sidebar-content"-->
 
 
@@ -276,6 +403,9 @@ new button types
               layers: [basemap],
               zoomControl: true,
           });
+
+
+         
 
 
           // add a base layer
@@ -514,7 +644,7 @@ new button types
               var divToAddContent1 = document.getElementById('home1');
               
               //This information is what is displayed in the pop out.
-                divToAddContent1.innerHTML = "<b>" + "Help" + "</b>" + "<br>" + "Help docs to be added";
+                divToAddContent1.innerHTML = "<b>" + "Addional Features box" + "</b>" + "<br>" + "Help docs to be added";
 
               
   }
@@ -715,18 +845,22 @@ main();
     
 
       //here change num1 to incoming sql call
+      //MIGHT NEED TO CHANGE THIS SO BUTTONS CAN BE HORIZONTAL // drop data1.features[num1].properties.name
    
 
-       divToAddContent1.innerHTML =  
+       divToAddContent1.innerHTML = '<b>' + '    Find my neighbours:' + '</b>' + '<div class="tab2" id="tab2">' +
        
-         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ data1.features[num1].properties.name + '  </button>'
+         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ '1' + '  </button>'
          +
-         '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ data1.features[num1].properties.name + '  </button>'
+         '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ '2' + '  </button>'
 
          +
-         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ data1.features[num1].properties.name + '  </button>'
+         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ '3' + '  </button>'
          +
-         '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ data1.features[num1].properties.name + '  </button>'
+         '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ '4' + '  </button>'
+         +
+         '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ '5' + '  </button>'
+         + '</div>'
          ;
          //alert();
     
@@ -815,7 +949,7 @@ main();
               //This information is what is displayed in the pop out.
                divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Url: </b>" +
               '<a href="'+ url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+  "<b>"+ "Find My Neighbours" + "</b>";
+              +"</br></br></br></br>";
             }
             else if(url == undefined || url == null || url == ""){
 
@@ -826,7 +960,7 @@ main();
               
               //This information is what is displayed in the pop out.
               divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID +  "</br><b> Facebook: </b>" + facebook_url+ "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "<b>"+ "Find My Neighbours" + "</b>" + "</br>";
+              +"</br></br></br></br>";
 
             //(twitter_url == null){
                
@@ -838,7 +972,7 @@ main();
               
               //This information is what is displayed in the pop out.
                 divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description
-              +"</br></br></br></br>"+ "<b>"+ "Find My Neighbours" + "</b>" + "</br>";
+              +"</br></br></br></br>";
             }
 
             //This removes previous text upon updating the side bar
@@ -984,8 +1118,9 @@ main();
     //The getJSON call is used which requires specific url for your carto account ad then a specific sql call check the sql table name on carto as it may not be the same name as you uploaded from your original machine eg "mapcomm-admin".communityenergy_groups_gb_sct' was originally communityenergy_groups_gb_sct. Also, check the port number is correct.
 
 
-/**
+
 //1st call - community energy
+function commEnergy(){
      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',     
     function(data1) {
              L.geoJSON(data1, {
@@ -1010,7 +1145,10 @@ main();
                   })
 
 });
-**/
+}
+//commEnergy();
+//too many points ruins clusters
+
 
 //2nd call - community land 
 function commLand(){
@@ -1078,6 +1216,7 @@ commLand();
   }   
   DTAS();
 
+
  //4th - ecs
 function ECS(){
  var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',     
@@ -1108,8 +1247,9 @@ function ECS(){
 }
 ECS();
 
-/*
+
 //4th - city farms
+function cityFarms(){
  var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',     
     function(data1) {
         
@@ -1135,11 +1275,18 @@ ECS();
                       })
 
     }));         
+}
+cityFarms();
+//city farms sql call failure
 
 
-//error? - geojson?
- //7th - comm land
- var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',     
+
+ 
+
+
+ //5th - sccan
+ function sccan(){
+ var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',     
     function(data1) {
         
         L.geoJSON(data1, {
@@ -1163,41 +1310,16 @@ ECS();
     }
                       })
 
-    });         
-
-
- 
-
-
- //6th - sccan
- var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',     
-    function(data1) {
-        
-        L.geoJSON(data1, {
-                  pointToLayer: function (feature, latlng, properties) {
-
-
-                    var marker6 = new PruneCluster.Marker(latlng.lat, latlng.lng, {color: '#000', feature, 
-                        'color': '#f3ff00', 'colorClass': 'yellow', 'visible':true,  icon: L.icon({
-                iconUrl: 'layer.png',
-                iconSize: [48, 48]
-
-            })
-                    });
-
-                 
-                    marker6.category = 6;                    
-                   // marker.category = Math.floor(Math.random() * colors.length);
-                    markers.push(marker6);
-                    leafletView.RegisterMarker(marker6); 
-
-    }
-                      })
-
     }));        
+}
+sccan();
+//error sql
+//6th group deleted add here
+
 
 
  //7th - permaculture
+ function permaculture(){
  var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".permaculture_groups_gb_sct',     
     function(data1) {
         
@@ -1223,10 +1345,10 @@ ECS();
                       })
 
     }));        
-*/
+}
+permaculture();
+
 /*
-
-
 KNN call
 var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',     
     
@@ -1293,7 +1415,7 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
             var popup = L.popup()
 
             .setLatLng(e.latlng) 
-            .setContent( "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>"  + "<i>Click for more information<i>")
+            .setContent( "<b>" + data.feature.properties.network + "</b>" + "</br>" + "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>"  + "<i>Click for more information<i>")
             .openOn(map);
         });
 
