@@ -245,10 +245,10 @@ function type(d) {
  -->
 
 
-                                    </br></br></br> </br></br></br> </br></br></br></br>
+                                    </br></br></br> </br></br></br> 
 
-                                    <button class="GeolocationButton" onclick="geolocation();">GeoLocation</button>
-                                    <button class="HelpButton" onclick="getHelp();">Addional Features</button>
+                                    <button class="tablinks3" onclick="geolocation();">GeoLocation</button>
+                                    <button class="HelpButton" id="tablinks3"  onclick="getHelp();">Addional Features</button>
                                 
                                 <!--This tab is for the KNN placement-->
                                 </br></br>
@@ -306,7 +306,7 @@ function type(d) {
 						  
 
 
-						    <div id="chart"><button class="HelpButton" onclick="chartLoad();">Display Chart</button></div>
+						    <div id="chart"><button class="tablinks3" id="HelpButton" onclick="chartLoad();">Display Chart</button></div>
 						    
 						    <script type="text/javascript">
 
@@ -877,7 +877,7 @@ main();
 
        divToAddContent1.innerHTML = '<b>' + '    Find my neighbours:' + '</b>' + '<div class="tab2" id="tab2">' +
        
-         '<button class="tablinks3" onclick="popUp('+ num1 + ')"> '+ '1' + '  </button>'
+         '<button class=" tablinks3" onclick="popUp('+ num1 + ')"> '+ '1' + '  </button>'
          +
          '<button class="tablinks3" onclick="popUp('+ num1+ ')"> '+ '2' + '  </button>'
 
