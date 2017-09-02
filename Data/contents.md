@@ -2,6 +2,7 @@
 
 This directory contains data sets used for layers on the common ground map. We are working with standard demographics, but have made use of some efficient transformations of these government data sets as follows:
 
+- The Output Areas (OA) shapefile for the UK is quite large. We use the CDRC's useful [aggregated OA shapefile](https://data.cdrc.ac.uk/dataset/cdrc-2011-oac-geodata-pack-uk) which pulls together Scotland, England and Wales, but this file is 265MB in Shapefile format. You can simplify/generalise the file using GDAL (the ogr2ogr -simplify feature) and then convert to topojson, or use QGIS. We've used the GRASS v.Generalize toolkit (via QGIS processing toolbox) for this data set, which makes use of the Douglas-Peucker algorithm. The "generalised" shapefile uses a tolerance of "30" and the super-generalised shapefile uses a toleration of "300".
 - imd2015eng.csv: English Index of Multiple Deprivation (2015) also from the [CDRC](https://data.cdrc.ac.uk/dataset/english-indices-of-deprivation-2010-and-2015-data-pack)
 - simd2016withinds.csv: Scottish Index of Multiple Deprivation (2016) also from the [CDRC](https://data.cdrc.ac.uk/dataset/simd2016)
 - CensusUK11Data.txt; based on the 2011 UK Census, this version is drawn from the [GeoLytix](http://geolytix.co.uk) [UK 2011 Census Pack](https://blog.geolytix.net/2013/02/14/geolytix-uk-census-pack-open-data/). 
