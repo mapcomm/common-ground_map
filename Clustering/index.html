@@ -16,9 +16,9 @@ get all data sets loaded with buttons in help sidebar
 
 <html lang="en">
 
-<head>
+    <head>
 
-  <!-- In the <head> section we need to load all the javascript libraries and
+        <!-- In the <head> section we need to load all the javascript libraries and
   associated stylesheets (css) that are used for leaflet and related tasks
   We are using bootstrap (http://getbootstrap.com) and jquery for styling,
   intro.js (http://introjs.com) for the opening tutorials,
@@ -32,243 +32,270 @@ get all data sets loaded with buttons in help sidebar
   get choropleth layers working. This section will be tidied up significantly
   in the near future.-->
 
-  <!-- The next five lines added for intro.js support, need to remove overlaps below -->
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/Introdemo.css" rel="stylesheet">
+        <!-- The next five lines added for intro.js support, need to remove overlaps below -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/Introdemo.css" rel="stylesheet">
 
-  <!-- Add IntroJs styles -->
-  <link href="css/introjs.css" rel="stylesheet">
-  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-  <script type="text/javascript" src="intro.js-2.7.0/intro.js"></script>
+        <!-- Add IntroJs styles -->
+        <link href="css/introjs.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <script type="text/javascript" src="intro.js-2.7.0/intro.js"></script>
 
-  <!-- This section added as part of early choropleth layers development in Jul 2017
+        <!-- This section added as part of early choropleth layers development in Jul 2017
   DH note (28 Jul 2017): With leaflet links the maps don't work with
   choropleth layers but points work and vice versa  -->
-  <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />
+        <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />
 
-  <!-- And the oldIE version of course. Just think, one day we'll no longer have to do this! -->
-  <!--[if lte IE 8]>
+        <!-- And the oldIE version of course. Just think, one day we'll no longer have to do this! -->
+        <!--[if lte IE 8]>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
   <![endif]-->
 
-  <!-- then include the script file. if you're not sure where to include it, just before the </body> is probably a good choice -->
-  <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+        <!-- then include the script file. if you're not sure where to include it, just before the </body> is probably a good choice -->
+        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
 
-  <!-- This is a file which adds the chloropleth layer -->
-  <script type="text/javascript" src="us-states.js"></script>
+        <!-- This is a file which adds the chloropleth layer -->
+        <script type="text/javascript" src="us-states.js"></script>
 
-  <!-- Basic jquery and leaflet javascript,css and boot strap files -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <!-- Basic jquery and leaflet javascript,css and boot strap files -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2.rc.2/leaflet.css" />
 
-  <!--
+        <!--
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
 
-  <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
 
-  <!-- Add the title and metadata to the page -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
-  <title>Mapping Community</title>
+        <!-- Add the title and metadata to the page -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
+        <title>Mapping Community</title>
 
-  <!-- Files for prune clustering -->
-  <script src="js/PruneCluster.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
-
-
-  <!--Leaflet sidebar javascript and css files-->
-  <script src="js/leaflet-sidebar.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    window.heap = window.heap || [], heap.load = function(e, t) {
-      window.heap.appid = e, window.heap.config = t = t || {};
-      var r = t.forceSSL || "https:" === document.location.protocol,
-        a = document.createElement("script");
-      a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
-      var n = document.getElementsByTagName("script")[0];
-      n.parentNode.insertBefore(a, n);
-      for (var o = function(e) {
-          return function() {
-            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
-          }
-        }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
-    };
-    heap.load("315187443");
-  </script>
-  <link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
-  <link rel="Stylesheet" href="css/mystyle.css" type="text/css" />
+        <!-- Files for prune clustering -->
+        <script src="js/PruneCluster.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-  <!-- Load c3.css -->
-  <link href="c3/c3.css" rel="stylesheet">
 
-  <!-- Load d3.js and c3.js -->
-  <script src="c3/c3.min.js"></script>
-  <script src="https://d3js.org/d3.v3.min.js"></script>
+        <!--Leaflet sidebar javascript and css files-->
+        <script src="js/leaflet-sidebar.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            window.heap = window.heap || [], heap.load = function(e, t) {
+                window.heap.appid = e, window.heap.config = t = t || {};
+                var r = t.forceSSL || "https:" === document.location.protocol,
+                    a = document.createElement("script");
+                a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
+                var n = document.getElementsByTagName("script")[0];
+                n.parentNode.insertBefore(a, n);
+                for (var o = function(e) {
+                        return function() {
+                            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                        }
+                    }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
+            };
+            heap.load("315187443");
+        </script>
+        <link rel="Stylesheet" href="css/sideBar.css" type="text/css" />
+        <link rel="Stylesheet" href="css/mystyle.css" type="text/css" />
 
-</head>
 
-<body>
+        <!-- Load c3.css -->
+        <link href="c3/c3.css" rel="stylesheet">
 
-  <!-- JK Note: What's this </div> doing here DH? Can we delete?-->
-  </div>
+        <!-- Load d3.js and c3.js -->
+        <script src="c3/c3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
 
-  <!-- This will invoke the leaflet map, best to keep at the top of <body> -->
-  <div id='map' class="sidebar-map"></div>
-  <!-- JK query for DH: why is the class above "sidebar-map"? -->
-  <div id="page-content">
-    <section class="main-content">
-      <div class="container-wide">
-        <div id="sidebar" class="sidebar collapsed">
-          <!-- First Sidebar, located on Right-Hand Side,
+    </head>
+
+    <body>
+
+        <!-- JK Note: What's this </div> doing here DH? Can we delete?-->
+        </div>
+
+        <!-- This will invoke the leaflet map, best to keep at the top of <body> -->
+        <div id='map' class="sidebar-map"></div>
+        <!-- JK query for DH: why is the class above "sidebar-map"? -->
+        <div id="page-content">
+            <section class="main-content">
+                <div class="container-wide">
+                    <div id="sidebar" class="sidebar collapsed">
+                        <!-- First Sidebar, located on Right-Hand Side,
             used to provide information about map features,
             will be open by default on page load. We begin with Nav tabs
             -->
-          <div class="sidebar-tabs">
-            <ul role="tablist">
-              <li><a href="#home" role="tab"><i class="fa-pencil1"></i></a></li>
-              <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                        <div class="sidebar-tabs">
+                            <ul role="tablist">
+                                <li><a href="#home" role="tab"><i class="fa-pencil1"></i></a></li>
+                                <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
               <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
-            </ul>
-            <ul role="tablist">
-              <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->
-            </ul>
-          </div>
-          <!--end div classs="sidebar-tabs"-->
-          <!-- Vertical Tab panes divide up the sidebar window -->
-          <div class="sidebar-content">
-            <div class="sidebar-pane" id="home">
-              <!-- title for the sidebar -->
-              <h1 class="sidebar-header">
+                            </ul>
+                            <ul role="tablist">
+                                <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->
+                            </ul>
+                        </div>
+                        <!--end div classs="sidebar-tabs"-->
+                        <!-- Vertical Tab panes divide up the sidebar window -->
+                        <div class="sidebar-content">
+                            <div class="sidebar-pane" id="home">
+                                <!-- title for the sidebar -->
+                                <h1 class="sidebar-header">
               Information Window
               <!-- This is where the pencil class is and need them -->
               <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
               </h1>
-              <!-- intro.js needs to be inserted alongside code that renders the feature that the tutorial will highlight, so we have our first intro.js feature here. There will be more of these below-->
-              <!-- Placeholder text here for now -->
-              <p id="sidebar-text"></p>
-              <p>insert intro</p>
-              <div>
-                <h1 data-step="1" data-intro="This is a tooltip!">Basic Usage</h1>
-                <p class="lead" data-step="4" data-intro="Another step.">This is the basic usage of IntroJs, with <code>data-step</code> and <code>data-intro</code> attributes.</p>
-                <a class="btn btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">Show me how</a>
-              </div>
-              <hr>
-              <div>
-                <!--  <div class="span6" data-step="0" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'> -->
-              </div>
-            </div>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            <!-- this button will geolocate based on current user,
+                                <!-- intro.js needs to be inserted alongside code that renders the feature that the tutorial will highlight, so we have our first intro.js feature here. There will be more of these below-->
+                                <!-- Placeholder text here for now -->
+                                <p id="sidebar-text"></p>
+                                <p>insert intro</p>
+                                <div>
+                                    <h1 data-step="1" data-intro="This is a tooltip!">Basic Usage</h1>
+                                    <p class="lead" data-step="4" data-intro="Another step.">This is the basic usage of IntroJs, with <code>data-step</code> and <code>data-intro</code> attributes.</p>
+                                    <a class="btn btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">Show me how</a>
+                                </div>
+                                <hr>
+                                <div>
+                                    <!--  <div class="span6" data-step="0" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'> -->
+                                </div>
+                            </div>
+                            </br>
+                            </br>
+                            </br>
+                            </br>
+                            </br>
+                            </br>
+                            <!-- this button will geolocate based on current user,
               default map view will be whole of UK at zoom level 7 -->
-            <button class="tablinks3" onclick="geolocation();">Find my location</button>
-            <!-- Placeholder here for another map feature TBD -->
-            <button class="HelpButton" data-step="2" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip' id="tablinks3" onclick="getHelp();">Addional Features</button>
+                            <button class="tablinks3" onclick="geolocation();">Find my location</button>
+                            <!-- Placeholder here for another map feature TBD -->
+                            <button class="HelpButton" data-step="2" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip' id="tablinks3" onclick="getHelp();">Addional Features</button>
 
-            <!--Next in this sidebar pane we present the five nearest neighbours
+                            <!--Next in this sidebar pane we present the five nearest neighbours
               to the selected map feature. These will be presented as a <ul> with hyperlinks
               that will select another point and centre the map-->
-            </br>
-            </br>
-            <div class="tabKNN" id="tabKNN">
-              <p id="sidebar-text2"></p>
-            </div>
-          </div>
-        </div>
-        <!--end div classs="sidebar-content"-->
-      </div>
-      <!--end div classs="sidebar"-->
+                            </br>
+                            </br>
+                            <div class="tabKNN" id="tabKNN">
+                                <p id="sidebar-text2"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end div classs="sidebar-content"-->
+                </div>
+                <!--end div classs="sidebar"-->
 
 
 
-      <div id="sidebar-left" class="sidebar collapsed">
-        <!-- Second Sidebar, located on Left-Hand Side,
+                <div id="sidebar-left" class="sidebar collapsed">
+                    <!-- Second Sidebar, located on Left-Hand Side,
             used to provide information about map features,
             will be closed by default on page load, to be opened
             when user clicks on "additional features" button from above
             -->
-        <!-- Nav tabs -->
-        <div class="sidebar-tabs">
-          <ul role="tablist">
-            <li><a href="#home1" role="tab"><i class=""></i></a></li>
-            <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                    <!-- Nav tabs -->
+                    <div class="sidebar-tabs">
+                        <ul role="tablist">
+                            <li><a href="#home1" role="tab"><i class=""></i></a></li>
+                            <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
             <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
-          </ul>
-          <ul role="tablist">
-            <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->
-          </ul>
-        </div>
-        <!-- Tab panes -->
-        <div class="sidebar-content">
-          <div class="sidebar-pane" id="home1">
-            <h1 class="sidebar-header">
+                        </ul>
+                        <ul role="tablist">
+                            <!--   <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li> -->
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="sidebar-content">
+                        <div class="sidebar-pane" id="home1">
+                            <h1 class="sidebar-header">
               Addional Features
               <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
               </h1>
-            <p id="sidebar-text"></p>
-          </div>
-          <!--end div classs="sidebar-pane"-->
-          <div id="viz"></div>
-          <div id="chart"><button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button></div>
+                            <p id="sidebar-text"></p>
+                        </div>
+                        <!--end div classs="sidebar-pane"-->
+                        <div id="viz">
+                            <!-- <button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button> -->
+                            <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
+                            <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
+                        </div>
 
-          <!-- Placeholder js to render sample D3/C3 chart - can be removed for new code-->
-          <script type="text/javascript">
-            function chartLoad() {
+                        <div id="chart"></div>
 
-              var chart = c3.generate({
-                bindto: '#chart',
-                data: {
-                  columns: [
-                    ['data1', 30, 200, 100, 400, 150, 250],
-                    ['data2', 50, 20, 10, 40, 15, 25]
-                  ],
-                  axes: {
-                    data2: 'y2'
-                  }
-                },
-                axis: {
-                  y: {
-                    label: { // ADD
-                      text: 'Y Label',
-                      position: 'outer-middle'
-                    }
-                  },
-                  y2: {
-                    show: true,
-                    label: { // ADD
-                      text: 'Y2 Label',
-                      position: 'outer-middle'
-                    }
-                  }
-                }
-              });
-            }
-          </script>
+                        <ul class="nav nav-pills nav-stacked" id="data-nav">
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    SIMD
+                                    <span class="caret"></span>
+                                  </a>
+                                <ul class="dropdown-menu">
+                                    <li role="presentation"><a href="#" onclick="SIMD('overal_simd16_rank');">simd</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('employment_domain_2016_rank')">employment</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Urban Rural
+                                    <span class="caret"></span>
+                                  </a>
+                                <ul class="dropdown-menu">
+                                    <li role="presentation"><a href="#" onclick="ruralUrban('density_ppha')">density_ppha</a></li>
+                                    <li role="presentation"><a href="#">Domain2</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Census11
+                                    <span class="caret"></span>
+                                  </a>
+                                <ul class="dropdown-menu">
+                                    <li role="presentation"><a href="#">All</a></li>
+                                    <li role="presentation"><a href="#">Domain2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
-          </br>
-          </br>
-          </br>
-          </br>
-          <!-- Buttons here to turn on/off presentation of different data tables
+                        <!-- Placeholder js to render sample D3/C3 chart - can be removed for new code-->
+                        <script type="text/javascript">
+                            //dummy chart to support transition when changing data or chart type
+                            var chart = c3.generate({
+                                bindto: '#chart',
+                                data: {
+                                    columns: [
+                                        ['data1', ],
+                                    ],
+                                    type:'scatter',
+                                },
+
+                            });
+
+                            function chartLoad() {
+                                chart.transform('line');
+                            }
+
+                            function scatterPlotLoad() {
+                                chart.transform('scatter');
+                            }
+
+                            function barChartLoad() {
+                                chart.transform('bar');
+                            }
+                        </script>
+
+                        <!-- Buttons here to turn on/off presentation of different data tables
             Note: style for commEnergy,commLand,DTAS,ECS,cityFarms,sccan,permaculture
             buttons in bootstrap.css   -->
 
-          <div class="tab2" id="tab2">
+                        <!-- <div class="tab2" id="tab2">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS);">DTAS</button>
@@ -280,882 +307,902 @@ get all data sets loaded with buttons in help sidebar
                 <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN);">SCCAN</button>
               </div>
               <!--end div classs="btn-group"-->
-              <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
-            </div>
-            <!--end div classs="btn-toolbar"-->
-          </div>
-          <!--end div classs="tab2"-->
+                        <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
+                    </div>
+                    <!--end div classs="btn-toolbar"-->
+                </div> -->
+                <!--end div classs="tab2"-->
         </div>
         <!--end div classs="sidebar-content"-->
-      </div>
-      <!--end div class="sidebar-left"-->
-  </div>
-  <!--end div class="container-wide-->
-  </section>
-  <!--end section class="main-content"-->
-  </div>
-  <!--end div class="page-content-->
+        </div>
+        <!--end div class="sidebar-left"-->
+        </div>
+        <!--end div class="container-wide-->
+        </section>
+        <!--end section class="main-content"-->
+        </div>
+        <!--end div class="page-content-->
 
 
-  <script>
-    /*Code here is for Nearest neighbour calculation referenced above - KNN
-                          var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+        <script>
+            /*Code here is for Nearest neighbour calculation referenced above - KNN
+                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                     function(data1) {
+                                                                                                         function(data1) {
 
 
-                     }));
-                  */
+                                                                                                         }));
+                                                                                                      */
 
 
-    //Insert method which will add data sets individually
+            //Insert method which will add data sets individually
 
-    //Add the map to the page with all the features note zoom control is used here which adds a zoom icon however below L.control.zoom can be used and add more detailed functionality
+            //Add the map to the page with all the features note zoom control is used here which adds a zoom icon however below L.control.zoom can be used and add more detailed functionality
 
-    //Stamen doesn't work with the carto API
+            //Stamen doesn't work with the carto API
 
 
+            const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
 
-    const tonerUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
+            const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
 
-    const url = tonerUrl.replace(/({[A-Z]})/g, s => s.toLowerCase());
+            //chartConfig: to be filled by data loading functions to prepare config for charts.
+            var chartConfig = {}
 
 
-    var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      subdomains: 'abcd',
-      minZoom: 0,
-      maxZoom: 18,
-      ext: 'png'
-    });
+            var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
+                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains: 'abcd',
+                minZoom: 0,
+                maxZoom: 18,
+                ext: 'png'
+            });
 
-    var map = L.map('map', {
-      center: [55.3781, -4.4360],
-      zoom: 5,
-      layers: [basemap],
-      zoomControl: true,
-    });
+            var map = L.map('map', {
+                center: [55.3781, -4.4360],
+                zoom: 5,
+                layers: [basemap],
+                zoomControl: true,
+            });
 
 
+            var sidebar = L.control.sidebar('sidebar', {
+                position: 'right'
+            });
 
+            map.addControl(sidebar);
 
-    var sidebar = L.control.sidebar('sidebar', {
-      position: 'right'
-    });
 
-    map.addControl(sidebar);
+            var leftSidebar = L.control.sidebar('sidebar-left', {
+                position: 'left'
+            });
+            map.addControl(leftSidebar);
+            leftSidebar.open();
 
 
+            function getHelp() {
 
-    var leftSidebar = L.control.sidebar('sidebar-left', {
-      position: 'left'
-    });
-    map.addControl(leftSidebar);
-    leftSidebar.open();
+                var selector = '.HelpButton';
 
+                $(selector).on('click', function() {
+                    var myClass = $(this).attr("class");
+                    //alert(myClass);
+                    if (myClass != "HelpButton active") {
+                        $(this).addClass('active');
+                        leftSidebar.open('home1');
 
-    function getHelp() {
+                    } else {
+                        leftSidebar.close('home1');
 
-      var selector = '.HelpButton';
 
-      $(selector).on('click', function() {
-        var myClass = $(this).attr("class");
-        //alert(myClass);
-        if (myClass != "HelpButton active") {
-          $(this).addClass('active');
-          leftSidebar.open('home1');
+                        $(this).removeClass('active');
+                    }
+                });
 
-        } else {
-          leftSidebar.close('home1');
 
+                //leftSidebar.toggle();
 
-          $(this).removeClass('active');
-        }
-      });
 
+                // leftSidebar.close('home1');
+                //set the button to active
+                //if active then toggle
 
+                var divToAddContent1 = document.getElementById('home1');
 
-      //leftSidebar.toggle();
+                //This information is what is displayed in the pop out.
+                divToAddContent1.innerHTML = "<b>" + "Addional Features box" + "</b>" + "<br>" + "Help docs to be added";
 
 
-      // leftSidebar.close('home1');
-      //set the button to active
-      //if active then toggle
-
-      var divToAddContent1 = document.getElementById('home1');
-
-      //This information is what is displayed in the pop out.
-      divToAddContent1.innerHTML = "<b>" + "Addional Features box" + "</b>" + "<br>" + "Help docs to be added";
-
-
-    }
-
-    //This makes an SQL which sets the zoom level but all data sets are shown as they are called below
-    function setInitialData() {
-      DTAS()
-    }
-
-
-
-    //add geolocation on click button
-    //ref https://stackoverflow.com/questions/3397585/navigator-geolocation-getcurrentposition-sometimes-works-sometimes-doesnt#3885172
-    function geolocation() {
-      if (navigator.geolocation) {
-
-        var location_timeout = setTimeout("geolocFail()", 10000);
-
-
-        navigator.geolocation.getCurrentPosition(function(position) {
-
-          //clearTimeout(location_timeout);
-
-          var lat = position.coords.latitude;
-          var lng = position.coords.longitude;
-          map.setView([lat, lng], 10);
-          //could add a marker here to show persons current location
-
-
-          geocodeLatLng(lat + " " + lng);
-
-        }, function(error) {
-          clearTimeout(location_timeout);
-          geolocFail();
-        });
-      } else {
-        // Fallback for no geolocation
-        geolocFail();
-      }
-    }
-
-
-    //This functionality removes the elements that are clicked on in the top of the side bar. This code needs to be in the body tag or it will throw a error
-    //This code works by overwriting the leaflet library functionality firstly setting the leafletView.Cluster._markers = [] as empty. It then makes calls to the different groups sql calls
-    //as seen with the group names e.g. DTAS these functions are below
-    var commLandCount;
-    var DTAScount = 0;
-
-    function All() {
-      commLand();
-      DTAS();
-      ECS();
-    }
-
-
-
-    function AddElements(group) {
-
-
-      //alert(group);
-      leafletView.Cluster._markers = [];
-      leafletView.ProcessView();
-      group();
-      map.setView([55.3781, -4.4360], 6);
-      main();
-
-      //var selector = '.commLandButton';
-
-      $(selector).on('click', function() {
-        var myClass = $(this).attr("class");
-
-        if (myClass == ".commLandButton active") {
-          alert(myClass);
-
-          $(this).removeClass('active');
-          commLand();
-          alert(myClass);
-
-
-        } else {
-          alert(myClass);
-          $(this).addClass('active');
-
-
-          alert(myClass);
-        }
-      })
-
-      //if button css is clicked dont call it else call it for every one
-      //1st Job - work out how to distinguish the css functionality
-      //give it a marker of some kind
-      // temp = []
-      //     for (i = 0; i < leafletView.Cluster._markers.length; i++) {
-      //     //leafletView.Cluster._markers[i];
-
-
-      // if(leafletView.Cluster._markers[i].category == 1){
-      // leafletView.Cluster._markers[i]
-      // console.log(leafletView.Cluster._markers[i]);
-      // temp = leafletView.Cluster._markers[i]
-      //   //.splice(0, 2));
-      // }
-      // }
-
-
-      //
-      leafletView.ProcessView();
-      //console.log(leafletView.Cluster._markers);
-    }
-
-
-
-
-    //This will be the functionality to select the nearest location in relation to the point selected
-    //Make call within div above and then sql gets execueed and displays the results which will be clickable
-    //Have to access the elements with something like KNN.get1() etc
-    //This adds the data to the side bar which is just a set up but needs to be dynamic so on click it will update the opnSideBar function and pass params
-
-    //need to send data here but not going
-
-
-    //popUp would not send the data from the onlcick  function so had to call the data again within popUp method
-    //The param is a reference to the group reference in the data1 array which will be used within this function
-    //It would not accept the sql data so there is a seconfd sql call possibly too large a data set within this method to fetch the data
-    //It resets the sidebar and zoom to match the KNN point clicked in the KNN function below
-    function popUp(num1) {
-
-
-      var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
-        function(data1) {
-
-
-
-          //call side bar
-          //(network, ID,url,facebook_url,twitter_url,description)
-          var network = data1.features[num1].properties.network;
-          var ID = data1.features[num1].properties.name;
-          // alert(ID);
-          var url = data1.features[num1].properties.url;
-          var facebook_url = data1.features[num1].properties.facebook_url;
-          var twitter_url = data1.features[num1].properties.twitter_url;
-          var url = data1.features[num1].properties.url;
-          var description = data1.features[num1].properties.description;
-
-          openSidebar(network, ID, url, facebook_url, twitter_url, description);
-
-          var long = data1.features[num1].geometry.coordinates[0];
-          var lat = data1.features[num1].geometry.coordinates[1];
-          map.setView([lat, long], 11);
-
-
-          var popup = L.popup()
-            .setLatLng([data1.features[num1].geometry.coordinates[1], data1.features[num1].geometry.coordinates[0]])
-            .setContent("<b>" + data1.features[num1].properties.name + "</b>" + "</br>" + "</br>" + "<i>Click for more information<i>")
-            .openOn(map);
-
-          var delayMillis = 1000; //0.5 second
-          setTimeout(function() {
-            map.closePopup();
-          }, delayMillis);
-
-
-
-        });
-
-
-
-
-
-      //opensidenetwork, ID,url,facebook_url,twitter_url,description
-
-      //console.log("data what" + lat.features[0].properties.name);
-      // //openSidebar(network, ID,url,facebook_url,twitter_url,description);
-      //    openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
-
-      //KNN is a function which will display the 4 nearest neighbours for the currently selected point which is called from the OpensideBar function below  updates the KNN sidebar section and then has functionality to on click the buttons calls the popUp function above
-
-    };
-
-
-    function KNN(num1) {
-      //alert(num1);
-      var divToAddContent1 = document.getElementById('tabKNN');
-
-
-      //insert KNN sql call here
-      var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
-        function(data1) {
-          //console.log(data1.features[0].properties.name,data1.features[1].properties);
-          var data = data1;
-
-          console.log("data")
-          console.log(data);
-
-          var name = data1.features[0].properties.name;
-
-          //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
-
-
-          //here change num1 to incoming sql call
-          //MIGHT NEED TO CHANGE THIS SO BUTTONS CAN BE HORIZONTAL // drop data1.features[num1].properties.name
-
-
-          divToAddContent1.innerHTML = '<b>' + '    Other groups nearby:' + '</b>' + '<div class="tab2" id="tab2">' +
-
-            '<button class=" tablinks3" onclick="popUp(' + num1 + ')"> ' + '1' + '  </button>' +
-            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '2' + '  </button>'
-
-            +
-            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '3' + '  </button>' +
-            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '4' + '  </button>' +
-            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '5' + '  </button>' +
-            '</div>';
-          //alert();
-
-
-
-        });
-
-
-      //leafletMarker.on('mouseover', function(e) {
-
-
-
-
-
-
-
-      //});
-
-
-
-
-      //four NN removed
-      //+ data1.features[0].properties.name + data1.features[1].properties.name
-
-    };
-
-
-
-
-
-
-
-
-
-    function openSidebar(network, ID, url, facebook_url, twitter_url, description) {
-
-
-
-
-
-
-
-
-      //This adds a parser funcionality if the input from the database contains errors needed to change the url formatting if incorrect in the database
-      var parser = document.createElement('a');
-      parser.href = url;
-      parser.protocol; // => "http:"
-      parser.hostname; // => "example.com"
-      parser.port; // => "3000"
-      parser.pathname; // => "/pathname/"
-      parser.search; // => "?search=test"
-      parser.hash; // => "#hash"
-      parser.host; // => "example.com:3000"
-
-      //This is functionality for entries that are incorrect which alters the url so that it becomes a link and adds https://
-      if (url != null && parser.protocol != "http://" && network == "Community Land Scotland") {
-        //alert(network);
-        url = "http://" + url;
-        //alert(url)
-      }
-
-
-      //This is to format the length of the text in the sidebar
-      if (url == null) {
-        url1 = "";
-      } else if (url.length > 20) {
-        //parse and remove
-
-        url1 = parser.hostname;
-
-      } else {
-        url1 = parser.host;
-      }
-
-      //for now needs deleting after
-      var description =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id massa gravida nunc dapibus finibus vitae ac lorem. Fusce laoreet risus at ultricies tempor. Sed gravida ipsum nec cursus tempor. Nullam vehicula, neque ut sollicitudin sollicitudin, erat massa auctor purus.";
-
-
-
-      if (twitter_url == undefined) {
-
-        sidebar.open('home');
-        var divToAddContent = document.getElementById('home');
-
-        //This information is what is displayed in the pop out.
-        divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Website: </b>" +
-          '<a href="' + url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description;
-      } else if (url == undefined || url == null || url == "") {
-
-
-
-        sidebar.open('home');
-        var divToAddContent = document.getElementById('home');
-
-        //This information is what is displayed in the pop out.
-        divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br><b> Facebook: </b>" + facebook_url + "</br><b>Description:</b> " + description;
-
-        //(twitter_url == null){
-
-
-      } else if (facebook_url == undefined) {
-
-        sidebar.open('home');
-        var divToAddContent = document.getElementById('home');
-
-        //This information is what is displayed in the pop out.
-        divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description;
-      }
-
-      //This removes previous text upon updating the side bar
-      if ($('#sidebar-text').text().length > 0) {
-        $("#sidebar-text").removeText();
-        $("#sidebar-text2").removeText();
-
-
-
-
-
-      }
-
-      // $("#tabKNN").removeText();
-      //change this to the point clicked
-      KNN(0);
-
-
-
-
-
-
-
-      //This will remove the elements of the selected button type
-
-      /* for(var i = 0, markers.length ; i++){
-                console.log(markers);
-
-              }
-             */
-
-
-
-      /*for (var i = 0, len = results.length; i < len; i++) {
-
-       //this loop matches the array element to the passed ID
-          if (results[i].Link == ID) {
-              thisResult = (results[i]);
-          }
-      }
-      */
-      //remove name from thisResult and others
-
-    }
-
-
-    //Adds the prune cluster view for leaflet so other items can be added to it. Refer to prune cluster docs for more info
-    //Find prunecluster docs at https://github.com/SINTEF-9012/PruneCluster
-    //This is boilerplate code taken from the examples on the prunecluster library
-    var leafletView = new PruneClusterForLeaflet();
-
-
-
-
-    //Adds prune cluster functionality for the page
-    leafletView.BuildLeafletClusterIcon = function(cluster) {
-      var e = new L.Icon.MarkerCluster();
-
-      e.stats = cluster.stats;
-      e.population = cluster.population;
-      return e;
-    };
-
-    // Define colours for markercluster ring segments
-    var colors = ['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e'],
-      pi2 = Math.PI * 2;
-
-    L.Icon.MarkerCluster = L.Icon.extend({
-      options: {
-        //This had an error as it was trowing off the marker alignment so had to be reduced
-        iconSize: new L.Point(80, 50),
-        // iconSize:     [38, 95], // size of the icon
-        //className: 'prunecluster leaflet-markercluster-icon'
-      },
-
-      createIcon: function() {
-        // based on L.Icon.Canvas from shramov/leaflet-plugins (BSD licence)
-        var e = document.createElement('canvas');
-        this._setIconStyles(e, 'icon');
-        var s = this.options.iconSize;
-        e.width = s.x;
-        e.height = s.y;
-        this.draw(e.getContext('2d'), s.x, s.y);
-        return e;
-      },
-
-      createShadow: function() {
-        return null;
-      },
-
-      draw: function(canvas, width, height) {
-
-        var lol = 0;
-
-        var start = 0;
-        for (var i = 0, l = colors.length; i < l; ++i) {
-
-          var size = this.stats[i] / this.population;
-
-
-          if (size > 0) {
-            canvas.beginPath();
-            canvas.moveTo(22, 22);
-            canvas.fillStyle = colors[i];
-            var from = start + 0.14,
-              to = start + size * pi2;
-
-            if (to < from) {
-              from = start;
             }
-            canvas.arc(22, 22, 22, from, to);
 
-            start = start + size * pi2;
-            canvas.lineTo(22, 22);
-            canvas.fill();
-            canvas.closePath();
-          }
-
-        }
-
-        canvas.beginPath();
-        canvas.fillStyle = 'white';
-        canvas.arc(22, 22, 18, 0, Math.PI * 2);
-        canvas.fill();
-        canvas.closePath();
-
-        canvas.fillStyle = '#555';
-        canvas.textAlign = 'center';
-        canvas.textBaseline = 'middle';
-        canvas.font = 'bold 12px sans-serif';
-
-        canvas.fillText(this.population, 22, 22, 40);
-      }
-    });
+            //This makes an SQL which sets the zoom level but all data sets are shown as they are called below
+            function setInitialData() {
+                DTAS()
+            }
 
 
+            //add geolocation on click button
+            //ref https://stackoverflow.com/questions/3397585/navigator-geolocation-getcurrentposition-sometimes-works-sometimes-doesnt#3885172
+            function geolocation() {
+                if (navigator.geolocation) {
 
-    var size = 10000;
-    var markers = [];
-
-
-    //These are the additional datasets which will be added to the prune clustering, the marker.category needs to be altered along with the marker name/number to prevent duplicates
-    //The getJSON call is used which requires specific url for your carto account ad then a specific sql call check the sql table name on carto as it may not be the same name as you uploaded from your original machine eg "mapcomm-admin".communityenergy_groups_gb_sct' was originally communityenergy_groups_gb_sct. Also, check the port number is correct.
-
+                    var location_timeout = setTimeout("geolocFail()", 10000);
 
 
-    //1st call - community energy
-    function commEnergy() {
-      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',
-        function(data1) {
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
-              //console.log(latlng.lat, latlng.lng);
+                    navigator.geolocation.getCurrentPosition(function(position) {
+
+                        //clearTimeout(location_timeout);
+
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+                        map.setView([lat, lng], 10);
+                        //could add a marker here to show persons current location
 
 
-              var marker = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'leaflet.jpeg',
-                  iconSize: [48, 48]
+                        geocodeLatLng(lat + " " + lng);
 
+                    }, function(error) {
+                        clearTimeout(location_timeout);
+                        geolocFail();
+                    });
+                } else {
+                    geolocFail();
+                }
+            }
+
+
+            //This functionality removes the elements that are clicked on in the top of the side bar. This code needs to be in the body tag or it will throw a error
+            //This code works by overwriting the leaflet library functionality firstly setting the leafletView.Cluster._markers = [] as empty. It then makes calls to the different groups sql calls
+            //as seen with the group names e.g. DTAS these functions are below
+            var commLandCount;
+            var DTAScount = 0;
+
+            function All() {
+                // Fallback for no geolocation
+                commLand();
+                DTAS();
+                ECS();
+            }
+
+
+            function AddElements(group) {
+
+
+                //alert(group);
+                leafletView.Cluster._markers = [];
+                leafletView.ProcessView();
+                group();
+                map.setView([55.3781, -4.4360], 6);
+                main();
+
+                //var selector = '.commLandButton';
+
+                $(selector).on('click', function() {
+                    var myClass = $(this).attr("class");
+
+                    if (myClass == ".commLandButton active") {
+                        alert(myClass);
+
+                        $(this).removeClass('active');
+                        commLand();
+                        alert(myClass);
+
+
+                    } else {
+                        alert(myClass);
+                        $(this).addClass('active');
+
+
+                        alert(myClass);
+                    }
                 })
-              });
+
+                //if button css is clicked dont call it else call it for every one
+                //1st Job - work out how to distinguish the css functionality
+                //give it a marker of some kind
+                // temp = []
+                //     for (i = 0; i < leafletView.Cluster._markers.length; i++) {
+                //     //leafletView.Cluster._markers[i];
 
 
-              marker.category = 0;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker);
-              leafletView.RegisterMarker(marker);
-            }
-          })
-
-        });
-    }
-    //commEnergy();
-    //too many points ruins clusters
+                // if(leafletView.Cluster._markers[i].category == 1){
+                // leafletView.Cluster._markers[i]
+                // console.log(leafletView.Cluster._markers[i]);
+                // temp = leafletView.Cluster._markers[i]
+                //   //.splice(0, 2));
+                // }
+                // }
 
 
-    //2nd call - community land
-    function commLand() {
-
-      var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
-        function(data1) {
-          //console.log(data1);
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
-              //console.log(latlng.lat, latlng.lng);
-              var marker1 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'leaflet.jpeg',
-                  iconSize: [48, 48]
-
-                })
-              });
-
-              marker1.category = 1;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker1);
-              leafletView.RegisterMarker(marker1);
+                //
+                leafletView.ProcessView();
+                //console.log(leafletView.Cluster._markers);
             }
 
-          })
-        }
+
+            //This will be the functionality to select the nearest location in relation to the point selected
+            //Make call within div above and then sql gets execueed and displays the results which will be clickable
+            //Have to access the elements with something like KNN.get1() etc
+            //This adds the data to the side bar which is just a set up but needs to be dynamic so on click it will update the opnSideBar function and pass params
+
+            //need to send data here but not going
 
 
-      );
-    };
-    commLand();
+            //popUp would not send the data from the onlcick  function so had to call the data again within popUp method
+            //The param is a reference to the group reference in the data1 array which will be used within this function
+            //It would not accept the sql data so there is a seconfd sql call possibly too large a data set within this method to fetch the data
+            //It resets the sidebar and zoom to match the KNN point clicked in the KNN function below
+            function popUp(num1) {
 
 
+                var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
+                    function(data1) {
 
 
+                        //call side bar
+                        //(network, ID,url,facebook_url,twitter_url,description)
+                        var network = data1.features[num1].properties.network;
+                        var ID = data1.features[num1].properties.name;
+                        // alert(ID);
+                        var url = data1.features[num1].properties.url;
+                        var facebook_url = data1.features[num1].properties.facebook_url;
+                        var twitter_url = data1.features[num1].properties.twitter_url;
+                        var url = data1.features[num1].properties.url;
+                        var description = data1.features[num1].properties.description;
 
-    //3rd call - dtas
+                        openSidebar(network, ID, url, facebook_url, twitter_url, description);
 
-    function DTAS() {
-      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',
-        function(data1) {
-
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
-
-
-              var marker2 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'layer.png',
-                  iconSize: [48, 48]
-
-                })
-              });
+                        var long = data1.features[num1].geometry.coordinates[0];
+                        var lat = data1.features[num1].geometry.coordinates[1];
+                        map.setView([lat, long], 11);
 
 
-              marker2.category = 2;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker2);
-              leafletView.RegisterMarker(marker2);
+                        var popup = L.popup()
+                            .setLatLng([data1.features[num1].geometry.coordinates[1], data1.features[num1].geometry.coordinates[0]])
+                            .setContent("<b>" + data1.features[num1].properties.name + "</b>" + "</br>" + "</br>" + "<i>Click for more information<i>")
+                            .openOn(map);
+
+                        var delayMillis = 1000; //0.5 second
+                        setTimeout(function() {
+                            map.closePopup();
+                        }, delayMillis);
+
+
+                    });
+
+
+                //opensidenetwork, ID,url,facebook_url,twitter_url,description
+
+                //console.log("data what" + lat.features[0].properties.name);
+                // //openSidebar(network, ID,url,facebook_url,twitter_url,description);
+                //    openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
+
+                //KNN is a function which will display the 4 nearest neighbours for the currently selected point which is called from the OpensideBar function below  updates the KNN sidebar section and then has functionality to on click the buttons calls the popUp function above
+
+            };
+
+
+            function KNN(num1) {
+                //alert(num1);
+                var divToAddContent1 = document.getElementById('tabKNN');
+
+
+                //insert KNN sql call here
+                var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
+                    function(data1) {
+                        //console.log(data1.features[0].properties.name,data1.features[1].properties);
+                        var data = data1;
+                        //MIGHT NEED TO CHANGE THIS SO BUTTONS CAN BE HORIZONTAL // drop data1.features[num1].properties.name
+
+                        console.log("data")
+                        console.log(data);
+
+                        var name = data1.features[0].properties.name;
+
+                        //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
+
+
+                        //here change num1 to incoming sql call
+
+
+                        divToAddContent1.innerHTML = '<b>' + '    Other groups nearby:' + '</b>' + '<div class="tab2" id="tab2">' +
+
+                            '<button class=" tablinks3" onclick="popUp(' + num1 + ')"> ' + '1' + '  </button>' +
+                            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '2' + '  </button>'
+
+                            +
+                            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '3' + '  </button>' +
+                            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '4' + '  </button>' +
+                            '<button class="tablinks3" onclick="popUp(' + num1 + ')"> ' + '5' + '  </button>' +
+                            '</div>';
+                        //alert();
+
+
+                    });
+
+
+                //leafletMarker.on('mouseover', function(e) {
+
+
+                //});
+
+
+                //four NN removed
+                //+ data1.features[0].properties.name + data1.features[1].properties.name
+
+            };
+
+
+            function openSidebar(network, ID, url, facebook_url, twitter_url, description) {
+
+
+                //This adds a parser funcionality if the input from the database contains errors needed to change the url formatting if incorrect in the database
+                var parser = document.createElement('a');
+                parser.href = url;
+                parser.protocol; // => "http:"
+                parser.hostname; // => "example.com"
+                parser.port; // => "3000"
+                parser.pathname; // => "/pathname/"
+                parser.search; // => "?search=test"
+                parser.hash; // => "#hash"
+                parser.host; // => "example.com:3000"
+
+                //This is functionality for entries that are incorrect which alters the url so that it becomes a link and adds https://
+                if (url != null && parser.protocol != "http://" && network == "Community Land Scotland") {
+                    //alert(network);
+                    url = "http://" + url;
+                    //alert(url)
+                }
+
+
+                //This is to format the length of the text in the sidebar
+                if (url == null) {
+                    url1 = "";
+                } else if (url.length > 20) {
+                    //parse and remove
+
+                    url1 = parser.hostname;
+
+                } else {
+                    url1 = parser.host;
+                }
+
+                //for now needs deleting after
+                var description =
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id massa gravida nunc dapibus finibus vitae ac lorem. Fusce laoreet risus at ultricies tempor. Sed gravida ipsum nec cursus tempor. Nullam vehicula, neque ut sollicitudin sollicitudin, erat massa auctor purus.";
+
+
+                if (twitter_url == undefined) {
+
+                    sidebar.open('home');
+                    var divToAddContent = document.getElementById('home');
+
+                    //This information is what is displayed in the pop out.
+                    divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "<b>Website: </b>" +
+                        '<a href="' + url + '" target="_blank"' + '>' + url1 + '</a>' + "</br><b>Description:</b> " + description;
+                } else if (url == undefined || url == null || url == "") {
+
+
+                    sidebar.open('home');
+                    var divToAddContent = document.getElementById('home');
+
+                    //This information is what is displayed in the pop out.
+                    divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br><b> Facebook: </b>" + facebook_url + "</br><b>Description:</b> " + description;
+
+                    //(twitter_url == null){
+
+
+                } else if (facebook_url == undefined) {
+
+                    sidebar.open('home');
+                    var divToAddContent = document.getElementById('home');
+
+                    //This information is what is displayed in the pop out.
+                    divToAddContent.innerHTML = "<b>" + network + "</b>" + "</br></br>" + "<b>Name: </b>" + ID + "</br>" + "</br><b>Description:</b> " + description;
+                }
+
+                //This removes previous text upon updating the side bar
+                if ($('#sidebar-text').text().length > 0) {
+                    $("#sidebar-text").removeText();
+                    $("#sidebar-text2").removeText();
+
+
+                }
+
+                // $("#tabKNN").removeText();
+                //change this to the point clicked
+                KNN(0);
+
+
+                //This will remove the elements of the selected button type
+
+                /* for(var i = 0, markers.length ; i++){
+                          console.log(markers);
+
+                        }
+                       */
+
+
+                /*for (var i = 0, len = results.length; i < len; i++) {
+
+                 //this loop matches the array element to the passed ID
+                    if (results[i].Link == ID) {
+                        thisResult = (results[i]);
+                    }
+                }
+                */
+                //remove name from thisResult and others
 
             }
-          })
-
-        });
-    }
-    DTAS();
 
 
-    //4th - ecs
-    function ECS() {
-      var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',
-        function(data1) {
-
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
+            //Adds the prune cluster view for leaflet so other items can be added to it. Refer to prune cluster docs for more info
+            //Find prunecluster docs at https://github.com/SINTEF-9012/PruneCluster
+            //This is boilerplate code taken from the examples on the prunecluster library
+            var leafletView = new PruneClusterForLeaflet();
 
 
-              var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'layer.png',
-                  iconSize: [48, 48]
+            //Adds prune cluster functionality for the page
+            leafletView.BuildLeafletClusterIcon = function(cluster) {
+                var e = new L.Icon.MarkerCluster();
 
-                })
-              });
+                e.stats = cluster.stats;
+                e.population = cluster.population;
+                return e;
+            };
+
+            // Define colours for markercluster ring segments
+            var colors = ['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e'],
+                pi2 = Math.PI * 2;
+
+            L.Icon.MarkerCluster = L.Icon.extend({
+                options: {
+                    //This had an error as it was trowing off the marker alignment so had to be reduced
+                    iconSize: new L.Point(80, 50),
+                    // iconSize:     [38, 95], // size of the icon
+                    //className: 'prunecluster leaflet-markercluster-icon'
+                },
+
+                createIcon: function() {
+                    // based on L.Icon.Canvas from shramov/leaflet-plugins (BSD licence)
+                    var e = document.createElement('canvas');
+                    this._setIconStyles(e, 'icon');
+                    var s = this.options.iconSize;
+                    e.width = s.x;
+                    e.height = s.y;
+                    this.draw(e.getContext('2d'), s.x, s.y);
+                    return e;
+                },
+
+                createShadow: function() {
+                    return null;
+                },
+
+                draw: function(canvas, width, height) {
+
+                    var lol = 0;
+
+                    var start = 0;
+                    for (var i = 0, l = colors.length; i < l; ++i) {
+
+                        var size = this.stats[i] / this.population;
 
 
-              marker3.category = 3;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker3);
-              leafletView.RegisterMarker(marker3);
+                        if (size > 0) {
+                            canvas.beginPath();
+                            canvas.moveTo(22, 22);
+                            canvas.fillStyle = colors[i];
+                            var from = start + 0.14,
+                                to = start + size * pi2;
 
+                            if (to < from) {
+                                from = start;
+                            }
+                            canvas.arc(22, 22, 22, from, to);
+
+                            start = start + size * pi2;
+                            canvas.lineTo(22, 22);
+                            canvas.fill();
+                            canvas.closePath();
+                        }
+
+                    }
+
+                    canvas.beginPath();
+                    canvas.fillStyle = 'white';
+                    canvas.arc(22, 22, 18, 0, Math.PI * 2);
+                    canvas.fill();
+                    canvas.closePath();
+
+                    canvas.fillStyle = '#555';
+                    canvas.textAlign = 'center';
+                    canvas.textBaseline = 'middle';
+                    canvas.font = 'bold 12px sans-serif';
+
+                    canvas.fillText(this.population, 22, 22, 40);
+                }
+            });
+
+
+            var size = 10000;
+            var markers = [];
+
+
+            //These are the additional datasets which will be added to the prune clustering, the marker.category needs to be altered along with the marker name/number to prevent duplicates
+            //The getJSON call is used which requires specific url for your carto account ad then a specific sql call check the sql table name on carto as it may not be the same name as you uploaded from your original machine eg "mapcomm-admin".communityenergy_groups_gb_sct' was originally communityenergy_groups_gb_sct. Also, check the port number is correct.
+
+
+            //1st call - community energy
+            function commEnergy() {
+                var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityenergy_groups_gb_sct',
+                    function(data1) {
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+                                //console.log(latlng.lat, latlng.lng);
+
+
+                                var marker = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'leaflet.jpeg',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+
+                                marker.category = 0;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker);
+                                leafletView.RegisterMarker(marker);
+                            }
+                        })
+
+                    });
             }
-          })
-
-        });
-    }
-    ECS();
+            //commEnergy();
+            //too many points ruins clusters
 
 
-    //4th - city farms
-    function cityFarms() {
-      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',
-        function(data1) {
+            //2nd call - community land
+            function commLand() {
 
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
+                var query4 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".communityland_groups_gb_sct',
+                    function(data1) {
+                        //console.log(data1);
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+                                //console.log(latlng.lat, latlng.lng);
+                                var marker1 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'leaflet.jpeg',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+                                marker1.category = 1;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker1);
+                                leafletView.RegisterMarker(marker1);
+                            }
+
+                        })
+                    }
 
 
-              var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'layer.png',
-                  iconSize: [48, 48]
-
-                })
-              });
+                );
+            };
+            commLand();
 
 
-              marker4.category = 4;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker4);
-              leafletView.RegisterMarker(marker4);
+            //3rd call - dtas
 
+            function DTAS() {
+                var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".dtas_groups_gb_sct',
+                    function(data1) {
+
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+
+
+                                var marker2 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+
+                                marker2.category = 2;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker2);
+                                leafletView.RegisterMarker(marker2);
+
+                            }
+                        })
+
+                    });
             }
-          })
-
-        }));
-    }
-    cityFarms();
-    //city farms sql call failure
+            DTAS();
 
 
+            //4th - ecs
+            function ECS() {
+                var query3 = $.getJSON('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".ecs_groups_gb_sct',
+                    function(data1) {
+
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
 
 
+                                var marker3 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
 
 
-    //5th - sccan
-    function sccan() {
-      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',
-        function(data1) {
+                                marker3.category = 3;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker3);
+                                leafletView.RegisterMarker(marker3);
 
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
+                            }
+                        })
 
-
-              var marker5 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'layer.png',
-                  iconSize: [48, 48]
-
-                })
-              });
-
-
-              marker5.category = 5;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker5);
-              leafletView.RegisterMarker(marker5);
-
+                    });
             }
-          })
-
-        }));
-    }
-    sccan();
-    //error sql
-    //6th group deleted add here
+            ECS();
 
 
+            //4th - city farms
+            function cityFarms() {
+                var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".cityfarmsgardens_groups_gb_sct',
+                    function(data1) {
 
-    //7th - permaculture
-    function permaculture() {
-      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".permaculture_groups_gb_sct',
-        function(data1) {
-
-          L.geoJSON(data1, {
-            pointToLayer: function(feature, latlng, properties) {
-
-
-              var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                color: '#000',
-                feature,
-                'color': '#f3ff00',
-                'colorClass': 'yellow',
-                'visible': true,
-                icon: L.icon({
-                  iconUrl: 'layer.png',
-                  iconSize: [48, 48]
-
-                })
-              });
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
 
 
-              marker7.category = 7;
-              // marker.category = Math.floor(Math.random() * colors.length);
-              markers.push(marker7);
-              leafletView.RegisterMarker(marker7);
+                                var marker4 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
 
+                                    })
+                                });
+
+
+                                marker4.category = 4;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker4);
+                                leafletView.RegisterMarker(marker4);
+
+                            }
+                        })
+
+                    }));
             }
-          })
-
-        }));
-    }
-    permaculture();
-
-    /*
-    KNN call
-    var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
-
-        function(data1) {
+            cityFarms();
+            //city farms sql call failure
 
 
-    }));*/
+            //5th - sccan
+            function sccan() {
+                var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".sccan_groups_gb_sct',
+                    function(data1) {
+
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
 
 
-    //An attemp to change the icons this is work in progress
-    var myIcon = L.icon({
-      iconUrl: 'leaflet.jpeg',
-      iconSize: [38, 95],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
+                                var marker5 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
 
-      shadowSize: [68, 95],
-      shadowAnchor: [22, 94]
-    });
-
-    var myIcon2 = L.icon({
-      iconUrl: 'leaflet.jpeg',
-      iconSize: [10, 25],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
-
-      shadowSize: [68, 95],
-      shadowAnchor: [22, 94]
-    });
+                                    })
+                                });
 
 
+                                marker5.category = 5;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker5);
+                                leafletView.RegisterMarker(marker5);
+
+                            }
+                        })
+
+                    }));
+            }
+            sccan();
+            //error sql
+            //6th group deleted add here
 
 
-    //This section adds functionality to the cluster group which has an onhover(moueover), also an on click functionality
-    //These need to be added to the leaflet view
-    leafletView.PrepareLeafletMarker = function(leafletMarker, data, properties) {
+            //7th - permaculture
+            function permaculture() {
+                var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT * FROM "mapcomm-admin".permaculture_groups_gb_sct',
+                    function(data1) {
 
-      //change the icon for markers error in this
-      /*var iconUrl = layer.png;
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+
+
+                                var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'colorClass': 'yellow',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+
+                                marker7.category = 7;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker7);
+                                leafletView.RegisterMarker(marker7);
+
+                            }
+                        })
+
+                    }));
+            }
+            permaculture();
+
+
+            function SIMD(col) {
+                var query3 = $.getJSON(
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ' FROM "mapcomm-admin".simd2016withinds',
+                    function(data1) {
+                        chartConfig.data = data1;
+                        chartConfig.columns = [col];
+
+                        chart.unload();
+                        chart.load({
+                            json: chartConfig.data.rows,
+                            keys: { value:chartConfig.columns, },
+                        });
+
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+
+
+                                var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+
+                                marker7.category = 7;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker7);
+                                leafletView.RegisterMarker(marker7);
+
+                            }
+                        })
+
+                    });
+            }
+
+            function ruralUrban(col) {
+                var query3 = $.getJSON(
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ' FROM "mapcomm-admin".ruralurban',
+                    function(data1) {
+                        chartConfig.data = data1;
+                        chartConfig.columns = [col];
+
+                        L.geoJSON(data1, {
+                            pointToLayer: function(feature, latlng, properties) {
+
+
+                                var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                                    color: '#000',
+                                    feature,
+                                    'color': '#f3ff00',
+                                    'visible': true,
+                                    icon: L.icon({
+                                        iconUrl: 'layer.png',
+                                        iconSize: [48, 48]
+
+                                    })
+                                });
+
+
+                                marker7.category = 7;
+                                // marker.category = Math.floor(Math.random() * colors.length);
+                                markers.push(marker7);
+                                leafletView.RegisterMarker(marker7);
+
+                            }
+                        })
+
+                    });
+            }
+
+            /*
+            KNN call
+            var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+
+                function(data1) {
+
+
+            }));*/
+
+
+            //An attemp to change the icons this is work in progress
+            var myIcon = L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [38, 95],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+
+                shadowSize: [68, 95],
+                shadowAnchor: [22, 94]
+            });
+
+            var myIcon2 = L.icon({
+                iconUrl: 'leaflet.jpeg',
+                iconSize: [10, 25],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+
+                shadowSize: [68, 95],
+                shadowAnchor: [22, 94]
+            });
+
+
+            //This section adds functionality to the cluster group which has an onhover(moueover), also an on click functionality
+            //These need to be added to the leaflet view
+            leafletView.PrepareLeafletMarker = function(leafletMarker, data, properties) {
+
+                //change the icon for markers error in this
+                /*var iconUrl = layer.png;
 
  LeafletMarker.setIcon(L.icon({
     iconUrl: iconUrl,
@@ -1167,234 +1214,219 @@ get all data sets loaded with buttons in help sidebar
     shadowAnchor: [22, 94]
 }));*/
 
-      // leafletMarker.setIcon(myIcon2);
+                // leafletMarker.setIcon(myIcon2);
 
 
-      // leafletMarker.setIcon(myIcon2);
+                // leafletMarker.setIcon(myIcon2);
 
 
-      leafletMarker.on('mouseover', function(e) {
+                leafletMarker.on('mouseover', function(e) {
 
 
+                    var popup = L.popup()
+
+                        .setLatLng(e.latlng)
+                        .setContent("<b>" + data.feature.properties.network + "</b>" + "</br>" + "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>" + "<i>Click for more information<i>")
+                        .openOn(map);
+                });
 
 
+                //This is the mouse out function which has a timer added to delay it by half a second as it was buggy without this functionality and the pop up would flash and not display correctly
+                leafletMarker.on('mouseout', function(e) {
+
+                    var delayMillis = 500; //0.5 second
+                    setTimeout(function() {
+                        map.closePopup();
+                    }, delayMillis);
+                });
 
 
-        var popup = L.popup()
+                leafletMarker.on('click', function() {
+                    console.log(data);
 
-          .setLatLng(e.latlng)
-          .setContent("<b>" + data.feature.properties.network + "</b>" + "</br>" + "<b>" + data.feature.properties.name + "</b>" + "</br>" + "</br>" + "<i>Click for more information<i>")
-          .openOn(map);
-      });
+                    console.log(data.feature.properties.network)
+                    openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url, data.feature.properties.facebook_url, data.feature.properties.twitter_url, data.feature.properties.description);
 
-
-      //This is the mouse out function which has a timer added to delay it by half a second as it was buggy without this functionality and the pop up would flash and not display correctly
-      leafletMarker.on('mouseout', function(e) {
-
-        var delayMillis = 500; //0.5 second
-        setTimeout(function() {
-          map.closePopup();
-        }, delayMillis);
-      });
+                    //do click event logic here
+                })
 
 
-
-      leafletMarker.on('click', function() {
-        console.log(data);
-
-        console.log(data.feature.properties.network)
-        openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url, data.feature.properties.facebook_url, data.feature.properties.twitter_url, data.feature.properties.description);
-
-        //do click event logic here
-      })
-
-
-
-    };
-
-    map.addLayer(leafletView);
-    console.log("here");
-    // console.log(leafletView.Cluster._markers);
-
-
-
-
-
-
-
-
-
-    //This is an implementation of adding layers with mapbox API
-    /*
-        //This is work in progress which is for the additional layers of the areas of deprivation in the uk using  amap box overlay
-        //This is work in progress
-        //add the key token from mapbox
-
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFuaGlsbGNvZGUiLCJhIjoiY2o0dmR3aG1lMG05djMzbzE2dW42OHZkNSJ9.FC7U0-Wz5UBLBu45_w9c_w', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            id: 'mapbox.streets'
-        }).addTo(map);
-
-
-        // control that shows state info on hover
-        var info = L.control();
-
-
-    //L.geoJson('us-states.js').addTo(map);
-
-
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-
-        info.update = function (props) {
-            this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
-                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-                : 'Hover over a state');
-        };
-
-        info.addTo(map);
-
-
-
-
-        // get color depending on population density value
-        function getColor(d) {
-            return d > 1000 ? '#800026' :
-                    d > 500  ? '#BD0026' :
-                    d > 200  ? '#E31A1C' :
-                    d > 100  ? '#FC4E2A' :
-                    d > 50   ? '#FD8D3C' :
-                    d > 20   ? '#FEB24C' :
-                    d > 10   ? '#FED976' :
-                                '#FFEDA0';
-        }
-
-        function style(feature) {
-            return {
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.4,
-                fillColor: getColor(feature.properties.density)
             };
-        }
 
-        function highlightFeature(e) {
-            var layer = e.target;
+            map.addLayer(leafletView);
+            console.log("here");
+            // console.log(leafletView.Cluster._markers);
 
-            layer.setStyle({
-                weight: 5,
-                color: '#000',
-                dashArray: '',
-                fillOpacity: 0.7
-            });
 
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
+            //This is an implementation of adding layers with mapbox API
+            /*
+                //This is work in progress which is for the additional layers of the areas of deprivation in the uk using  amap box overlay
+                //This is work in progress
+                //add the key token from mapbox
+
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFuaGlsbGNvZGUiLCJhIjoiY2o0dmR3aG1lMG05djMzbzE2dW42OHZkNSJ9.FC7U0-Wz5UBLBu45_w9c_w', {
+                    maxZoom: 18,
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'mapbox.streets'
+                }).addTo(map);
+
+
+                // control that shows state info on hover
+                var info = L.control();
+
+
+            //L.geoJson('us-states.js').addTo(map);
+
+
+                info.onAdd = function (map) {
+                    this._div = L.DomUtil.create('div', 'info');
+                    this.update();
+                    return this._div;
+                };
+
+                info.update = function (props) {
+                    this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+                        '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+                        : 'Hover over a state');
+                };
+
+                info.addTo(map);
+
+
+
+
+                // get color depending on population density value
+                function getColor(d) {
+                    return d > 1000 ? '#800026' :
+                            d > 500  ? '#BD0026' :
+                            d > 200  ? '#E31A1C' :
+                            d > 100  ? '#FC4E2A' :
+                            d > 50   ? '#FD8D3C' :
+                            d > 20   ? '#FEB24C' :
+                            d > 10   ? '#FED976' :
+                                        '#FFEDA0';
+                }
+
+                function style(feature) {
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.4,
+                        fillColor: getColor(feature.properties.density)
+                    };
+                }
+
+                function highlightFeature(e) {
+                    var layer = e.target;
+
+                    layer.setStyle({
+                        weight: 5,
+                        color: '#000',
+                        dashArray: '',
+                        fillOpacity: 0.7
+                    });
+
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+
+                    info.update(layer.feature.properties);
+                }
+
+                var geojson;
+
+                function resetHighlight(e) {
+                    geojson.resetStyle(e.target);
+                    info.update();
+                }
+
+                function zoomToFeature(e) {
+                    map.fitBounds(e.target.getBounds());
+                }
+
+                function onEachFeature(feature, layer) {
+                    layer.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight,
+                        click: zoomToFeature
+                    });
+                }
+
+                //This is the input of the data for the layer and states data is in the javascript file us-states
+
+                geojson = L.geoJson(statesData, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+
+                //map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
+
+
+                //Functionality to add a legend to the map which is linked to the mapbox overlay however this may need to be changed at a later date
+                var legend = L.control({position: 'bottomright'});
+
+                legend.onAdd = function (map) {
+
+                    var div = L.DomUtil.create('div', 'info legend'),
+                        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+                        labels = [],
+                        from, to;
+
+                    for (var i = 0; i < grades.length; i++) {
+                        from = grades[i];
+                        to = grades[i + 1];
+
+                        labels.push(
+                            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                            from + (to ? '&ndash;' + to : '+'));
+                    }
+
+                    div.innerHTML = labels.join('<br>');
+                    return div;
+                };
+
+                legend.addTo(map);
+            */
+
+
+            //add geolocation
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+
+            //     // e.heading will contain the user's heading (in degrees) if it's available, and if not it will be NaN. This would allow you to point a marker in the same direction the user is pointed.
+            //     L.marker(position.coords.latitude +","+ position.coords.longitude).addTo(map);
+            // });
+            /*
+            var baseLayers = {
+                "Mapbox": mapbox,
+                "OpenStreetMap": osm
+            };
+            var overlays = {
+                "Marker": marker,
+                "Roads": roadsLayer
+            };
+
+            */
+
+            function main() {
+
+                map.setView([55.3781, -4.4360], 5);
+
             }
-
-            info.update(layer.feature.properties);
-        }
-
-        var geojson;
-
-        function resetHighlight(e) {
-            geojson.resetStyle(e.target);
-            info.update();
-        }
-
-        function zoomToFeature(e) {
-            map.fitBounds(e.target.getBounds());
-        }
-
-        function onEachFeature(feature, layer) {
-            layer.on({
-                mouseover: highlightFeature,
-                mouseout: resetHighlight,
-                click: zoomToFeature
-            });
-        }
-
-        //This is the input of the data for the layer and states data is in the javascript file us-states
-
-        geojson = L.geoJson(statesData, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map);
-
-        //map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+            window.onload = main;
+        </script>
 
 
-
-
-        //Functionality to add a legend to the map which is linked to the mapbox overlay however this may need to be changed at a later date
-        var legend = L.control({position: 'bottomright'});
-
-        legend.onAdd = function (map) {
-
-            var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-                labels = [],
-                from, to;
-
-            for (var i = 0; i < grades.length; i++) {
-                from = grades[i];
-                to = grades[i + 1];
-
-                labels.push(
-                    '<i style="background:' + getColor(from + 1) + '"></i> ' +
-                    from + (to ? '&ndash;' + to : '+'));
-            }
-
-            div.innerHTML = labels.join('<br>');
-            return div;
-        };
-
-        legend.addTo(map);
-    */
-
-
-
-
-    //add geolocation
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
-
-    //     // e.heading will contain the user's heading (in degrees) if it's available, and if not it will be NaN. This would allow you to point a marker in the same direction the user is pointed.
-    //     L.marker(position.coords.latitude +","+ position.coords.longitude).addTo(map);
-    // });
-    /*
-    var baseLayers = {
-        "Mapbox": mapbox,
-        "OpenStreetMap": osm
-    };
-    var overlays = {
-        "Marker": marker,
-        "Roads": roadsLayer
-    };
-
-    */
-
-    function main() {
-
-      map.setView([55.3781, -4.4360], 5);
-
-    }
-    window.onload = main;
-  </script>
-
-
-</body>
+    </body>
 
 </html>

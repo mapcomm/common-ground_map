@@ -1,6 +1,6 @@
 #sidebar-left {
   position: fixed;
-  height: 550px;
+  height: 95%;
   top: 10px;
   right: 10px;
   z-index: 1000;
@@ -104,7 +104,7 @@
 
 @media (min-width: 1200px) {
   .sidebar {
-    width: 300px;
+    width: 35%;
   }
 }
 
@@ -393,4 +393,14 @@
   .sidebar-right.collapsed~.sidebar-map .leaflet-right {
     right: 50px;
   }
+}
+
+
+#chart {
+  max-width:75%;
+  min-height: 70%;
+}
+
+#data-nav{
+  max-width: 50%;
 }
