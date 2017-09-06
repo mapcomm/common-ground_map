@@ -1,6 +1,6 @@
 #sidebar-left {
   position: fixed;
-  height: 95%;
+  height: 98%;
   top: 10px;
   right: 10px;
   z-index: 1000;
@@ -397,7 +397,7 @@
 
 
 #chart {
-  max-width:75%;
+  width:75%;
   min-height: 70%;
 }
 

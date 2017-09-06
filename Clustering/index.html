@@ -238,8 +238,11 @@ get all data sets loaded with buttons in help sidebar
                                     <span class="caret"></span>
                                   </a>
                                 <ul class="dropdown-menu">
-                                    <li role="presentation"><a href="#" onclick="SIMD('overal_simd16_rank');">simd</a></li>
-                                    <li role="presentation"><a href="#" onclick="SIMD('employment_domain_2016_rank')">employment</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('rank');">simd</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('emprank')">employment</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('incrank')">income</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('hlthrank')">health</a></li>
+                                    <li role="presentation"><a href="#" onclick="SIMD('edurank')">education</a></li>
                                 </ul>
                             </li>
                             <li role="presentation" class="dropdown">
@@ -249,7 +252,7 @@ get all data sets loaded with buttons in help sidebar
                                   </a>
                                 <ul class="dropdown-menu">
                                     <li role="presentation"><a href="#" onclick="ruralUrban('density_ppha')">density_ppha</a></li>
-                                    <li role="presentation"><a href="#">Domain2</a></li>
+                                    <li role="presentation"><a href="#" onclick="ruralUrban('unified_classif_value')">unified_classif</a></li>
                                 </ul>
                             </li>
                             <li role="presentation" class="dropdown">
@@ -266,17 +269,29 @@ get all data sets loaded with buttons in help sidebar
 
                         <!-- Placeholder js to render sample D3/C3 chart - can be removed for new code-->
                         <script type="text/javascript">
-                            //dummy chart to support transition when changing data or chart type
-                            var chart = c3.generate({
-                                bindto: '#chart',
-                                data: {
-                                    columns: [
-                                        ['data1', ],
-                                    ],
-                                    type:'scatter',
-                                },
+                            //declare chart globaly
+                            var chart = null;
 
-                            });
+                            var initialise = true;
+                            function initChart(){
+                                //dummy chart to support transition when changing data or chart type
+                                chart = c3.generate({
+                                    bindto: '#chart',
+                                    data: {
+                                        columns: [
+                                            ['data1', ],
+                                        ],
+                                        type: 'scatter',
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category' // this needed to load string x value
+                                        }
+                                    },
+
+                                });
+                                initialise = false;
+                            }
 
                             function chartLoad() {
                                 chart.transform('line');
@@ -295,27 +310,27 @@ get all data sets loaded with buttons in help sidebar
             Note: style for commEnergy,commLand,DTAS,ECS,cityFarms,sccan,permaculture
             buttons in bootstrap.css   -->
 
-                        <!-- <div class="tab2" id="tab2">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS);">DTAS</button>
-                <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS);">ECS</button>
-                <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand);">CommLand</button>
-                <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All);">_All_</button>
-                <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy);">CommEnergy</button>
-                <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms);">City Farms   </button>
-                <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN);">SCCAN</button>
-              </div>
-              <!--end div classs="btn-group"-->
-                        <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
+                        <div class="tab2" id="tab2">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group">
+                                    <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS);">DTAS</button>
+                                    <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS);">ECS</button>
+                                    <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand);">CommLand</button>
+                                    <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All);">_All_</button>
+                                    <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy);">CommEnergy</button>
+                                    <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms);">City Farms   </button>
+                                    <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN);">SCCAN</button>
+                                </div>
+                                <!--end div classs="btn-group"-->
+                                <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
+                            </div>
+                            <!--end div classs="btn-toolbar"-->
+                        </div>
+                        <!--end div classs="tab2"-->
                     </div>
-                    <!--end div classs="btn-toolbar"-->
-                </div> -->
-                <!--end div classs="tab2"-->
-        </div>
-        <!--end div classs="sidebar-content"-->
-        </div>
-        <!--end div class="sidebar-left"-->
+                    <!--end div classs="sidebar-content"-->
+                </div>
+                <!--end div class="sidebar-left"-->
         </div>
         <!--end div class="container-wide-->
         </section>
@@ -326,13 +341,13 @@ get all data sets loaded with buttons in help sidebar
 
         <script>
             /*Code here is for Nearest neighbour calculation referenced above - KNN
-                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+                                                                                                                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                                                                                                         function(data1) {
+                                                                                                                                                                                                         function(data1) {
 
 
-                                                                                                         }));
-                                                                                                      */
+                                                                                                                                                                                                         }));
+                                                                                                                                                                                                      */
 
 
             //Insert method which will add data sets individually
@@ -379,8 +394,8 @@ get all data sets loaded with buttons in help sidebar
             map.addControl(leftSidebar);
             leftSidebar.open();
 
-
             function getHelp() {
+
 
                 var selector = '.HelpButton';
 
@@ -1090,77 +1105,181 @@ get all data sets loaded with buttons in help sidebar
 
 
             function SIMD(col) {
+                var scope = this;
                 var query3 = $.getJSON(
-                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ' FROM "mapcomm-admin".simd2016withinds',
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ', quintile, group_name FROM "ahmednoureldeen".sg_simd_2016_grp',
                     function(data1) {
+                        if(initialise)
+                            initChart();
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
 
-                        chart.unload();
                         chart.load({
+                            x: 'group_name',
                             json: chartConfig.data.rows,
-                            keys: { value:chartConfig.columns, },
+                            unload: [scope.selectedCol],
+                            keys: {
+                                x: 'group_name',
+                                value: chartConfig.columns,
+                            },
                         });
+                        scope.selectedCol = col;
 
-                        L.geoJSON(data1, {
-                            pointToLayer: function(feature, latlng, properties) {
-
-
-                                var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                                    color: '#000',
-                                    feature,
-                                    'color': '#f3ff00',
-                                    'visible': true,
-                                    icon: L.icon({
-                                        iconUrl: 'layer.png',
-                                        iconSize: [48, 48]
-
-                                    })
-                                });
-
-
-                                marker7.category = 7;
-                                // marker.category = Math.floor(Math.random() * colors.length);
-                                markers.push(marker7);
-                                leafletView.RegisterMarker(marker7);
-
-                            }
-                        })
+                        // L.geoJSON(data1, {
+                        //     pointToLayer: function(feature, latlng, properties) {
+                        //
+                        //
+                        //         var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                        //             color: '#000',
+                        //             feature,
+                        //             'color': '#f3ff00',
+                        //             'visible': true,
+                        //             icon: L.icon({
+                        //                 iconUrl: 'layer.png',
+                        //                 iconSize: [48, 48]
+                        //
+                        //             })
+                        //         });
+                        //
+                        //
+                        //         marker7.category = 7;
+                        //         // marker.category = Math.floor(Math.random() * colors.length);
+                        //         markers.push(marker7);
+                        //         leafletView.RegisterMarker(marker7);
+                        //
+                        //     }
+                        // })
 
                     });
             }
 
             function ruralUrban(col) {
+                var scope = this;
+                const select_statement =
+                    'SELECT "mapcomm-admin".ruralurban.* , "mapcomm-admin".all_groups.group_name,\
+                CASE \
+                    WHEN unified_classif =\'U1\' THEN 0\
+                	WHEN unified_classif =\'U2\' THEN 1\
+                	WHEN unified_classif =\'R1\' THEN 2\
+                	WHEN unified_classif =\'R2\' THEN 3\
+                	WHEN unified_classif =\'R3\' THEN 4\
+                	WHEN unified_classif =\'R4\' THEN 5\
+                END AS  unified_classif_value\
+                FROM "mapcomm-admin".ruralurban \
+                inner join "mapcomm-admin".table_2011_oac on "mapcomm-admin".ruralurban.oa_sa = "mapcomm-admin".table_2011_oac.oa_sa\
+                inner join "mapcomm-admin".all_groups on ST_Contains("mapcomm-admin".table_2011_oac.the_geom, "mapcomm-admin".all_groups.the_geom)';
                 var query3 = $.getJSON(
-                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ' FROM "mapcomm-admin".ruralurban',
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=' + select_statement,
                     function(data1) {
+                        if(initialise)
+                            initChart();
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
+                        if ('density_ppha' == col) {
+                            chart.load({
+                                x: 'group_name',
+                                json: chartConfig.data.rows,
+                                unload: [scope.selectedCol],
+                                keys: {
+                                    x: 'group_name',
+                                    value: chartConfig.columns,
+                                },
+                            });
+                        } else {
+                            chart = c3.generate({
+                                bindto: '#chart',
+                                data: {
+                                    x: 'group_name',
+                                    json: chartConfig.data.rows,
+                                    keys: {
+                                        x: 'group_name',
+                                        value: chartConfig.columns,
+                                    },
+                                    type: 'scatter',
+                                },
+                                tooltip: {
+                                    format: {
+                                        value: function(d) {
+                                            switch (d) {
+                                                case 0:
+                                                    return "U1";
+                                                case 1:
+                                                    return "U2";
+                                                case 2:
+                                                    return "R1";
+                                                case 3:
+                                                    return "R2";
+                                                case 4:
+                                                    return "R3";
+                                                case 5:
+                                                    return "R4";
+                                            }
+                                        }
+                                    }
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'category' // this needed to load string x value
+                                    },
+                                    y: {
+                                        min: 0,
+                                        max: 6,
+                                        // padding: {
+                                        //     bottom: 0,
+                                        //     top: 0
+                                        // },
+                                        tick: {
+                                            format: function(d) {
+                                                switch (d) {
+                                                    case 0:
+                                                        return "U1";
+                                                    case 1:
+                                                        return "U2";
+                                                    case 2:
+                                                        return "R1";
+                                                    case 3:
+                                                        return "R2";
+                                                    case 4:
+                                                        return "R3";
+                                                    case 5:
+                                                        return "R4";
+                                                }
+                                            },
+                                            values: [0, 1, 2, 3, 4, 5],
+                                            //width: 0
+                                        }
+                                    }
+                                }
 
-                        L.geoJSON(data1, {
-                            pointToLayer: function(feature, latlng, properties) {
+                            });
+                            initialise = true;
+                        }
+                        scope.selectedCol = col;
 
-
-                                var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                                    color: '#000',
-                                    feature,
-                                    'color': '#f3ff00',
-                                    'visible': true,
-                                    icon: L.icon({
-                                        iconUrl: 'layer.png',
-                                        iconSize: [48, 48]
-
-                                    })
-                                });
-
-
-                                marker7.category = 7;
-                                // marker.category = Math.floor(Math.random() * colors.length);
-                                markers.push(marker7);
-                                leafletView.RegisterMarker(marker7);
-
-                            }
-                        })
+                        // L.geoJSON(data1, {
+                        //     pointToLayer: function(feature, latlng, properties) {
+                        //
+                        //
+                        //         var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
+                        //             color: '#000',
+                        //             feature,
+                        //             'color': '#f3ff00',
+                        //             'visible': true,
+                        //             icon: L.icon({
+                        //                 iconUrl: 'layer.png',
+                        //                 iconSize: [48, 48]
+                        //
+                        //             })
+                        //         });
+                        //
+                        //
+                        //         marker7.category = 7;
+                        //         // marker.category = Math.floor(Math.random() * colors.length);
+                        //         markers.push(marker7);
+                        //         leafletView.RegisterMarker(marker7);
+                        //
+                        //     }
+                        // })
 
                     });
             }
