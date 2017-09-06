@@ -404,3 +404,8 @@
 #data-nav{
   max-width: 50%;
 }
+
+#viz{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

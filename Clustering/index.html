@@ -111,10 +111,12 @@ get all data sets loaded with buttons in help sidebar
 
         <!-- Load c3.css -->
         <link href="c3/c3.css" rel="stylesheet">
+        <link href="distroplot/css/distrochart.css" rel="stylesheet">
 
         <!-- Load d3.js and c3.js -->
         <script src="c3/c3.min.js"></script>
         <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="distroplot/js/distrochart.js"></script>
 
     </head>
 
@@ -227,6 +229,7 @@ get all data sets loaded with buttons in help sidebar
                             <!-- <button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button> -->
                             <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
                             <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
+                            <button class="tablinks3" id="HelpButton" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
                         </div>
 
                         <div id="chart"></div>
@@ -261,8 +264,10 @@ get all data sets loaded with buttons in help sidebar
                                     <span class="caret"></span>
                                   </a>
                                 <ul class="dropdown-menu">
-                                    <li role="presentation"><a href="#">All</a></li>
-                                    <li role="presentation"><a href="#">Domain2</a></li>
+                                    <li role="presentation"><a href="#" onclick="census('health')">health</a></li>
+                                    <li role="presentation"><a href="#" onclick="census('economic')">economic</a></li>
+                                    <li role="presentation"><a href="#" onclick="census('industry')">industry</a></li>
+                                    <li role="presentation"><a href="#" onclick="census('workTravel')">work travel</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -271,7 +276,9 @@ get all data sets loaded with buttons in help sidebar
                         <script type="text/javascript">
                             //declare chart globaly
                             var chart = null;
+                            var currentChartType = 'scatter';
 
+                            // to know if currently load chart is special(boxplot or for unified_classif)
                             var initialise = true;
                             function initChart(){
                                 //dummy chart to support transition when changing data or chart type
@@ -281,7 +288,7 @@ get all data sets loaded with buttons in help sidebar
                                         columns: [
                                             ['data1', ],
                                         ],
-                                        type: 'scatter',
+                                        type: currentChartType,
                                     },
                                     axis: {
                                         x: {
@@ -292,17 +299,42 @@ get all data sets loaded with buttons in help sidebar
                                 });
                                 initialise = false;
                             }
-
                             function chartLoad() {
-                                chart.transform('line');
+                                currentChartType = 'line';
+                                chart.transform(currentChartType);
                             }
 
                             function scatterPlotLoad() {
-                                chart.transform('scatter');
+                                currentChartType = 'scatter';
+                                chart.transform(currentChartType);
                             }
 
                             function barChartLoad() {
-                                chart.transform('bar');
+                                currentChartType = 'bar';
+                                chart.transform(currentChartType);
+
+                            }
+
+                            function boxplotLoad(){
+                                currentChartType = 'boxplot';
+                                if(chart.destroy) // any type of charts but boxplot
+                                    chart.destroy();
+                                else {
+                                    chart.boxPlots.reset();
+                                }
+                                chart = makeDistroChart({
+                                    data:chartConfig.data.rows,
+                                    xName:'group_name',
+                                    yName:chartConfig.columns,
+                                    axisLabels: {xAxis: chartConfig.columns, yAxis: null},
+                                    selector:"#chart",
+                                    chartSize:{height:460, width:'100%'},
+                                    constrainExtremes:true});
+                                chart.renderBoxPlot();
+                                initialise = true;
+                                //chart.renderDataPlots();
+                               //chart.renderNotchBoxes({showNotchBox:false});
+                               //chart.renderViolinPlot({showViolinPlot:false});
                             }
                         </script>
 
@@ -1109,21 +1141,24 @@ get all data sets loaded with buttons in help sidebar
                 var query3 = $.getJSON(
                     'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ', quintile, group_name FROM "ahmednoureldeen".sg_simd_2016_grp',
                     function(data1) {
-                        if(initialise)
-                            initChart();
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
-
-                        chart.load({
-                            x: 'group_name',
-                            json: chartConfig.data.rows,
-                            unload: [scope.selectedCol],
-                            keys: {
-                                x: 'group_name',
-                                value: chartConfig.columns,
-                            },
-                        });
-                        scope.selectedCol = col;
+                        if(currentChartType == 'boxplot')
+                            boxplotLoad();
+                        else{
+                            if(initialise)
+                                initChart();
+                            chart.load({
+                                //x: 'group_name',
+                                json: chartConfig.data.rows,
+                                unload: [scope.selectedCol],
+                                keys: {
+                                    x: 'group_name',
+                                    value: chartConfig.columns,
+                                },
+                            });
+                            scope.selectedCol = col;
+                        }
 
                         // L.geoJSON(data1, {
                         //     pointToLayer: function(feature, latlng, properties) {
@@ -1158,12 +1193,12 @@ get all data sets loaded with buttons in help sidebar
                 const select_statement =
                     'SELECT "mapcomm-admin".ruralurban.* , "mapcomm-admin".all_groups.group_name,\
                 CASE \
-                    WHEN unified_classif =\'U1\' THEN 0\
-                	WHEN unified_classif =\'U2\' THEN 1\
-                	WHEN unified_classif =\'R1\' THEN 2\
-                	WHEN unified_classif =\'R2\' THEN 3\
-                	WHEN unified_classif =\'R3\' THEN 4\
-                	WHEN unified_classif =\'R4\' THEN 5\
+                    WHEN unified_classif =\'U1\' THEN 5\
+                	WHEN unified_classif =\'U2\' THEN 4\
+                	WHEN unified_classif =\'R1\' THEN 3\
+                	WHEN unified_classif =\'R2\' THEN 2\
+                	WHEN unified_classif =\'R3\' THEN 1\
+                	WHEN unified_classif =\'R4\' THEN 0\
                 END AS  unified_classif_value\
                 FROM "mapcomm-admin".ruralurban \
                 inner join "mapcomm-admin".table_2011_oac on "mapcomm-admin".ruralurban.oa_sa = "mapcomm-admin".table_2011_oac.oa_sa\
@@ -1195,23 +1230,23 @@ get all data sets loaded with buttons in help sidebar
                                         x: 'group_name',
                                         value: chartConfig.columns,
                                     },
-                                    type: 'scatter',
+                                    type: currentChartType,
                                 },
                                 tooltip: {
                                     format: {
                                         value: function(d) {
                                             switch (d) {
-                                                case 0:
-                                                    return "U1";
-                                                case 1:
-                                                    return "U2";
-                                                case 2:
-                                                    return "R1";
-                                                case 3:
-                                                    return "R2";
-                                                case 4:
-                                                    return "R3";
                                                 case 5:
+                                                    return "U1";
+                                                case 4:
+                                                    return "U2";
+                                                case 3:
+                                                    return "R1";
+                                                case 2:
+                                                    return "R2";
+                                                case 1:
+                                                    return "R3";
+                                                case 0:
                                                     return "R4";
                                             }
                                         }
@@ -1231,17 +1266,17 @@ get all data sets loaded with buttons in help sidebar
                                         tick: {
                                             format: function(d) {
                                                 switch (d) {
-                                                    case 0:
-                                                        return "U1";
-                                                    case 1:
-                                                        return "U2";
-                                                    case 2:
-                                                        return "R1";
-                                                    case 3:
-                                                        return "R2";
-                                                    case 4:
-                                                        return "R3";
                                                     case 5:
+                                                        return "U1";
+                                                    case 4:
+                                                        return "U2";
+                                                    case 3:
+                                                        return "R1";
+                                                    case 2:
+                                                        return "R2";
+                                                    case 1:
+                                                        return "R3";
+                                                    case 0:
                                                         return "R4";
                                                 }
                                             },
@@ -1281,6 +1316,71 @@ get all data sets loaded with buttons in help sidebar
                         //     }
                         // })
 
+                    });
+            }
+
+
+
+            function census(clusterName) {
+                var scope = this;
+                const clusters ={
+                    health:['vghealth', 'ghealth', 'fairhealth', 'badhealth', 'vbadhealth'],
+                    economic:['eaemppt', 'eaempft', 'easelfemp', 'eaunemp', 'eafutist', 'eiretired', 'eifutist', 'eihome', 'eisickdis', 'eiother'],
+                    industry:['agricult', 'extractive', 'manufact', 'energysup',
+                        'watersup', 'construct', 'retail', 'transport', 'accommfood',
+                        'infocomms', 'finserv', 'propserv', 'proftech', 'administ', 'pubaddef', 'education', 'health', 'otherind'],
+                    workTravel:['ttwhome', 'ttwtrain', 'ttwtube', 'ttwbus', 'ttwmbike', 'ttwcar', 'ttwcarpass', 'ttwtaxi', 'ttwbike', 'ttwfoot', 'ttwother']
+                }
+                const select_statement= 'SELECT '+clusters[clusterName].join(',')+', "mapcomm-admin".all_groups.group_name\
+                    FROM "mapcomm-admin".censusuk11data \
+                    inner join "mapcomm-admin".table_2011_oac on "mapcomm-admin".censusuk11data.oacode = "mapcomm-admin".table_2011_oac.oa_sa\
+                    inner join "mapcomm-admin".all_groups on ST_Contains("mapcomm-admin".table_2011_oac.the_geom, "mapcomm-admin".all_groups.the_geom)';
+
+                var query3 = $.getJSON(
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q='+select_statement,
+                    function(data1) {
+                        if(initialise)
+                            initChart();
+                        chartConfig.data = data1;
+                        chartConfig.columns = clusters[clusterName];
+
+                        chart = c3.generate({
+                            bindto: '#chart',
+                            data: {
+                                x: 'group_name',
+                                json: chartConfig.data.rows,
+                                unload: scope.selectedCol,
+                                keys: {
+                                    x: 'group_name',
+                                    value: chartConfig.columns,
+                                },
+                                groups: [
+                                    chartConfig.columns
+                                ],
+                                type: currentChartType,
+                            },
+                            axis: {
+                                x: {
+                                    type: 'category' // this needed to load string x value
+                                }
+                            },
+
+                        });
+                        initialise = true;
+
+                        // chart.load({
+                        //     x: 'group_name',
+                        //     json: chartConfig.data.rows,
+                        //     unload: scope.selectedCol,
+                        //     keys: {
+                        //         x: 'group_name',
+                        //         value: chartConfig.columns,
+                        //     },
+                        //     groups: [
+                        //         chartConfig.columns
+                        //     ],
+                        // });
+                        scope.selectedCol = clusters[clusterName];
                     });
             }
 
