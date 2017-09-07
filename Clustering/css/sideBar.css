@@ -119,12 +119,12 @@
       color: #47a23d;
       font-size: 12pt;
       overflow: hidden;
-      transition: all 80ms; }
+      transition: all 0ms; }
       .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
         color: #000;
-        background-color: #eee; }
+        background-color: #47a23d; }
       .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-        color: #fff;
+        color: #47a23d;
         background-color: #47a23d; }
       .sidebar-tabs > li.disabled, .sidebar-tabs > ul > li.disabled {
         color: rgba(51, 51, 51, 0.4); }
