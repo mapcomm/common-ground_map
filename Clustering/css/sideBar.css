@@ -160,7 +160,7 @@
     overflow-y: hidden; }
 
 .sidebar-pane {
-  display: none;
+  display: block;
   left: 0;
   right: 0;
   box-sizing: border-box;
