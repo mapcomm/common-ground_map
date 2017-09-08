@@ -230,6 +230,11 @@ get all data sets loaded with buttons in help sidebar
                             <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
                             <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
                             <button class="tablinks3" id="HelpButton" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
+
+                            <select onchange="scopeSelected(this);">
+                                <option value="0">All Points</option>
+                                <option value="1">Only Visible</option>
+                            </select>
                         </div>
 
                         <div id="chart"></div>
@@ -277,10 +282,12 @@ get all data sets loaded with buttons in help sidebar
                             //declare chart globaly
                             var chart = null;
                             var currentChartType = 'scatter';
+                            var currentScope = 0; // 0 for all points, 1 for only visible
 
                             // to know if currently load chart is special(boxplot or for unified_classif)
                             var initialise = true;
-                            function initChart(){
+
+                            function initChart() {
                                 //dummy chart to support transition when changing data or chart type
                                 chart = c3.generate({
                                     bindto: '#chart',
@@ -299,6 +306,12 @@ get all data sets loaded with buttons in help sidebar
                                 });
                                 initialise = false;
                             }
+
+                            function scopeSelected(selector) {
+                                currentScope = selector.options.selectedIndex;
+                                console.log(currentScope);
+                            }
+
                             function chartLoad() {
                                 currentChartType = 'line';
                                 chart.transform(currentChartType);
@@ -315,26 +328,33 @@ get all data sets loaded with buttons in help sidebar
 
                             }
 
-                            function boxplotLoad(){
+                            function boxplotLoad() {
                                 currentChartType = 'boxplot';
-                                if(chart.destroy) // any type of charts but boxplot
+                                if (chart.destroy) // any type of charts but boxplot
                                     chart.destroy();
                                 else {
                                     chart.boxPlots.reset();
                                 }
                                 chart = makeDistroChart({
-                                    data:chartConfig.data.rows,
-                                    xName:'group_name',
-                                    yName:chartConfig.columns,
-                                    axisLabels: {xAxis: chartConfig.columns, yAxis: null},
-                                    selector:"#chart",
-                                    chartSize:{height:460, width:'100%'},
-                                    constrainExtremes:true});
+                                    data: chartConfig.data.rows,
+                                    xName: 'group_name',
+                                    yName: chartConfig.columns,
+                                    axisLabels: {
+                                        xAxis: chartConfig.columns,
+                                        yAxis: null
+                                    },
+                                    selector: "#chart",
+                                    chartSize: {
+                                        height: 460,
+                                        width: '100%'
+                                    },
+                                    constrainExtremes: true
+                                });
                                 chart.renderBoxPlot();
                                 initialise = true;
                                 //chart.renderDataPlots();
-                               //chart.renderNotchBoxes({showNotchBox:false});
-                               //chart.renderViolinPlot({showViolinPlot:false});
+                                //chart.renderNotchBoxes({showNotchBox:false});
+                                //chart.renderViolinPlot({showViolinPlot:false});
                             }
                         </script>
 
@@ -373,13 +393,13 @@ get all data sets loaded with buttons in help sidebar
 
         <script>
             /*Code here is for Nearest neighbour calculation referenced above - KNN
-                                                                                                                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+                                                                                                                                                                                                                          var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                                                                                                                                                                                                         function(data1) {
+                                                                                                                                                                                                                     function(data1) {
 
 
-                                                                                                                                                                                                         }));
-                                                                                                                                                                                                      */
+                                                                                                                                                                                                                     }));
+                                                                                                                                                                                                                  */
 
 
             //Insert method which will add data sets individually
@@ -1138,15 +1158,26 @@ get all data sets loaded with buttons in help sidebar
 
             function SIMD(col) {
                 var scope = this;
+                //var select_statement = 'SELECT ' + col + ', quintile, group_name FROM "ahmednoureldeen".sg_simd_2016_grp';
+                var select_statement = 'SELECT ' + col +
+                    ', group_name\
+                                        FROM "mapcomm-admin".sg_simd_2016, "mapcomm-admin".all_groups\
+                                        where ST_Contains( "mapcomm-admin".sg_simd_2016.the_geom, "mapcomm-admin".all_groups.the_geom)'
+                if (currentScope == 1) {
+                    var bounds = map.getBounds();
+                    var envelope = 'ST_MakeEnvelope(' + bounds.getWest() + ',' + bounds.getSouth() + ',' + bounds.getEast() + ',' + bounds.getNorth() + ', 4326)';
+                    select_statement += ' AND ST_Contains(' + envelope + ',"mapcomm-admin".all_groups.the_geom)';
+
+                }
                 var query3 = $.getJSON(
-                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=SELECT ' + col + ', quintile, group_name FROM "ahmednoureldeen".sg_simd_2016_grp',
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=' + select_statement,
                     function(data1) {
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
-                        if(currentChartType == 'boxplot')
+                        if (currentChartType == 'boxplot')
                             boxplotLoad();
-                        else{
-                            if(initialise)
+                        else {
+                            if (initialise)
                                 initChart();
                             chart.load({
                                 //x: 'group_name',
@@ -1190,7 +1221,7 @@ get all data sets loaded with buttons in help sidebar
 
             function ruralUrban(col) {
                 var scope = this;
-                const select_statement =
+                var select_statement =
                     'SELECT "mapcomm-admin".ruralurban.* , "mapcomm-admin".all_groups.group_name,\
                 CASE \
                     WHEN unified_classif =\'U1\' THEN 5\
@@ -1203,10 +1234,16 @@ get all data sets loaded with buttons in help sidebar
                 FROM "mapcomm-admin".ruralurban \
                 inner join "mapcomm-admin".table_2011_oac on "mapcomm-admin".ruralurban.oa_sa = "mapcomm-admin".table_2011_oac.oa_sa\
                 inner join "mapcomm-admin".all_groups on ST_Contains("mapcomm-admin".table_2011_oac.the_geom, "mapcomm-admin".all_groups.the_geom)';
+                if (currentScope == 1) {
+                    var bounds = map.getBounds();
+                    var envelope = 'ST_MakeEnvelope(' + bounds.getWest() + ',' + bounds.getSouth() + ',' + bounds.getEast() + ',' + bounds.getNorth() + ', 4326)';
+                    select_statement += ' AND ST_Contains(' + envelope + ',"mapcomm-admin".all_groups.the_geom)';
+
+                }
                 var query3 = $.getJSON(
                     'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=' + select_statement,
                     function(data1) {
-                        if(initialise)
+                        if (initialise)
                             initChart();
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
@@ -1320,26 +1357,33 @@ get all data sets loaded with buttons in help sidebar
             }
 
 
-
             function census(clusterName) {
                 var scope = this;
-                const clusters ={
-                    health:['vghealth', 'ghealth', 'fairhealth', 'badhealth', 'vbadhealth'],
-                    economic:['eaemppt', 'eaempft', 'easelfemp', 'eaunemp', 'eafutist', 'eiretired', 'eifutist', 'eihome', 'eisickdis', 'eiother'],
-                    industry:['agricult', 'extractive', 'manufact', 'energysup',
+                const clusters = {
+                    health: ['vghealth', 'ghealth', 'fairhealth', 'badhealth', 'vbadhealth'],
+                    economic: ['eaemppt', 'eaempft', 'easelfemp', 'eaunemp', 'eafutist', 'eiretired', 'eifutist', 'eihome', 'eisickdis', 'eiother'],
+                    industry: ['agricult', 'extractive', 'manufact', 'energysup',
                         'watersup', 'construct', 'retail', 'transport', 'accommfood',
-                        'infocomms', 'finserv', 'propserv', 'proftech', 'administ', 'pubaddef', 'education', 'health', 'otherind'],
-                    workTravel:['ttwhome', 'ttwtrain', 'ttwtube', 'ttwbus', 'ttwmbike', 'ttwcar', 'ttwcarpass', 'ttwtaxi', 'ttwbike', 'ttwfoot', 'ttwother']
+                        'infocomms', 'finserv', 'propserv', 'proftech', 'administ', 'pubaddef', 'education', 'health', 'otherind'
+                    ],
+                    workTravel: ['ttwhome', 'ttwtrain', 'ttwtube', 'ttwbus', 'ttwmbike', 'ttwcar', 'ttwcarpass', 'ttwtaxi', 'ttwbike', 'ttwfoot', 'ttwother']
                 }
-                const select_statement= 'SELECT '+clusters[clusterName].join(',')+', "mapcomm-admin".all_groups.group_name\
+                var select_statement = 'SELECT ' + clusters[clusterName].join(',') +
+                    ', "mapcomm-admin".all_groups.group_name\
                     FROM "mapcomm-admin".censusuk11data \
                     inner join "mapcomm-admin".table_2011_oac on "mapcomm-admin".censusuk11data.oacode = "mapcomm-admin".table_2011_oac.oa_sa\
                     inner join "mapcomm-admin".all_groups on ST_Contains("mapcomm-admin".table_2011_oac.the_geom, "mapcomm-admin".all_groups.the_geom)';
 
+                if (currentScope == 1) {
+                    var bounds = map.getBounds();
+                    var envelope = 'ST_MakeEnvelope(' + bounds.getWest() + ',' + bounds.getSouth() + ',' + bounds.getEast() + ',' + bounds.getNorth() + ', 4326)';
+                    select_statement += ' AND ST_Contains(' + envelope + ',"mapcomm-admin".all_groups.the_geom)';
+                }
+
                 var query3 = $.getJSON(
-                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q='+select_statement,
+                    'https://carto.mapping.community:9090/user/hilld/api/v2/sql?q=' + select_statement,
                     function(data1) {
-                        if(initialise)
+                        if (initialise)
                             initChart();
                         chartConfig.data = data1;
                         chartConfig.columns = clusters[clusterName];
