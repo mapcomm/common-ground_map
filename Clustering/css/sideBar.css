@@ -397,8 +397,8 @@
 
 
 #chart {
-  width:75%;
-  min-height: 70%;
+  width:90%;
+  min-height: 75%;
 }
 
 #data-nav{
@@ -408,4 +408,8 @@
 #viz{
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.chart-wrapper text{
+    font-size: 10px !important;
 }

@@ -34,7 +34,7 @@ function makeDistroChart(settings) {
         yTicks: 1,
         scale: 'linear',
         chartSize: {width: getParentWidth(settings), height: getParentHeight(settings)},
-        margin: {top: 15, right: 60, bottom: 40, left: 50},
+        margin: {top: 15, right: 10, bottom: 50, left: 50},
         constrainExtremes: false,
         color: d3.scale.category10()
     };
@@ -401,8 +401,8 @@ function makeDistroChart(settings) {
             chart.groupObjs[cName].g.on("mouseover", function () {
                 chart.objs.tooltip
                     .style("display", null)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", (d3.event.pageX - 50) + "px")
+                    .style("top", (d3.event.pageY - 50) + "px");
             }).on("mouseout", function () {
                 chart.objs.tooltip.style("display", "none");
             }).on("mousemove", tooltipHover(cName, chart.groupObjs[cName].metrics))
@@ -1491,7 +1491,7 @@ function makeDistroChart(settings) {
                 chart.dataPlots.colorFunct = chart.colorFunct
             }
 
-    
+
             if (dOpts && dOpts.lineColors) {
                 chart.dataPlots.colorFunctLine = getColorFunct(dOpts.lineColors);
             } else {

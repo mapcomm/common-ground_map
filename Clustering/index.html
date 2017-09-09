@@ -152,10 +152,10 @@ get all data sets loaded with buttons in help sidebar
                             <div class="sidebar-pane" id="home">
                                 <!-- title for the sidebar -->
                                 <h1 class="sidebar-header">
-              Information Window
-              <!-- This is where the pencil class is and need them -->
-              <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
-              </h1>
+                                  Information Window
+                                  <!-- This is where the pencil class is and need them -->
+                                  <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                                </h1>
                                 <!-- intro.js needs to be inserted alongside code that renders the feature that the tutorial will highlight, so we have our first intro.js feature here. There will be more of these below-->
                                 <!-- Placeholder text here for now -->
                                 <p id="sidebar-text"></p>
@@ -237,7 +237,7 @@ get all data sets loaded with buttons in help sidebar
                             </select>
                         </div>
 
-                        <div id="chart"></div>
+                        <div id="chart" class="chart-wrapper"></div>
 
                         <ul class="nav nav-pills nav-stacked" id="data-nav">
                             <li role="presentation" class="dropdown">
@@ -283,6 +283,7 @@ get all data sets loaded with buttons in help sidebar
                             var chart = null;
                             var currentChartType = 'scatter';
                             var currentScope = 0; // 0 for all points, 1 for only visible
+                            var selectedCol = '';
 
                             // to know if currently load chart is special(boxplot or for unified_classif)
                             var initialise = true;
@@ -319,21 +320,51 @@ get all data sets loaded with buttons in help sidebar
 
                             function scatterPlotLoad() {
                                 currentChartType = 'scatter';
-                                chart.transform(currentChartType);
+                                if(initialise)
+                                {
+                                    initChart();
+                                    chart.load({
+                                        //x: 'group_name',
+                                        json: chartConfig.data.rows,
+                                        //unload: [selectedCol],
+                                        keys: {
+                                            x: 'group_name',
+                                            value: chartConfig.columns,
+                                        },
+                                    });
+                                }
+                                else
+                                    chart.transform(currentChartType);
                             }
 
                             function barChartLoad() {
                                 currentChartType = 'bar';
-                                chart.transform(currentChartType);
+                                if(initialise)
+                                {
+                                    initChart();
+                                    chart.load({
+                                        //x: 'group_name',
+                                        json: chartConfig.data.rows,
+                                        //unload: [selectedCol],
+                                        keys: {
+                                            x: 'group_name',
+                                            value: chartConfig.columns,
+                                        },
+                                    });
+                                }
+                                else
+                                    chart.transform(currentChartType);
 
                             }
 
                             function boxplotLoad() {
                                 currentChartType = 'boxplot';
-                                if (chart.destroy) // any type of charts but boxplot
+                                if (chart.destroy) { // any type of charts but boxplot
                                     chart.destroy();
-                                else {
-                                    chart.boxPlots.reset();
+                                } else {
+                                    // to clear all element for chart container befor render new one.
+                                    d3.select('#chart').selectAll('*').remove();
+                                    //////////////////////////////////////////////////////
                                 }
                                 chart = makeDistroChart({
                                     data: chartConfig.data.rows,
@@ -344,17 +375,19 @@ get all data sets loaded with buttons in help sidebar
                                         yAxis: null
                                     },
                                     selector: "#chart",
-                                    chartSize: {
-                                        height: 460,
-                                        width: '100%'
-                                    },
+                                    // chartSize: {
+                                    //     height: 460,
+                                    //     width: 600
+                                    // },
+                                    // margin:{
+                                    //     top:13,
+                                    //     left:50,
+                                    // },
                                     constrainExtremes: true
                                 });
                                 chart.renderBoxPlot();
+
                                 initialise = true;
-                                //chart.renderDataPlots();
-                                //chart.renderNotchBoxes({showNotchBox:false});
-                                //chart.renderViolinPlot({showViolinPlot:false});
                             }
                         </script>
 
@@ -393,13 +426,13 @@ get all data sets loaded with buttons in help sidebar
 
         <script>
             /*Code here is for Nearest neighbour calculation referenced above - KNN
-                                                                                                                                                                                                                          var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+                                                                                                                                                                                                                                      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                                                                                                                                                                                                                     function(data1) {
+                                                                                                                                                                                                                                 function(data1) {
 
 
-                                                                                                                                                                                                                     }));
-                                                                                                                                                                                                                  */
+                                                                                                                                                                                                                                 }));
+                                                                                                                                                                                                                              */
 
 
             //Insert method which will add data sets individually
@@ -1182,39 +1215,14 @@ get all data sets loaded with buttons in help sidebar
                             chart.load({
                                 //x: 'group_name',
                                 json: chartConfig.data.rows,
-                                unload: [scope.selectedCol],
+                                unload: [selectedCol],
                                 keys: {
                                     x: 'group_name',
                                     value: chartConfig.columns,
                                 },
                             });
-                            scope.selectedCol = col;
+                            selectedCol = col;
                         }
-
-                        // L.geoJSON(data1, {
-                        //     pointToLayer: function(feature, latlng, properties) {
-                        //
-                        //
-                        //         var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                        //             color: '#000',
-                        //             feature,
-                        //             'color': '#f3ff00',
-                        //             'visible': true,
-                        //             icon: L.icon({
-                        //                 iconUrl: 'layer.png',
-                        //                 iconSize: [48, 48]
-                        //
-                        //             })
-                        //         });
-                        //
-                        //
-                        //         marker7.category = 7;
-                        //         // marker.category = Math.floor(Math.random() * colors.length);
-                        //         markers.push(marker7);
-                        //         leafletView.RegisterMarker(marker7);
-                        //
-                        //     }
-                        // })
 
                     });
             }
@@ -1248,15 +1256,21 @@ get all data sets loaded with buttons in help sidebar
                         chartConfig.data = data1;
                         chartConfig.columns = [col];
                         if ('density_ppha' == col) {
-                            chart.load({
-                                x: 'group_name',
-                                json: chartConfig.data.rows,
-                                unload: [scope.selectedCol],
-                                keys: {
+                            if (currentChartType == 'boxplot')
+                                boxplotLoad();
+                            else {
+                                if (initialise)
+                                    initChart();
+                                chart.load({
                                     x: 'group_name',
-                                    value: chartConfig.columns,
-                                },
-                            });
+                                    json: chartConfig.data.rows,
+                                    unload: [scope.selectedCol],
+                                    keys: {
+                                        x: 'group_name',
+                                        value: chartConfig.columns,
+                                    },
+                                });
+                            }
                         } else {
                             chart = c3.generate({
                                 bindto: '#chart',
@@ -1327,32 +1341,6 @@ get all data sets loaded with buttons in help sidebar
                             initialise = true;
                         }
                         scope.selectedCol = col;
-
-                        // L.geoJSON(data1, {
-                        //     pointToLayer: function(feature, latlng, properties) {
-                        //
-                        //
-                        //         var marker7 = new PruneCluster.Marker(latlng.lat, latlng.lng, {
-                        //             color: '#000',
-                        //             feature,
-                        //             'color': '#f3ff00',
-                        //             'visible': true,
-                        //             icon: L.icon({
-                        //                 iconUrl: 'layer.png',
-                        //                 iconSize: [48, 48]
-                        //
-                        //             })
-                        //         });
-                        //
-                        //
-                        //         marker7.category = 7;
-                        //         // marker.category = Math.floor(Math.random() * colors.length);
-                        //         markers.push(marker7);
-                        //         leafletView.RegisterMarker(marker7);
-                        //
-                        //     }
-                        // })
-
                     });
             }
 
@@ -1411,19 +1399,6 @@ get all data sets loaded with buttons in help sidebar
 
                         });
                         initialise = true;
-
-                        // chart.load({
-                        //     x: 'group_name',
-                        //     json: chartConfig.data.rows,
-                        //     unload: scope.selectedCol,
-                        //     keys: {
-                        //         x: 'group_name',
-                        //         value: chartConfig.columns,
-                        //     },
-                        //     groups: [
-                        //         chartConfig.columns
-                        //     ],
-                        // });
                         scope.selectedCol = clusters[clusterName];
                     });
             }
