@@ -108,6 +108,8 @@ get all data sets loaded with buttons in help sidebar
   <script src="c3/c3.min.js"></script>
   <script src="https://d3js.org/d3.v3.min.js"></script>
 
+
+
 </head>
 <body>
 
@@ -152,7 +154,8 @@ get all data sets loaded with buttons in help sidebar
 
                 <div>
                   <h3  data-step="1" data-intro="This is a tooltip!">Instructions</h3>
-                  <p data-step="4" data-intro="Another step.">To follow a walkthrough demonstration of the features available click the button below.</p>
+                  <p data-step="4" data-intro="Another step.">To follow a walkthrough demonstration of the features available click the 'show me how' button below.</p>
+                  <p>Alternatively, click on a point to display information including name, description, website, and neighbours about a group!"</p>
                   <a class="btn btn-success" href="javascript:void(0);" onclick="javascript:leftSidebar.open(); introJs().start();">Show me how</a>
                 </div>
                 <hr>
@@ -318,7 +321,7 @@ get all data sets loaded with buttons in help sidebar
           });
 
 
-
+          L.control.scale().addTo(map);
 
   var sidebar = L.control.sidebar('sidebar', {
     position: 'right'
@@ -758,7 +761,9 @@ main();
 
     //Adds prune cluster functionality for the page
     leafletView.BuildLeafletClusterIcon = function(cluster) {
-        var e = new L.Icon.MarkerCluster();
+        var e = new L.Icon.MarkerCluster({
+
+        });
 
         e.stats = cluster.stats;
         e.population = cluster.population;
@@ -773,6 +778,7 @@ main();
         options: {
             //This had an error as it was trowing off the marker alignment so had to be reduced
             iconSize: new L.Point(80, 50),
+
             // iconSize:     [38, 95], // size of the icon
             //className: 'prunecluster leaflet-markercluster-icon'
         },
