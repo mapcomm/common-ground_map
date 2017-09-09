@@ -284,6 +284,8 @@ get all data sets loaded with buttons in help sidebar
                             var currentChartType = 'scatter';
                             var currentScope = 0; // 0 for all points, 1 for only visible
                             var selectedCol = '';
+                            var data_function = null;
+                            var data_name = null;
 
                             // to know if currently load chart is special(boxplot or for unified_classif)
                             var initialise = true;
@@ -310,7 +312,7 @@ get all data sets loaded with buttons in help sidebar
 
                             function scopeSelected(selector) {
                                 currentScope = selector.options.selectedIndex;
-                                console.log(currentScope);
+                                data_function(data_name);
                             }
 
                             function chartLoad() {
@@ -1190,6 +1192,8 @@ get all data sets loaded with buttons in help sidebar
 
 
             function SIMD(col) {
+                data_function = SIMD;
+                data_name = col;
                 var scope = this;
                 //var select_statement = 'SELECT ' + col + ', quintile, group_name FROM "ahmednoureldeen".sg_simd_2016_grp';
                 var select_statement = 'SELECT ' + col +
@@ -1228,6 +1232,8 @@ get all data sets loaded with buttons in help sidebar
             }
 
             function ruralUrban(col) {
+                data_function = ruralUrban;
+                data_name = col;
                 var scope = this;
                 var select_statement =
                     'SELECT "mapcomm-admin".ruralurban.* , "mapcomm-admin".all_groups.group_name,\
@@ -1346,6 +1352,8 @@ get all data sets loaded with buttons in help sidebar
 
 
             function census(clusterName) {
+                data_function = census;
+                data_name = clusterName;
                 var scope = this;
                 const clusters = {
                     health: ['vghealth', 'ghealth', 'fairhealth', 'badhealth', 'vbadhealth'],
@@ -1655,6 +1663,7 @@ get all data sets loaded with buttons in help sidebar
             };
 
             */
+            map.on('moveend', function(){ if(currentScope == 1) data_function(data_name);})
 
             function main() {
 
