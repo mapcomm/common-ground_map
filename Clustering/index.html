@@ -514,15 +514,41 @@ get all data sets loaded with buttons in help sidebar
 
                                     }
                                     else {
-                                        chart.load({
-                                            //x: 'group_name',
-                                            json: chartConfig.data.rows,
-                                            //unload: [selectedCol],
-                                            keys: {
-                                                x: 'group_name',
-                                                value: chartConfig.columns,
-                                            },
-                                        });
+                                        var groups = [];
+                                        if(data_function == census){
+                                            chart = c3.generate({
+                                                bindto: '#chart',
+                                                data: {
+                                                    x: 'group_name',
+                                                    json: chartConfig.data.rows,
+                                                    keys: {
+                                                        x: 'group_name',
+                                                        value: chartConfig.columns,
+                                                    },
+                                                    groups: [
+                                                        chartConfig.columns
+                                                    ],
+                                                    type: currentChartType,
+                                                    xRandomScattering: currentChartType == 'scatter',
+                                                },
+                                                axis: {
+                                                    x: {
+                                                        type: 'category' // this needed to load string x value
+                                                    }
+                                                },
+
+                                            });
+                                        }else{
+                                            chart.load({
+                                                //x: 'group_name',
+                                                json: chartConfig.data.rows,
+                                                //unload: [selectedCol],
+                                                keys: {
+                                                    x: 'group_name',
+                                                    value: chartConfig.columns,
+                                                },
+                                            });
+                                        }
                                     }
                                 }
                                 else
@@ -1385,8 +1411,8 @@ get all data sets loaded with buttons in help sidebar
                         if (currentChartType == 'boxplot')
                             boxplotLoad();
                         else {
-                            if (initialise)
-                                initChart();
+                            //if (initialise)
+                            initChart();
                             chart.load({
                                 //x: 'group_name',
                                 json: chartConfig.data.rows,
@@ -1563,28 +1589,39 @@ get all data sets loaded with buttons in help sidebar
                         chartConfig.data = data1;
                         chartConfig.columns = clusters[clusterName];
 
-                        chart = c3.generate({
-                            bindto: '#chart',
-                            data: {
+                        chart.load({
+                            //x: 'group_name',
+                            json: chartConfig.data.rows,
+                            //unload: [selectedCol],
+                            keys: {
                                 x: 'group_name',
-                                json: chartConfig.data.rows,
-                                unload: scope.selectedCol,
-                                keys: {
-                                    x: 'group_name',
-                                    value: chartConfig.columns,
-                                },
-                                groups: [
-                                    chartConfig.columns
-                                ],
-                                type: currentChartType,
+                                value: chartConfig.columns,
                             },
-                            axis: {
-                                x: {
-                                    type: 'category' // this needed to load string x value
-                                }
-                            },
-
                         });
+
+                        // chart = c3.generate({
+                        //     bindto: '#chart',
+                        //     data: {
+                        //         //x: 'group_name',
+                        //         json: chartConfig.data.rows,
+                        //         unload: scope.selectedCol,
+                        //         keys: {
+                        //             x: 'group_name',
+                        //             value: chartConfig.columns,
+                        //         },
+                        //         groups: [
+                        //             chartConfig.columns
+                        //         ],
+                        //         type: currentChartType,
+                        //         xRandomScattering: currentChartType == 'scatter',
+                        //     },
+                        //     axis: {
+                        //         x: {
+                        //             type: 'category' // this needed to load string x value
+                        //         }
+                        //     },
+                        //
+                        // });
                         initialise = true;
                         scope.selectedCol = clusters[clusterName];
                     });
