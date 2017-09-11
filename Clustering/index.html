@@ -411,6 +411,17 @@ get all data sets loaded with buttons in help sidebar
                                             }
 
                                         });
+                                        chart.load({
+                                            x: 'group_name',
+                                            json: chartConfig.data.rows,
+                                            keys: {
+                                                x: 'group_name',
+                                                value: chartConfig.columns,
+                                            },
+                                            type: currentChartType,
+                                            xRandomScattering: currentChartType == 'scatter',
+                                            yRandomScattering: currentChartType == 'scatter',
+                                        });
 
                                     }
                                     else {
@@ -510,6 +521,17 @@ get all data sets loaded with buttons in help sidebar
                                                 }
                                             }
 
+                                        });
+                                        chart.load({
+                                            x: 'group_name',
+                                            json: chartConfig.data.rows,
+                                            keys: {
+                                                x: 'group_name',
+                                                value: chartConfig.columns,
+                                            },
+                                            type: currentChartType,
+                                            xRandomScattering: currentChartType == 'scatter',
+                                            yRandomScattering: currentChartType == 'scatter',
                                         });
 
                                     }
@@ -1475,79 +1497,66 @@ get all data sets loaded with buttons in help sidebar
                                 });
                             }
                         } else {
+                            //initChart();
                             chart = c3.generate({
                                 bindto: '#chart',
-                                data: {
+                                data :{
                                     x: 'group_name',
                                     json: chartConfig.data.rows,
+                                    //unload: [scope.selectedCol],
                                     keys: {
                                         x: 'group_name',
                                         value: chartConfig.columns,
                                     },
                                     type: currentChartType,
-                                    xRandomScattering: currentChartType == 'scatter',
                                     yRandomScattering: currentChartType == 'scatter',
+                                    xRandomScattering: currentChartType == 'scatter',
                                 },
-                                tooltip: {
-                                    format: {
-                                        value: function(d) {
-                                            switch (d) {
-                                                case 5:
-                                                    return "U1";
-                                                case 4:
-                                                    return "U2";
-                                                case 3:
-                                                    return "R1";
-                                                case 2:
-                                                    return "R2";
-                                                case 1:
-                                                    return "R3";
-                                                case 0:
-                                                    return "R4";
+                                axis: {
+                                        x: {
+                                            type: 'category' ,// this needed to load string x value
+                                            tick: {
+                                                format: function(d) {
+                                                    return chart.category(d)
+                                                    // console.log(this);
+                                                    // return d;
+                                                },
+                                                values: [0, 1, 2, 3, 4, 5,6,7,8,9,10],
+                                            }
+                                        },
+                                        y: {
+                                            min: 0,
+                                            max: 6,
+                                            tick: {
+                                                format: function(d) {
+                                                    switch (d) {
+                                                        case 5:
+                                                            return "U1";
+                                                        case 4:
+                                                            return "U2";
+                                                        case 3:
+                                                            return "R1";
+                                                        case 2:
+                                                            return "R2";
+                                                        case 1:
+                                                            return "R3";
+                                                        case 0:
+                                                            return "R4";
+                                                    }
+                                                },
+                                                values: [0, 1, 2, 3, 4, 5],
                                             }
                                         }
                                     }
+                            });
+                            chart.load({
+                                x: 'group_name',
+                                json: chartConfig.data.rows,
+                                unload: [scope.selectedCol],
+                                keys: {
+                                    x: 'group_name',
+                                    value: chartConfig.columns,
                                 },
-                                axis: {
-                                    x: {
-                                        type: 'category' ,// this needed to load string x value
-                                        tick: {
-                                            format: function(d) {
-                                                return chart.category(d);
-                                            },
-                                            values: [0, 1, 2, 3, 4, 5,6,7,8,9,10],
-                                        }
-                                    },
-                                    y: {
-                                        min: 0,
-                                        max: 6,
-                                        // padding: {
-                                        //     bottom: 0,
-                                        //     top: 0
-                                        // },
-                                        tick: {
-                                            format: function(d) {
-                                                switch (d) {
-                                                    case 5:
-                                                        return "U1";
-                                                    case 4:
-                                                        return "U2";
-                                                    case 3:
-                                                        return "R1";
-                                                    case 2:
-                                                        return "R2";
-                                                    case 1:
-                                                        return "R3";
-                                                    case 0:
-                                                        return "R4";
-                                                }
-                                            },
-                                            values: [0, 1, 2, 3, 4, 5],
-                                            //width: 0
-                                        }
-                                    }
-                                }
-
                             });
                             initialise = true;
                         }
