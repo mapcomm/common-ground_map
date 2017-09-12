@@ -413,3 +413,39 @@
 .chart-wrapper text{
     font-size: 10px !important;
 }
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  /*background-color:rgba(255, 255, 255, 0.5);*/
+  color: black;
+  border-radius: 2px;
+  z-index: 1000;
+  border: 1px solid gray;
+  background-color: #fff;
+  -webkit-box-shadow: 7px 7px 12px -9px #777777;
+  -moz-box-shadow: 7px 7px 12px -9px #777777;
+  box-shadow: 7px 7px 12px -9px #777777;
+  opacity: 0.9;
+}
+
+
+/* Creates a small triangle extender for the tooltip */
+/*.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+/*.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}*/

@@ -117,6 +117,7 @@ get all data sets loaded with buttons in help sidebar
         <script src="c3/c3.js"></script>
         <script src="https://d3js.org/d3.v3.min.js"></script>
         <script src="distroplot/js/distrochart.js"></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
     </head>
 
@@ -461,6 +462,34 @@ get all data sets loaded with buttons in help sidebar
                                                 value: chartConfig.columns,
                                             },
                                         });
+                                        if(data_function == census){
+                                            var margin = {top: 40, right: 20, bottom: 30, left: 40},
+                                            width = 960 - margin.left - margin.right,
+                                            height = 500 - margin.top - margin.bottom;
+
+                                            var tip = d3.tip()
+                                                  .attr('class', 'd3-tip')
+                                                  .offset([-10, 0])
+                                                  .html(function(d) {
+                                                    return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                                                });
+                                                var svg = d3.select("body").append("svg")
+                                                    .attr("width", width + margin.left + margin.right)
+                                                    .attr("height", height + margin.top + margin.bottom)
+                                                  .append("g")
+                                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                                                svg.call(tip);
+
+                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id){
+                                                chart.focus(id);
+                                                tip.html("<span>" +clusters_dict[id] + "</span>").show();
+                                            })
+                                            .on('mouseout', function(id){
+                                                tip.hide();
+                                                chart.revert();
+                                            })
+                                        }
                                     }
 
                                 } else
@@ -1513,6 +1542,7 @@ get all data sets loaded with buttons in help sidebar
                         }
 
                     });
+
             }
 
             function ruralUrban(col) {
@@ -1817,6 +1847,34 @@ get all data sets loaded with buttons in help sidebar
                         }
                         initialise = true;
                         scope.selectedCol = clusters[clusterName];
+
+                        var margin = {top: 40, right: 20, bottom: 30, left: 40},
+                        width = 960 - margin.left - margin.right,
+                        height = 500 - margin.top - margin.bottom;
+
+                        var tip = d3.tip()
+                              .attr('class', 'd3-tip')
+                              .offset([-10, 0])
+                              .html(function(d) {
+                                return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                            });
+                            var svg = d3.select("body").append("svg")
+                                .attr("width", width + margin.left + margin.right)
+                                .attr("height", height + margin.top + margin.bottom)
+                              .append("g")
+                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                            svg.call(tip);
+
+                        d3.selectAll('.c3-legend-item').on('mouseover', function(id){
+                            chart.focus(id);
+                            tip.html("<span>" +clusters_dict[id] + "</span>").show();
+                        })
+                        .on('mouseout', function(id){
+                            tip.hide();
+                            chart.revert();
+                        })
+
                     });
             }
 
