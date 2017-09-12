@@ -323,6 +323,13 @@ get all data sets loaded with buttons in help sidebar
                                         ],
                                         type: currentChartType,
                                         xRandomScattering: xRandomScattering,
+                                        colors: {
+                                            'rank': 'blue',
+                                            'emprank':'orange',
+                                            'incrank': 'green',
+                                            'hlthrank': 'red',
+                                            'edurank': 'purple'
+                                        },
                                     },
                                     tooltip: {
                                         format: {
@@ -655,6 +662,32 @@ get all data sets loaded with buttons in help sidebar
                                                 },
 
                                             });
+                                            var margin = {top: 40, right: 20, bottom: 30, left: 40},
+                                            width = 960 - margin.left - margin.right,
+                                            height = 500 - margin.top - margin.bottom;
+
+                                            var tip = d3.tip()
+                                                  .attr('class', 'd3-tip')
+                                                  .offset([-10, 0])
+                                                  .html(function(d) {
+                                                    return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                                                });
+                                                var svg = d3.select("body").append("svg")
+                                                    .attr("width", width + margin.left + margin.right)
+                                                    .attr("height", height + margin.top + margin.bottom)
+                                                  .append("g")
+                                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                                                svg.call(tip);
+
+                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id){
+                                                chart.focus(id);
+                                                tip.html("<span>" +clusters_dict[id] + "</span>").show();
+                                            })
+                                            .on('mouseout', function(id){
+                                                tip.hide();
+                                                chart.revert();
+                                            })
                                         } else {
                                             chart.load({
                                                 //x: 'group_name',
@@ -1503,7 +1536,14 @@ get all data sets loaded with buttons in help sidebar
             }
             permaculture();
 
+            var simd_colors = {
+                'simd': 'blue',
+                'employment':'orange',
+                'income': 'green',
+                'health': 'red',
+                'education': 'purple'
 
+            }
             function SIMD(col) {
                 data_function = SIMD;
                 data_name = col;
@@ -1532,7 +1572,7 @@ get all data sets loaded with buttons in help sidebar
                             chart.load({
                                 //x: 'group_name',
                                 json: chartConfig.data.rows,
-                                unload: [selectedCol],
+                                //unload: [selectedCol],
                                 keys: {
                                     x: 'group_name',
                                     value: chartConfig.columns,
