@@ -230,7 +230,7 @@ get all data sets loaded with buttons in help sidebar
                             <!-- <button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button> -->
                             <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
                             <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
-                            <button class="tablinks3" id="HelpButton" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
+                            <button class="tablinks3" id="boxplotBtn" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
 
                             <select onchange="scopeSelected(this);">
                                 <option value="0">All Points</option>
@@ -1545,6 +1545,7 @@ get all data sets loaded with buttons in help sidebar
 
             }
             function SIMD(col) {
+                d3.select('#boxplotBtn').style('display', 'unset');
                 data_function = SIMD;
                 data_name = col;
                 var scope = this;
@@ -1586,6 +1587,7 @@ get all data sets loaded with buttons in help sidebar
             }
 
             function ruralUrban(col) {
+                d3.select('#boxplotBtn').style('display', 'unset');
                 data_function = ruralUrban;
                 data_name = col;
                 var scope = this;
@@ -1784,6 +1786,7 @@ get all data sets loaded with buttons in help sidebar
             }
 
             function census(clusterName) {
+                d3.select('#boxplotBtn').style('display', 'none');
                 data_function = census;
                 data_name = clusterName;
                 var scope = this;
