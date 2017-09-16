@@ -269,13 +269,19 @@ img src=""
             <div class="tab2" id="tab2">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS);">DTAS</button>
-                  <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS);">ECS</button>
-                  <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand);">CommLand</button>
-                  <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All);">_All_</button>
-                  <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy);">CommEnergy</button>
-                  <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms);">City Farms   </button>
-                  <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN);">SCCAN</button>
+                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS, 'DTAS');">DTAS</button>
+
+                  <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS,'ECS');">ECS</button>
+
+                  <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand,'commLand');">CommLand</button>
+
+                  <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All,'All');">_All_</button>
+
+                  <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy,'commEnergy');">CommEnergy</button>
+
+                  <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms,'cityFarms');">City Farms   </button>
+
+                  <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN,'SCCAN');">SCCAN</button>
                 </div><!--end div classs="btn-group"-->
                   <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
               </div><!--end div classs="btn-toolbar"-->
@@ -438,7 +444,22 @@ function setInitialData(){
 
 
 
-  function AddElements(group){
+  function AddElements(group,name){
+//cityFarms,SCCAN,commEnergy,All,commLand,ECS,DTAS
+    //resets all the elements to blue - need to change to clours when selected
+    document.getElementById('DTAS').style.opacity='1.0';
+
+    document.getElementById('ECS').style.opacity='1.0';
+    document.getElementById('commLand').style.opacity='1.0';
+    document.getElementById('All').style.opacity='1.0';
+    document.getElementById('commEnergy').style.opacity='1.0';
+    document.getElementById('SCCAN').style.opacity='1.0';
+    document.getElementById('cityFarms').style.opacity='1.0';
+   
+    //turns selected element to white
+    document.getElementById(name).style.opacity='0.5';
+    document.getElementById(name).style.border='2px solid #4CAF50';
+
 
 
 //alert(group);
