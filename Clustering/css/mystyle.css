@@ -1,28 +1,4 @@
-  .tablinks3{
-    
-     color: white;
-  display: inline-block;
-  padding: 6px 12px;
 
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-      touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: #2288ee;
-  }
 
   #tablinks3{
     
@@ -31,10 +7,10 @@
   padding: 5px 6px 12px;
   padding-left: 6px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: normal;
   line-height: 1.42857143;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   vertical-align: middle;
   -ms-touch-action: manipulation;
@@ -48,8 +24,42 @@
   border: 1px solid transparent;
   border-radius: 4px;
   background-color: #2288ee;
+    position: relative;
+    left: 20px;
+    
+
   }
 
+
+
+  #tablinks4{
+    
+     color: white;
+  display: inline-block;
+  padding: 5px 6px 12px;
+  padding-left: 2px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #2288ee;
+    position: relative;
+    left: 20px;
+ 
+  }
 
   #sidebar-text2{
     

@@ -179,7 +179,7 @@
       min-width: 350px; } }
   @media (min-width: 1200px) {
     .sidebar-pane {
-      min-width: 340px; } }
+      min-width: 170px; } }
 
 .sidebar-header {
   margin: -10px -20px 0;
