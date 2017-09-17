@@ -271,7 +271,7 @@ img src=""
             <div class="tab2" id="tab2">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS, 'DTAS');">DTAS</button>
+                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS,'DTAS');">DTAS</button>
 
                   <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS,'ECS');">ECS</button>
 
@@ -449,6 +449,9 @@ function setInitialData(){
   function AddElements(group,name){
 //cityFarms,SCCAN,commEnergy,All,commLand,ECS,DTAS
     //resets all the elements to blue - need to change to clours when selected
+
+
+    // console.log('name is ' + name);
     document.getElementById('DTAS').style.opacity='1.0';
 
     document.getElementById('ECS').style.opacity='1.0';
@@ -464,34 +467,34 @@ function setInitialData(){
 
 
 
-//alert(group);
+
 leafletView.Cluster._markers = [];
 leafletView.ProcessView();
 group();
- map.setView([55.3781, -4.4360], 6);
-main();
+ map.setView([55.3781, -4.4360], 7);
 
-     //var selector = '.commLandButton';
+ //This is working code that can be deleted but maybe useful for others that require jquery control of buttons
+     // var selector = '.commLandButton';
 
-              $(selector).on('click', function(){
-                  var myClass = $(this).attr("class");
+     //          $(selector).on('click', function(){
+     //              var myClass = $(this).attr("class");
 
-                  if(myClass == ".commLandButton active"){
-                   alert(myClass);
+     //              if(myClass == ".commLandButton active"){
+     //               alert(myClass);
 
-                  $(this).removeClass('active');
-                   commLand();
-                    alert(myClass);
-
-
-                    }else{
-                       alert(myClass);
-                  $(this).addClass('active');
+     //              $(this).removeClass('active');
+     //               commLand();
+     //                alert(myClass);
 
 
-                  alert(myClass);
-                  }
-                })
+     //                }else{
+     //                   alert(myClass);
+     //              $(this).addClass('active');
+
+
+     //              alert(myClass);
+     //              }
+     //            })
 
     //if button css is clicked dont call it else call it for every one
     //1st Job - work out how to distinguish the css functionality
@@ -512,6 +515,7 @@ main();
 
 //
     leafletView.ProcessView();
+    main();
     //console.log(leafletView.Cluster._markers);
           }
 
@@ -596,8 +600,7 @@ main();
       //console.log(data1.features[0].properties.name,data1.features[1].properties);
       var data = data1;
 
-      console.log("data")
-      console.log( data);
+      
 
       var name = data1.features[0].properties.name;
 
@@ -1198,9 +1201,9 @@ leafletView.PrepareLeafletMarker = function(leafletMarker, data,properties) {
 
 
     leafletMarker.on('click', function(){
-        console.log(data);
+        //console.log(data);
 
-       console.log(data.feature.properties.network)
+       //console.log(data.feature.properties.network)
        openSidebar(data.feature.properties.network, data.feature.properties.name, data.feature.properties.url,data.feature.properties.facebook_url,data.feature.properties.twitter_url,data.feature.properties.description);
 
     //do click event logic here
@@ -1405,7 +1408,7 @@ var overlays = {
 
   function main(){
 
-          map.setView([55.3781, -4.4360], 5);
+          map.setView([55.3781, -4.4360], 6);
           $("li").addClass("active");
 
 
