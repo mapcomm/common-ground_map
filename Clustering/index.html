@@ -325,7 +325,7 @@ get all data sets loaded with buttons in help sidebar
                                         xRandomScattering: xRandomScattering,
                                         colors: {
                                             'rank': 'blue',
-                                            'emprank':'orange',
+                                            'emprank': 'orange',
                                             'incrank': 'green',
                                             'hlthrank': 'red',
                                             'edurank': 'purple'
@@ -469,33 +469,38 @@ get all data sets loaded with buttons in help sidebar
                                                 value: chartConfig.columns,
                                             },
                                         });
-                                        if(data_function == census){
-                                            var margin = {top: 40, right: 20, bottom: 30, left: 40},
-                                            width = 960 - margin.left - margin.right,
-                                            height = 500 - margin.top - margin.bottom;
+                                        if (data_function == census) {
+                                            var margin = {
+                                                    top: 40,
+                                                    right: 20,
+                                                    bottom: 30,
+                                                    left: 40
+                                                },
+                                                width = 960 - margin.left - margin.right,
+                                                height = 500 - margin.top - margin.bottom;
 
                                             var tip = d3.tip()
-                                                  .attr('class', 'd3-tip')
-                                                  .offset([-10, 0])
-                                                  .html(function(d) {
-                                                    return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                                                .attr('class', 'd3-tip')
+                                                .offset([-10, 0])
+                                                .html(function(d) {
+                                                    return "<strong>Frequency:</strong> <span style='color:red'>" + 'koko' + "</span>";
                                                 });
-                                                var svg = d3.select("body").append("svg")
-                                                    .attr("width", width + margin.left + margin.right)
-                                                    .attr("height", height + margin.top + margin.bottom)
-                                                  .append("g")
-                                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                                            var svg = d3.select("body").append("svg")
+                                                .attr("width", width + margin.left + margin.right)
+                                                .attr("height", height + margin.top + margin.bottom)
+                                                .append("g")
+                                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                                                svg.call(tip);
+                                            svg.call(tip);
 
-                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id){
-                                                chart.focus(id);
-                                                tip.html("<span>" +clusters_dict[id] + "</span>").show();
-                                            })
-                                            .on('mouseout', function(id){
-                                                tip.hide();
-                                                chart.revert();
-                                            })
+                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id) {
+                                                    chart.focus(id);
+                                                    tip.html("<span>" + clusters_dict[id] + "</span>").show();
+                                                })
+                                                .on('mouseout', function(id) {
+                                                    tip.hide();
+                                                    chart.revert();
+                                                })
                                         }
                                     }
 
@@ -616,11 +621,13 @@ get all data sets loaded with buttons in help sidebar
                                                 })
                                                 .entries(chartConfig.data.rows);
 
-                                            var data ={
-                                                rows:[],
+                                            var data = {
+                                                rows: [],
                                             }
-                                            for(i in rows){
-                                                data.rows.push(Object.assign({},{group_name:rows[i].key},rows[i].values));
+                                            for (i in rows) {
+                                                data.rows.push(Object.assign({}, {
+                                                    group_name: rows[i].key
+                                                }, rows[i].values));
                                             }
                                             chart = c3.generate({
                                                 bindto: '#chart',
@@ -652,56 +659,132 @@ get all data sets loaded with buttons in help sidebar
                                                         type: 'category', // this needed to load string x value
                                                     },
                                                     y: {
-                                                        tick:{
-                                                            format: function(d){
-                                                                return d+"%";
+                                                        tick: {
+                                                            format: function(d) {
+                                                                return d + "%";
                                                             },
-                                                            values:[0,10,20,30,40,50,60,70,80,90,100],
+                                                            values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
                                                         },
                                                     },
                                                 },
 
                                             });
-                                            var margin = {top: 40, right: 20, bottom: 30, left: 40},
-                                            width = 960 - margin.left - margin.right,
-                                            height = 500 - margin.top - margin.bottom;
+                                            var margin = {
+                                                    top: 40,
+                                                    right: 20,
+                                                    bottom: 30,
+                                                    left: 40
+                                                },
+                                                width = 960 - margin.left - margin.right,
+                                                height = 500 - margin.top - margin.bottom;
 
                                             var tip = d3.tip()
-                                                  .attr('class', 'd3-tip')
-                                                  .offset([-10, 0])
-                                                  .html(function(d) {
-                                                    return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                                                .attr('class', 'd3-tip')
+                                                .offset([-10, 0])
+                                                .html(function(d) {
+                                                    return "<strong>Frequency:</strong> <span style='color:red'>" + 'koko' + "</span>";
                                                 });
-                                                var svg = d3.select("body").append("svg")
-                                                    .attr("width", width + margin.left + margin.right)
-                                                    .attr("height", height + margin.top + margin.bottom)
-                                                  .append("g")
-                                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                                            var svg = d3.select("body").append("svg")
+                                                .attr("width", width + margin.left + margin.right)
+                                                .attr("height", height + margin.top + margin.bottom)
+                                                .append("g")
+                                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                                                svg.call(tip);
+                                            svg.call(tip);
 
-                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id){
-                                                chart.focus(id);
-                                                tip.html("<span>" +clusters_dict[id] + "</span>").show();
-                                            })
-                                            .on('mouseout', function(id){
-                                                tip.hide();
-                                                chart.revert();
-                                            })
+                                            d3.selectAll('.c3-legend-item').on('mouseover', function(id) {
+                                                    chart.focus(id);
+                                                    tip.html("<span>" + clusters_dict[id] + "</span>").show();
+                                                })
+                                                .on('mouseout', function(id) {
+                                                    tip.hide();
+                                                    chart.revert();
+                                                })
                                         } else {
-                                            chart.load({
-                                                //x: 'group_name',
-                                                json: chartConfig.data.rows,
-                                                //unload: [selectedCol],
-                                                keys: {
-                                                    x: 'group_name',
-                                                    value: chartConfig.columns,
+                                            // chart.load({
+                                            //     //x: 'group_name',
+                                            //     json: chartConfig.data.rows,
+                                            //     //unload: [selectedCol],
+                                            //     keys: {
+                                            //         x: 'group_name',
+                                            //         value: chartConfig.columns,
+                                            //     },
+                                            // });
+                                            var rows = d3.nest()
+                                                .key(function(d) {
+                                                    return d.group_name;
+                                                })
+                                                .rollup(function(group) {
+                                                    var q = d3.nest()
+                                                        .key(function(d) {
+                                                            if (d[selectedCol] < 1395)
+                                                                return "Q1";
+                                                            if (d[selectedCol] < 2790)
+                                                                return "Q2";
+                                                            if (d[selectedCol] < 4185)
+                                                                return "Q3";
+                                                            if (d[selectedCol] < 5580)
+                                                                return "Q4";
+                                                            if (d[selectedCol] >= 5580)
+                                                                return "Q5";
+                                                        }).rollup(function(qd) {
+                                                            return (qd.length / group.length)*100
+                                                        })
+                                                        .entries(group)
+                                                    return q;
+                                                })
+                                                .entries(chartConfig.data.rows);
+                                            console.log(rows);
+
+                                            var data = {
+                                                rows: [],
+                                            }
+                                            for (i in rows) {
+                                                var obj = {
+                                                    group_name: rows[i].key
+                                                };
+                                                for (j in rows[i].values) {
+                                                    obj[rows[i].values[j].key] = rows[i].values[j].values
+                                                }
+                                                data.rows.push(obj);
+                                            }
+                                            console.log(data);
+                                            // initChart();
+                                            chart = c3.generate({
+                                                bindto: '#chart',
+                                                data: {
+                                                    //x: 'group_name',
+                                                    json: data.rows,
+                                                    //unload: [selectedCol],
+                                                    keys: {
+                                                        x: 'group_name',
+                                                        value: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
+                                                    },
+                                                    type: currentChartType,
+                                                    groups: [
+                                                        ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
+                                                    ],
+                                                },
+                                                axis: {
+                                                    x: {
+                                                        type: 'category', // this needed to load string x value
+                                                    },
+                                                    y: {
+                                                        tick: {
+                                                            format: function(d) {
+                                                                return d + "%";
+                                                            },
+                                                            values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                                                        },
+                                                    },
                                                 },
                                             });
                                         }
                                     }
-                                } else
-                                    chart.transform(currentChartType);
+                                }
+                                else{
+
+                                }
 
                             }
 
@@ -774,13 +857,13 @@ get all data sets loaded with buttons in help sidebar
 
         <script>
             /*Code here is for Nearest neighbour calculation referenced above - KNN
-                                                                                                                                                                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+                                                                                                                                                                                                                                                                                      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                                                                                                                                                                                                                                                         function(data1) {
+                                                                                                                                                                                                                                                                                 function(data1) {
 
 
-                                                                                                                                                                                                                                                         }));
-                                                                                                                                                                                                                                                      */
+                                                                                                                                                                                                                                                                                 }));
+                                                                                                                                                                                                                                                                              */
 
 
             //Insert method which will add data sets individually
@@ -1538,12 +1621,13 @@ get all data sets loaded with buttons in help sidebar
 
             var simd_colors = {
                 'simd': 'blue',
-                'employment':'orange',
+                'employment': 'orange',
                 'income': 'green',
                 'health': 'red',
                 'education': 'purple'
 
             }
+
             function SIMD(col) {
                 d3.select('#boxplotBtn').style('display', 'unset');
                 data_function = SIMD;
@@ -1567,7 +1651,79 @@ get all data sets loaded with buttons in help sidebar
                         chartConfig.columns = [col];
                         if (currentChartType == 'boxplot')
                             boxplotLoad();
-                        else {
+                        else if (currentChartType == 'bar') {
+                            // console.log(data1.rows);
+                            var rows = d3.nest()
+                                .key(function(d) {
+                                    return d.group_name;
+                                })
+                                .rollup(function(group) {
+                                    var q = d3.nest()
+                                        .key(function(d) {
+                                            if (d[col] < 1395)
+                                                return "Q1";
+                                            if (d[col] < 2790)
+                                                return "Q2";
+                                            if (d[col] < 4185)
+                                                return "Q3";
+                                            if (d[col] < 5580)
+                                                return "Q4";
+                                            if (d[col] >= 5580)
+                                                return "Q5";
+                                        }).rollup(function(qd) {
+                                            return (qd.length / group.length)*100
+                                        })
+                                        .entries(group)
+                                    return q;
+                                })
+                                .entries(data1.rows);
+                            console.log(rows);
+
+                            var data = {
+                                rows: [],
+                            }
+                            for (i in rows) {
+                                var obj = {
+                                    group_name: rows[i].key
+                                };
+                                for (j in rows[i].values) {
+                                    obj[rows[i].values[j].key] = rows[i].values[j].values
+                                }
+                                data.rows.push(obj);
+                            }
+                            console.log(data);
+                            // initChart();
+                            chart = c3.generate({
+                                bindto: '#chart',
+                                data: {
+                                    //x: 'group_name',
+                                    json: data.rows,
+                                    //unload: [selectedCol],
+                                    keys: {
+                                        x: 'group_name',
+                                        value: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
+                                    },
+                                    type: currentChartType,
+                                    groups: [
+                                        ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
+                                    ],
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'category', // this needed to load string x value
+                                    },
+                                    y: {
+                                        tick: {
+                                            format: function(d) {
+                                                return d + "%";
+                                            },
+                                            values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                                        },
+                                    },
+                                },
+                            });
+                            selectedCol = col;
+                        } else {
                             //if (initialise)
                             initChart();
                             chart.load({
@@ -1831,11 +1987,13 @@ get all data sets loaded with buttons in help sidebar
                                 })
                                 .entries(data1.rows);
 
-                            var data ={
-                                rows:[],
+                            var data = {
+                                rows: [],
                             }
-                            for(i in rows){
-                                data.rows.push(Object.assign({},{group_name:rows[i].key},rows[i].values));
+                            for (i in rows) {
+                                data.rows.push(Object.assign({}, {
+                                    group_name: rows[i].key
+                                }, rows[i].values));
                             }
                             console.log(data);
                             initChart();
@@ -1848,7 +2006,7 @@ get all data sets loaded with buttons in help sidebar
                                         x: 'group_name',
                                         value: chartConfig.columns,
                                     },
-                                    groups:[ clusters[clusterName]],
+                                    groups: [clusters[clusterName]],
                                     type: currentChartType,
                                 },
                                 tooltip: {
@@ -1866,18 +2024,17 @@ get all data sets loaded with buttons in help sidebar
                                         type: 'category', // this needed to load string x value
                                     },
                                     y: {
-                                        tick:{
-                                            format: function(d){
-                                                return d+"%";
+                                        tick: {
+                                            format: function(d) {
+                                                return d + "%";
                                             },
-                                            values:[0,10,20,30,40,50,60,70,80,90,100],
+                                            values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
                                         },
                                     },
                                 },
 
                             });
-                        }
-                        else {
+                        } else {
                             chart.load({
                                 //x: 'group_name',
                                 json: chartConfig.data.rows,
@@ -1891,32 +2048,37 @@ get all data sets loaded with buttons in help sidebar
                         initialise = true;
                         scope.selectedCol = clusters[clusterName];
 
-                        var margin = {top: 40, right: 20, bottom: 30, left: 40},
-                        width = 960 - margin.left - margin.right,
-                        height = 500 - margin.top - margin.bottom;
+                        var margin = {
+                                top: 40,
+                                right: 20,
+                                bottom: 30,
+                                left: 40
+                            },
+                            width = 960 - margin.left - margin.right,
+                            height = 500 - margin.top - margin.bottom;
 
                         var tip = d3.tip()
-                              .attr('class', 'd3-tip')
-                              .offset([-10, 0])
-                              .html(function(d) {
-                                return "<strong>Frequency:</strong> <span style='color:red'>" +'koko' + "</span>";
+                            .attr('class', 'd3-tip')
+                            .offset([-10, 0])
+                            .html(function(d) {
+                                return "<strong>Frequency:</strong> <span style='color:red'>" + 'koko' + "</span>";
                             });
-                            var svg = d3.select("body").append("svg")
-                                .attr("width", width + margin.left + margin.right)
-                                .attr("height", height + margin.top + margin.bottom)
-                              .append("g")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                        var svg = d3.select("body").append("svg")
+                            .attr("width", width + margin.left + margin.right)
+                            .attr("height", height + margin.top + margin.bottom)
+                            .append("g")
+                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                            svg.call(tip);
+                        svg.call(tip);
 
-                        d3.selectAll('.c3-legend-item').on('mouseover', function(id){
-                            chart.focus(id);
-                            tip.html("<span>" +clusters_dict[id] + "</span>").show();
-                        })
-                        .on('mouseout', function(id){
-                            tip.hide();
-                            chart.revert();
-                        })
+                        d3.selectAll('.c3-legend-item').on('mouseover', function(id) {
+                                chart.focus(id);
+                                tip.html("<span>" + clusters_dict[id] + "</span>").show();
+                            })
+                            .on('mouseout', function(id) {
+                                tip.hide();
+                                chart.revert();
+                            })
 
                     });
             }
