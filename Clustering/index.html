@@ -764,6 +764,9 @@ get all data sets loaded with buttons in help sidebar
                                                     groups: [
                                                         ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
                                                     ],
+                                                    order:function (data1, data2) {
+                                                        return data1.id.localeCompare(data2.id);
+                                                    }
                                                 },
                                                 axis: {
                                                     x: {
@@ -1707,6 +1710,9 @@ get all data sets loaded with buttons in help sidebar
                                     groups: [
                                         ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
                                     ],
+                                    order:function (data1, data2) {
+                                        return data1.id.localeCompare(data2.id);
+                                    }
                                 },
                                 axis: {
                                     x: {
