@@ -514,88 +514,75 @@ get all data sets loaded with buttons in help sidebar
                                 if (initialise) {
                                     initChart();
                                     if (data_name == 'unified_classif_value') {
+                                        console.log(chartConfig.data.rows);
+                                        var rows = d3.nest()
+                                            .key(function(d) {
+                                                return d.group_name;
+                                            })
+                                            .rollup(function(group) {
+                                                var q = d3.nest()
+                                                    .key(function(d) {
+                                                        return d.unified_classif
+                                                    }).rollup(function(qd) {
+                                                        return (qd.length / group.length) * 100
+                                                    })
+                                                    .entries(group)
+                                                return q;
+                                            })
+                                            .entries(chartConfig.data.rows);
+                                        console.log(rows);
+
+                                        var data = {
+                                            rows: [],
+                                        }
+                                        for (i in rows) {
+                                            var obj = {
+                                                group_name: rows[i].key
+                                            };
+                                            for (j in rows[i].values) {
+                                                obj[rows[i].values[j].key] = rows[i].values[j].values
+                                            }
+                                            data.rows.push(obj);
+                                        }
+                                        console.log(data);
+                                        // initChart();
                                         chart = c3.generate({
                                             bindto: '#chart',
                                             data: {
-                                                x: 'group_name',
-                                                json: chartConfig.data.rows,
+                                                //x: 'group_name',
+                                                json: data.rows,
+                                                //unload: [selectedCol],
                                                 keys: {
                                                     x: 'group_name',
-                                                    value: chartConfig.columns,
+                                                    value: ['R4', 'R3', 'R2', 'R1', 'U2', 'U1'],
                                                 },
                                                 type: currentChartType,
-                                                xRandomScattering: currentChartType == 'scatter',
-                                                yRandomScattering: currentChartType == 'scatter',
+                                                groups: [
+                                                    ['R4', 'R3', 'R2', 'R1', 'U2', 'U1']
+                                                ],
+                                                order: function(data1, data2) {
+                                                    //debugger;
+                                                    return unified_class_dict[data1.id] - unified_class_dict[data2.id];
+                                                }
                                             },
                                             tooltip: {
                                                 format: {
-                                                    value: function(d) {
-                                                        if (d >= 4.7)
-                                                            return "Large Urban Areas";
-                                                        if (d >= 3.7)
-                                                            return "Smaller Urban Areas";
-                                                        if (d >= 2.7)
-                                                            return "Accessible Settlements";
-                                                        if (d >= 1.7)
-                                                            return "Sparse/Remote Settlements";
-                                                        if (d >= 0.7)
-                                                            return "Accessible Villages/Dwellings";
-                                                        if (d >= -0.3)
-                                                            return "Sparse/Remote Villages/Dwellings";
-                                                    }
-                                                }
+                                                    value: d3.format(",.2f")
+                                                },
                                             },
                                             axis: {
                                                 x: {
                                                     type: 'category', // this needed to load string x value
-                                                    tick: {
-                                                        format: function(d) {
-                                                            return chart.category(d);
-                                                        },
-                                                        values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                                                    }
                                                 },
                                                 y: {
-                                                    min: 0,
-                                                    max: 6,
-                                                    // padding: {
-                                                    //     bottom: 0,
-                                                    //     top: 0
-                                                    // },
                                                     tick: {
                                                         format: function(d) {
-                                                            switch (d) {
-                                                                case 5:
-                                                                    return "U1";
-                                                                case 4:
-                                                                    return "U2";
-                                                                case 3:
-                                                                    return "R1";
-                                                                case 2:
-                                                                    return "R2";
-                                                                case 1:
-                                                                    return "R3";
-                                                                case 0:
-                                                                    return "R4";
-                                                            }
+                                                            return d + "%";
                                                         },
-                                                        values: [0, 1, 2, 3, 4, 5],
-                                                        //width: 0
-                                                    }
-                                                }
-                                            }
-
-                                        });
-                                        chart.load({
-                                            x: 'group_name',
-                                            json: chartConfig.data.rows,
-                                            keys: {
-                                                x: 'group_name',
-                                                value: chartConfig.columns,
+                                                        values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                                                    },
+                                                },
                                             },
-                                            type: currentChartType,
-                                            xRandomScattering: currentChartType == 'scatter',
-                                            yRandomScattering: currentChartType == 'scatter',
                                         });
 
                                     } else {
@@ -701,15 +688,6 @@ get all data sets loaded with buttons in help sidebar
                                                     chart.revert();
                                                 })
                                         } else {
-                                            // chart.load({
-                                            //     //x: 'group_name',
-                                            //     json: chartConfig.data.rows,
-                                            //     //unload: [selectedCol],
-                                            //     keys: {
-                                            //         x: 'group_name',
-                                            //         value: chartConfig.columns,
-                                            //     },
-                                            // });
                                             var rows = d3.nest()
                                                 .key(function(d) {
                                                     return d.group_name;
@@ -728,7 +706,7 @@ get all data sets loaded with buttons in help sidebar
                                                             if (d[selectedCol] >= 5580)
                                                                 return "Q5";
                                                         }).rollup(function(qd) {
-                                                            return (qd.length / group.length)*100
+                                                            return (qd.length / group.length) * 100
                                                         })
                                                         .entries(group)
                                                     return q;
@@ -764,9 +742,14 @@ get all data sets loaded with buttons in help sidebar
                                                     groups: [
                                                         ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
                                                     ],
-                                                    order:function (data1, data2) {
+                                                    order: function(data1, data2) {
                                                         return data1.id.localeCompare(data2.id);
                                                     }
+                                                },
+                                                tooltip: {
+                                                    format: {
+                                                        value: d3.format(",.2f")
+                                                    },
                                                 },
                                                 axis: {
                                                     x: {
@@ -784,8 +767,7 @@ get all data sets loaded with buttons in help sidebar
                                             });
                                         }
                                     }
-                                }
-                                else{
+                                } else {
 
                                 }
 
@@ -860,13 +842,13 @@ get all data sets loaded with buttons in help sidebar
 
         <script>
             /*Code here is for Nearest neighbour calculation referenced above - KNN
-                                                                                                                                                                                                                                                                                      var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
+                                                                                                                                                                                                                                                                                                              var query3 = $.getJSON(('https://carto.mapping.community:9090/user/hilld/api/v2/sql?format=GeoJSON&q=SELECT *,ST_Distance(geom,'"SRID=4326;POINT(newLon newLat)"'::geometry) FROM "mapcomm-admin".permaculture_groups_gb_sct ORDER BY "mapcomm-admin".permaculture_groups_gb_sct.geom <->'"SRID=4326;POINT(newLon newLat)"'::geometry LIMIT 10',
 
-                                                                                                                                                                                                                                                                                 function(data1) {
+                                                                                                                                                                                                                                                                                                         function(data1) {
 
 
-                                                                                                                                                                                                                                                                                 }));
-                                                                                                                                                                                                                                                                              */
+                                                                                                                                                                                                                                                                                                         }));
+                                                                                                                                                                                                                                                                                                      */
 
 
             //Insert method which will add data sets individually
@@ -1674,7 +1656,7 @@ get all data sets loaded with buttons in help sidebar
                                             if (d[col] >= 5580)
                                                 return "Q5";
                                         }).rollup(function(qd) {
-                                            return (qd.length / group.length)*100
+                                            return (qd.length / group.length) * 100
                                         })
                                         .entries(group)
                                     return q;
@@ -1710,9 +1692,14 @@ get all data sets loaded with buttons in help sidebar
                                     groups: [
                                         ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
                                     ],
-                                    order:function (data1, data2) {
+                                    order: function(data1, data2) {
                                         return data1.id.localeCompare(data2.id);
                                     }
+                                },
+                                tooltip: {
+                                    format: {
+                                        value: d3.format(",.2f")
+                                    },
                                 },
                                 axis: {
                                     x: {
@@ -1747,7 +1734,7 @@ get all data sets loaded with buttons in help sidebar
                     });
 
             }
-
+var unified_class_dict = {"R4":0, "R3":1, "R2":2, "R1":3, "U2":4, "U1":5};
             function ruralUrban(col) {
                 d3.select('#boxplotBtn').style('display', 'unset');
                 data_function = ruralUrban;
@@ -1797,85 +1784,161 @@ get all data sets loaded with buttons in help sidebar
                             }
                         } else {
                             //initChart();
-                            chart = c3.generate({
-                                bindto: '#chart',
-                                data: {
+                            if (currentChartType == 'bar') {
+
+                                console.log(data1.rows);
+                                var rows = d3.nest()
+                                    .key(function(d) {
+                                        return d.group_name;
+                                    })
+                                    .rollup(function(group) {
+                                        var q = d3.nest()
+                                            .key(function(d) {
+                                                return d.unified_classif
+                                            }).rollup(function(qd) {
+                                                return (qd.length / group.length) * 100
+                                            })
+                                            .entries(group)
+                                        return q;
+                                    })
+                                    .entries(data1.rows);
+                                console.log(rows);
+
+                                var data = {
+                                    rows: [],
+                                }
+                                for (i in rows) {
+                                    var obj = {
+                                        group_name: rows[i].key
+                                    };
+                                    for (j in rows[i].values) {
+                                        obj[rows[i].values[j].key] = rows[i].values[j].values
+                                    }
+                                    data.rows.push(obj);
+                                }
+                                console.log(data);
+                                // initChart();
+                                chart = c3.generate({
+                                    bindto: '#chart',
+                                    data: {
+                                        //x: 'group_name',
+                                        json: data.rows,
+                                        //unload: [selectedCol],
+                                        keys: {
+                                            x: 'group_name',
+                                            value: ['R4', 'R3', 'R2', 'R1', 'U2', 'U1'],
+                                        },
+                                        type: currentChartType,
+                                        groups: [
+                                            ['R4', 'R3', 'R2', 'R1', 'U2', 'U1']
+                                        ],
+                                        order: function(data1, data2) {
+                                            //debugger;
+                                            return unified_class_dict[data1.id] - unified_class_dict[data2.id];
+                                        }
+                                    },
+                                    tooltip: {
+                                        format: {
+                                            value: d3.format(",.2f")
+                                        },
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category', // this needed to load string x value
+                                        },
+                                        y: {
+                                            tick: {
+                                                format: function(d) {
+                                                    return d + "%";
+                                                },
+                                                values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                                            },
+                                        },
+                                    },
+                                });
+                                selectedCol = col;
+
+                            } else {
+                                chart = c3.generate({
+                                    bindto: '#chart',
+                                    data: {
+                                        x: 'group_name',
+                                        json: chartConfig.data.rows,
+                                        //unload: [scope.selectedCol],
+                                        keys: {
+                                            x: 'group_name',
+                                            value: chartConfig.columns,
+                                        },
+                                        type: currentChartType,
+                                        yRandomScattering: currentChartType == 'scatter',
+                                        xRandomScattering: currentChartType == 'scatter',
+                                    },
+                                    tooltip: {
+                                        format: {
+                                            value: function(d) {
+                                                if (d >= 4.7)
+                                                    return "Large Urban Areas";
+                                                if (d >= 3.7)
+                                                    return "Smaller Urban Areas";
+                                                if (d >= 2.7)
+                                                    return "Accessible Settlements";
+                                                if (d >= 1.7)
+                                                    return "Sparse/Remote Settlements";
+                                                if (d >= 0.7)
+                                                    return "Accessible Villages/Dwellings";
+                                                if (d >= -0.3)
+                                                    return "Sparse/Remote Villages/Dwellings";
+                                            }
+                                        }
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category', // this needed to load string x value
+                                            tick: {
+                                                format: function(d) {
+                                                    return chart.category(d)
+                                                    // console.log(this);
+                                                    // return d;
+                                                },
+                                                values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                                            }
+                                        },
+                                        y: {
+                                            min: 0,
+                                            max: 6,
+                                            tick: {
+                                                format: function(d) {
+                                                    switch (d) {
+                                                        case 5:
+                                                            return "U1";
+                                                        case 4:
+                                                            return "U2";
+                                                        case 3:
+                                                            return "R1";
+                                                        case 2:
+                                                            return "R2";
+                                                        case 1:
+                                                            return "R3";
+                                                        case 0:
+                                                            return "R4";
+                                                    }
+                                                },
+                                                values: [0, 1, 2, 3, 4, 5],
+                                            }
+                                        }
+                                    }
+                                });
+                                chart.load({
                                     x: 'group_name',
                                     json: chartConfig.data.rows,
-                                    //unload: [scope.selectedCol],
+                                    unload: [scope.selectedCol],
                                     keys: {
                                         x: 'group_name',
                                         value: chartConfig.columns,
                                     },
-                                    type: currentChartType,
-                                    yRandomScattering: currentChartType == 'scatter',
-                                    xRandomScattering: currentChartType == 'scatter',
-                                },
-                                tooltip: {
-                                    format: {
-                                        value: function(d) {
-                                            if (d >= 4.7)
-                                                return "Large Urban Areas";
-                                            if (d >= 3.7)
-                                                return "Smaller Urban Areas";
-                                            if (d >= 2.7)
-                                                return "Accessible Settlements";
-                                            if (d >= 1.7)
-                                                return "Sparse/Remote Settlements";
-                                            if (d >= 0.7)
-                                                return "Accessible Villages/Dwellings";
-                                            if (d >= -0.3)
-                                                return "Sparse/Remote Villages/Dwellings";
-                                        }
-                                    }
-                                },
-                                axis: {
-                                    x: {
-                                        type: 'category', // this needed to load string x value
-                                        tick: {
-                                            format: function(d) {
-                                                return chart.category(d)
-                                                // console.log(this);
-                                                // return d;
-                                            },
-                                            values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                                        }
-                                    },
-                                    y: {
-                                        min: 0,
-                                        max: 6,
-                                        tick: {
-                                            format: function(d) {
-                                                switch (d) {
-                                                    case 5:
-                                                        return "U1";
-                                                    case 4:
-                                                        return "U2";
-                                                    case 3:
-                                                        return "R1";
-                                                    case 2:
-                                                        return "R2";
-                                                    case 1:
-                                                        return "R3";
-                                                    case 0:
-                                                        return "R4";
-                                                }
-                                            },
-                                            values: [0, 1, 2, 3, 4, 5],
-                                        }
-                                    }
-                                }
-                            });
-                            chart.load({
-                                x: 'group_name',
-                                json: chartConfig.data.rows,
-                                unload: [scope.selectedCol],
-                                keys: {
-                                    x: 'group_name',
-                                    value: chartConfig.columns,
-                                },
-                            });
-                            initialise = true;
+                                });
+                                initialise = true;
+                            }
                         }
                         scope.selectedCol = col;
                     });
