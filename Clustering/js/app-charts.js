@@ -9,7 +9,11 @@ var data_name = null;
 
 // to know if currently load chart is special(boxplot or for unified_classif)
 var initialise = true;
-
+var groups_dict = {
+	"Permaculture": "Perm.",
+	"City Farms & Gardens": "CF",
+	"Community Land": "CL"
+}
 function initChart() {
 	//dummy chart to support transition when changing data or chart type
 	var xRandomScattering = currentChartType == 'scatter';
@@ -64,9 +68,9 @@ function initChart() {
 				type: 'category', // this needed to load string x value
 				tick: {
 					format: function(d) {
+						if(groups_dict[chart.category(d)])
+							return groups_dict[chart.category(d)]
 						return chart.category(d)
-						// console.log(this);
-						// return d;
 					},
 					values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				}
@@ -130,6 +134,8 @@ function scatterPlotLoad() {
 						type: 'category', // this needed to load string x value
 						tick: {
 							format: function(d) {
+								if(groups_dict[chart.category(d)])
+									return groups_dict[chart.category(d)]
 								return chart.category(d);
 							},
 							values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -231,7 +237,7 @@ function barChartLoad() {
 	currentChartType = 'bar';
 	initialise = true;
 	if (initialise) {
-		initChart();
+		// initChart();
 		if (data_name == 'unified_classif_value') {
 			console.log(chartConfig.data.rows);
 			var rows = d3.nest()
@@ -292,6 +298,15 @@ function barChartLoad() {
 				axis: {
 					x: {
 						type: 'category', // this needed to load string x value
+						tick: {
+							format: function(d) {
+								if(groups_dict[chart.category(d)])
+									return groups_dict[chart.category(d)]
+								return chart.category(d)
+
+							},
+							// values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+						}
 					},
 					y: {
 						tick: {
@@ -309,6 +324,8 @@ function barChartLoad() {
 			if (data_function == census) {
 				var rows = d3.nest()
 					.key(function(d) {
+						if(groups_dict[d.group_name])
+							return groups_dict[d.group_name]
 						return d.group_name;
 					})
 					.rollup(function(d) {
@@ -409,6 +426,8 @@ function barChartLoad() {
 			} else {
 				var rows = d3.nest()
 					.key(function(d) {
+						if(groups_dict[d.group_name])
+							return groups_dict[d.group_name]
 						return d.group_name;
 					})
 					.rollup(function(group) {
@@ -486,10 +505,7 @@ function barChartLoad() {
 				});
 			}
 		}
-	} else {
-
 	}
-
 }
 
 function boxplotLoad() {
@@ -500,6 +516,12 @@ function boxplotLoad() {
 		// to clear all element for chart container befor render new one.
 		d3.select('#chart').selectAll('*').remove();
 		//////////////////////////////////////////////////////
+	}
+	var rows = [];
+	for(i in chartConfig.data.rows){
+		rows.push(chartConfig.data.rows[i]);
+		if(groups_dict[chartConfig.data.rows[i].group_name])
+			rows[i].group_name = groups_dict[chartConfig.data.rows[i].group_name]
 	}
 	chart = makeDistroChart({
 		data: chartConfig.data.rows,
@@ -561,6 +583,8 @@ function SIMD(col) {
                 // console.log(data1.rows);
                 var rows = d3.nest()
                     .key(function(d) {
+						if(groups_dict[d.group_name])
+							return groups_dict[d.group_name]
                         return d.group_name;
                     })
                     .rollup(function(group) {
@@ -710,6 +734,8 @@ function ruralUrban(col) {
                     console.log(data1.rows);
                     var rows = d3.nest()
                         .key(function(d) {
+							if(groups_dict[d.group_name])
+								return groups_dict[d.group_name]
                             return d.group_name;
                         })
                         .rollup(function(group) {
@@ -817,9 +843,9 @@ function ruralUrban(col) {
                                 type: 'category', // this needed to load string x value
                                 tick: {
                                     format: function(d) {
+										if(groups_dict[chart.category(d)])
+											return groups_dict[chart.category(d)]
                                         return chart.category(d)
-                                        // console.log(this);
-                                        // return d;
                                     },
                                     values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                                 }
@@ -959,6 +985,8 @@ function census(clusterName) {
             if (currentChartType == 'bar') {
                 var rows = d3.nest()
                     .key(function(d) {
+						if(groups_dict[d.group_name])
+							return groups_dict[d.group_name]
                         return d.group_name;
                     })
                     .rollup(function(d) {

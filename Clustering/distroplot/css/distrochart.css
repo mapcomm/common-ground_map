@@ -159,3 +159,19 @@
 @media (max-width:500px){
     .chart-options p {display: block;}
 }
+
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  /*background-color:rgba(255, 255, 255, 0.5);*/
+  color: black;
+  border-radius: 2px;
+  z-index: 1000;
+  border: 1px solid gray;
+  background-color: #fff;
+  -webkit-box-shadow: 7px 7px 12px -9px #777777;
+  -moz-box-shadow: 7px 7px 12px -9px #777777;
+  box-shadow: 7px 7px 12px -9px #777777;
+  opacity: 0.9;
+}
