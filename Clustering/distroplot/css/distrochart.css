@@ -2,7 +2,7 @@
 
 /*Nested divs for responsiveness*/
 .chart-wrapper {
-    max-height: 500px;
+    height:60%;
     /* background-color: #FAF7F7; */
 }
 .chart-wrapper .inner-wrapper {
@@ -24,7 +24,9 @@
 
 .chart-wrapper text {
   font-family: sans-serif;
-  font-size: 13px;
+  font-size: 8px;
+  width: 50px;
+  text-overflow: ellipsis;
 }
 
 .chart-wrapper .axis path,
