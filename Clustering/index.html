@@ -103,11 +103,15 @@ get all data sets loaded with buttons in help sidebar
 
   <!-- Load c3.css -->
   <link href="c3/c3.css" rel="stylesheet">
+  <link href="distroplot/css/distrochart.css" rel="stylesheet">
 
   <!-- Load d3.js and c3.js -->
-  <script src="c3/c3.min.js"></script>
+  <script src="c3/c3.js"></script>
   <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="distroplot/js/distrochart.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
+  <script src="js/app-charts.js"></script>
 <style>
 .leaflet-pane .leaflet-marker-pane{
 img src=""
@@ -222,8 +226,57 @@ img src=""
               </h1>
               <p id="sidebar-text"></p>
             </div><!--end div classs="sidebar-pane"-->
-            <div id="viz"></div>
-						<div id="chart"><button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button></div>
+            <div id="viz">
+                <!-- <button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button> -->
+                <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
+                <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
+                <button class="tablinks3" id="boxplotBtn" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
+
+                <select onchange="scopeSelected(this);">
+                    <option value="0">All Points</option>
+                    <option value="1">Only Visible</option>
+                </select>
+            </div>
+
+            <div id="chart" class="chart-wrapper"></div>
+
+            <ul class="nav nav-pills nav-stacked" id="data-nav">
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        SIMD
+                        <span class="caret"></span>
+                      </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#" onclick="SIMD('rank');">simd</a></li>
+                        <li role="presentation"><a href="#" onclick="SIMD('emprank')">employment</a></li>
+                        <li role="presentation"><a href="#" onclick="SIMD('incrank')">income</a></li>
+                        <li role="presentation"><a href="#" onclick="SIMD('hlthrank')">health</a></li>
+                        <li role="presentation"><a href="#" onclick="SIMD('edurank')">education</a></li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Urban Rural
+                        <span class="caret"></span>
+                      </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#" onclick="ruralUrban('density_ppha')">density_ppha</a></li>
+                        <li role="presentation"><a href="#" onclick="ruralUrban('unified_classif_value')">unified_classif</a></li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Census11
+                        <span class="caret"></span>
+                      </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#" onclick="census('health')">health</a></li>
+                        <li role="presentation"><a href="#" onclick="census('economic')">economic</a></li>
+                        <li role="presentation"><a href="#" onclick="census('industry')">industry</a></li>
+                        <li role="presentation"><a href="#" onclick="census('workTravel')">work travel</a></li>
+                    </ul>
+                </li>
+            </ul>
 
             <!-- Placeholder js to render sample D3/C3 chart - can be removed for new code-->
             <script type="text/javascript">
@@ -602,6 +655,7 @@ group();
 
       
 
+
       var name = data1.features[0].properties.name;
 
       //This needs updating so there is an icon next to the name which is clickable and it calls another function that will zoom to the point given co-ords on the map
@@ -818,7 +872,7 @@ group();
         },
 
         createIcon: function () {
-            // based on L.Icon.Canvas from shramov/leaflet-plugins (BSD licence)
+            // based on L.Icon.Canvas from shramov/leaflet-plugins (BSD licence)
             var e = document.createElement('canvas');
             this._setIconStyles(e, 'icon');
             var s = this.options.iconSize;
@@ -1406,6 +1460,9 @@ var overlays = {
 
 
 
+map.on('moveend', function() {
+    if (currentScope == 1) data_function(data_name);
+})
   function main(){
 
           map.setView([55.3781, -4.4360], 6);

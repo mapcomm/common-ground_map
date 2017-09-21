@@ -4989,6 +4989,10 @@ c3_chart_internal_fn.getDefaultConfig = function () {
         data_columns: undefined,
         data_mimeType: undefined,
         data_keys: undefined,
+
+		//ahmednoureldeen: custom code to support random scattring
+		data_xRandomScattering: false,
+		data_yRandomScattering: false,
         // configuration for no plot-able data supplied.
         data_empty_label_text: "",
         // subchart
@@ -5402,6 +5406,13 @@ c3_chart_internal_fn.convertDataToTargets = function (data, appendXs) {
                 if (isUndefined(d[id]) || $$.data.xs[id].length <= i) {
                     x = undefined;
                 }
+				//ahmednoureldeen-- custom code
+				//console.log(config);
+				if(config.data_xRandomScattering)
+					x = x + (Math.random() * 0.6 - 0.3);
+				if(config.data_yRandomScattering)
+						value = value + (Math.random() * 0.6 - 0.3);
+				////////////////////////////////////////
                 return { x: x, value: value, id: convertedId };
             }).filter(function (v) {
                 return isDefined(v.x);
