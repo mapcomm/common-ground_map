@@ -17,6 +17,8 @@ get all data sets loaded with buttons in help sidebar
 <html lang="en">
 <head>
 
+
+
 <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 
   <!-- In the <head> section we need to load all the javascript libraries and
@@ -111,6 +113,9 @@ get all data sets loaded with buttons in help sidebar
   <script src="distroplot/js/distrochart.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
+  <!-- //added for print library  -->
+<script src="dist/leaflet.browser.print.min.js"></script>
+
   <script src="js/app-charts.js"></script>
 <style>
 .leaflet-pane .leaflet-marker-pane{
@@ -118,7 +123,7 @@ img src=""
 <img src="" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive prunecluster-anim" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(252px, 52px, 0px); z-index: 52; opacity: 1;">
 }
 .leaflet-control-scale-line{
-  
+
 }
 </style>
 
@@ -386,11 +391,12 @@ img src=""
               center: [54, -40],
               zoom: 14,
               layers: [basemap],
-              zoomControl: true,
+              //zoomControl: true,
           });
 
 
-          L.control.scale().addTo(map);
+            L.control.scale().addTo(map);
+            L.browserPrint().addTo(map);
 
   var sidebar = L.control.sidebar('sidebar', {
     position: 'right'
@@ -405,6 +411,7 @@ img src=""
             position: 'left'
         });
         map.addControl(leftSidebar);
+
 
 
 
@@ -513,9 +520,10 @@ function setInitialData(){
     document.getElementById('commEnergy').style.opacity='1.0';
     document.getElementById('SCCAN').style.opacity='1.0';
     document.getElementById('cityFarms').style.opacity='1.0';
-   
+
     //turns selected element to opcaity change
-    document.getElementById(name).style.opacity='0.5';
+    //change this and then have some functionality to turn or remove
+    document.getElementById(name).style.backgroundColor= "blue";
     document.getElementById(name).style.border='2px solid #4CAF50';
 
 
@@ -653,7 +661,7 @@ group();
       //console.log(data1.features[0].properties.name,data1.features[1].properties);
       var data = data1;
 
-      
+
 
 
       var name = data1.features[0].properties.name;

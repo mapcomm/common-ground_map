@@ -1,3 +1,10 @@
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
+  position: relative;
+     left: 490px;
+     top: 490px;
+}
+
+
 .leaflet-control-scale-line {
 
  position: relative;
@@ -10,7 +17,7 @@
 }
 
   #tablinks3{
-    
+
      color: white;
   display: inline-block;
   padding: 5px 6px 12px;
@@ -35,14 +42,14 @@
   background-color: #2288ee;
     position: relative;
     left: 20px;
-    
+
 
   }
 
 
 
   #tablinks4{
-    
+
      color: white;
   display: inline-block;
   padding: 5px 6px 12px;
@@ -67,14 +74,14 @@
   background-color: #2288ee;
     position: relative;
     left: 20px;
- 
+
   }
 
   #sidebar-text2{
-    
+
     right: 10%;
     background-color: blue;
-    
+
 
   }
 
@@ -90,12 +97,12 @@
           border: 1px solid #999;
           width: 250px;
       }
-      
+
       .layer_selector > p {
           padding: 15px 30px;
           border-bottom: 1px solid #999;
       }
-      
+
       .layer_selector ul {
           padding: 0; margin: 0;
           list-style-type: none;
@@ -146,13 +153,13 @@
 /*['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e']
 colors for marker groups*/
 #commLandButton{
-  
+
 }
 
 .commLandButton {
 
-    
-background-color: #bac900; 
+
+background-color: #bac900;
 }
 
 
@@ -160,45 +167,45 @@ background-color: #bac900;
 
 .DTASButton {
 
-   
-   background-color: #ff4b00; 
+
+   background-color: #ff4b00;
 }
 
 .ECSButton{
 
-   background-color: #55BCBE; 
+   background-color: #55BCBE;
 
 }
 
 /*
 
 .leaflet-popup {
-            margin-right: 47px; 
-            background-color: lightblue; 
+            margin-right: 47px;
+            background-color: lightblue;
 
         }
-        
+
 .scroll-bar-wrap:hover .cover-bar {
    opacity: 0;
   -webkit-transition: all .5s;
 }
-        
+
         .leaflet-popup-content {
             max-width: 300px;
             height: 70px;
             margin-right: 10px;
             overflow:  auto;
-            
+
             font-size: 90%;
              text-align: center;
              padding: 1em;
 
         }
-        
-         #map { 
-          position: absolute; 
-          top:0px; bottom:0; right:0; left:0; 
-         } 
+
+         #map {
+          position: absolute;
+          top:0px; bottom:0; right:0; left:0;
+         }
 
     #info-pane {
     position: left;
@@ -217,13 +224,13 @@ background-color: #bac900;
   #sidebar {
     position: absolute;
     height:  650px;
-    top: 10px; 
+    top: 10px;
     right: 10px;
     z-index: 1000;
     padding: 1em;
     background: white;
-  }     
-  
+  }
+
   .sidebar {
   position: absolute;
   top: 0;
@@ -358,8 +365,8 @@ background-color: #bac900;
 
   @media (max-width: 767px){
     .sidebar-header {
-        font-size: 12pt;  
-    }  
+        font-size: 12pt;
+    }
   }
 
 .sidebar-close {
@@ -384,7 +391,7 @@ background-color: #bac900;
   margin-right: 40px; }
   @media (max-width: 767px) {
       .sidebar-right ~ .sidebar-map {
-      margin-right: 0; } 
+      margin-right: 0; }
   }
   @media (min-width: 768px) {
     .sidebar-right ~ .sidebar-map {
