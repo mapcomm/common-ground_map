@@ -1,7 +1,7 @@
 .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
   position: relative;
      left: 490px;
-     top: 490px;
+     top: 590px;
 }
 
 
@@ -10,6 +10,7 @@
  position: relative;
     left: 420px;
 }
+
 
 
 .btn-secondary{
