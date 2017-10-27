@@ -16,6 +16,12 @@ get all data sets loaded with buttons in help sidebar
 
 <html lang="en">
 <head>
+  <style>
+
+  .DTASButton {
+     background-color: 'black';
+  }
+  </style>
 
 
 
@@ -393,6 +399,21 @@ img src=""
               layers: [basemap],
               zoomControl: false,
           });
+
+//add variables for colouring
+//For reference 883 defines colors for markerClustering
+var blueGrey = '#a6cee3';
+var darkBlue = '#1f78b4';
+var greenWhite = '#b2df8a';
+var darkGreen = '#33a02c';
+var salmonPink = '#fb9a99';
+var darkRed = '#e31a1c';
+var lightOrange = '#fdbf6f';
+var darkOrange = '#ff7f00';
+var lightPurple = '#cab2d6';
+var darkPurple = '#6a3d9a';
+var lightYellow = '#ffff99';
+var brown = '#b15928';
 
 
             L.control.scale().addTo(map);
@@ -867,7 +888,8 @@ group();
     };
 
 	// Define colours for markercluster ring segments
-    var colors = ['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e'],
+    var colors = [brown,lightOrange, darkPurple,   darkGreen,salmonPink, darkBlue,lightYellow, blueGrey]
+    //var colors = ['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e'],
         pi2 = Math.PI * 2;
 
     L.Icon.MarkerCluster = L.Icon.extend({
