@@ -16,12 +16,6 @@ get all data sets loaded with buttons in help sidebar
 
 <html lang="en">
 <head>
-  <style>
-
-  .DTASButton {
-     background-color: 'black';
-  }
-  </style>
 
 
 
@@ -328,26 +322,42 @@ img src=""
             </br></br></br></br>
             <!-- Buttons here to turn on/off presentation of different data tables
             Note: style for commEnergy,commLand,DTAS,ECS,cityFarms,sccan,permaculture
-            buttons in bootstrap.css   -->
+            buttons in bootstrap.css
+
+            button colours:
+            var blueGrey = '#a6cee3';
+            var darkBlue = '#1f78b4';
+            var greenWhite = '#b2df8a';
+            var darkGreen = '#33a02c';
+            var salmonPink = '#fb9a99';
+            var darkRed = '#e31a1c';
+            var lightOrange = '#fdbf6f'; commLand
+            var darkOrange = '#ff7f00';
+            var lightPurple = '#cab2d6';
+            var darkPurple = '#6a3d9a';
+            var lightYellow = '#ffff99';
+            var brown = '#b15928';
+            colors for marker groups*/
+           -->
 
             <p align="center">Networks on this map</br>(click to hide/reveal)</p>
 
             <div class="tab2" id="tab2">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                  <button type="button" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS,'DTAS');">DTAS</button>
+                  <button type="button" style="background:#6a3d9a" class="btn btn-secondary .btn-block" id="DTAS" onclick="AddElements(DTAS,'DTAS');">DTAS</button>
 
-                  <button type="button" class="btn btn-secondary" id="ECS" onclick="AddElements(ECS,'ECS');">ECS</button>
+                  <button type="button" style="background:#33a02c"  class="btn btn-secondary" id="ECS" onclick="AddElements(ECS,'ECS');">ECS</button>
 
-                  <button type="button" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand,'commLand');">CommLand</button>
+                  <button type="button" style="background:#fdbf6f" class="btn btn-secondary" id="commLand" onclick="AddElements(commLand,'commLand');">CommLand</button>
 
-                  <button type="button" class="btn btn-secondary" id="All" onclick="AddElements(All,'All');">_All_</button>
+                  <button type="button" style="background:#e31a1c"  class="btn btn-secondary" id="All" onclick="AddElements(All,'All');">_All_</button>
 
-                  <button type="button" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy,'commEnergy');">CommEnergy</button>
+                  <button type="button" style="background:pink" class="btn btn-secondary" id="commEnergy" onclick="AddElements(commEnergy,'commEnergy');">CommEnergy</button>
 
-                  <button type="button" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms,'cityFarms');">City Farms   </button>
+                  <button type="button" style="background:pink" class="btn btn-secondary" id="cityFarms" onclick="AddElements(cityFarms,'cityFarms');">City Farms   </button>
 
-                  <button type="button" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN,'SCCAN');">SCCAN</button>
+                  <button type="button" style="background:pink" class="btn btn-secondary" id="SCCAN" onclick="AddElements(SCCAN,'SCCAN');">SCCAN</button>
                 </div><!--end div classs="btn-group"-->
                   <!--<div class="btn-group" role="group" aria-label="Third group"><button type="button" class="btn btn-secondary">8</button></div>-->
               </div><!--end div classs="btn-toolbar"-->

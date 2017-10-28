@@ -151,27 +151,20 @@
 }
 
 
-/*['#ff4b00', '#bac900', '#EC1813', '#55BCBE', '#D2204C', '#FF0000', '#ada59a', '#3e647e']
+/*
+var blueGrey = '#a6cee3';
+var darkBlue = '#1f78b4';
+var greenWhite = '#b2df8a';
+var darkGreen = '#33a02c';
+var salmonPink = '#fb9a99';
+var darkRed = '#e31a1c';
+var lightOrange = '#fdbf6f'; commLand
+var darkOrange = '#ff7f00';
+var lightPurple = '#cab2d6';
+var darkPurple = '#6a3d9a';
+var lightYellow = '#ffff99';
+var brown = '#b15928';
 colors for marker groups*/
-#commLandButton{
-
-}
-
-.commLandButton {
-
-
-background-color: #bac900;
-}
-
-
-
-
-
-.ECSButton{
-
-   background-color: #55BCBE;
-
-}
 
 /*
 
