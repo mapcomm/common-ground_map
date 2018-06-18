@@ -1,18 +1,4 @@
-<!-- https://github.com/CartoDB/cartodb.js/blob/develop/examples/custom_infowindow.html -sort this!!!!! divs?
-?
-name or no name url etc
-zoom level
-have some kind of selected state
-pencil change state when open ?
-name bigger on hover
-
-
-get d3 in the side bar working
-get all data sets loaded with buttons in help sidebar
- -->
 <!DOCTYPE html>
-
-
 
 <html lang="en">
 <head>
@@ -134,7 +120,7 @@ img src=""
   </div>
 
 <!-- This will invoke the leaflet map, best to keep at the top of <body> -->
-<div id='map' class="sidebar-map"></div>
+<div button data-step="9" data-intro="On the map groups are clustered when there are several located in close proximity. The cluster shows the number of groups inside and the colours in the ring around the number show the relative share of each network within that cluster. If you get stuck, try reading our Frequently Asked Questions. Have fun with map, you can click 'done' to get started!" id='map' class="sidebar-map"></div>
 <!-- JK query for DH: why is the class above "sidebar-map"? -->
   <div id="page-content">
     <section class="main-content">
@@ -146,7 +132,7 @@ img src=""
             -->
           <div class="sidebar-tabs">
             <ul role="tablist">
-              <li class=""><a href="#home" role="tab"><i class="fa-pencil1"></i></a></li>
+              <li class="" data-step="1" data-intro="To close this info window, click on the coloured box in the corner at any time."><a href="#home" role="tab"><i class="fa-pencil1"></i></a></li>
               <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
               <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
             </ul>
@@ -161,7 +147,7 @@ img src=""
             <div  id="home" class="sidebar-pane">
               <!-- title for the sidebar -->
               <h1 class="sidebar-header">
-              Information Window
+              Welcome
               <!-- This is where the pencil class is and need them -->
               <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
               </h1>
@@ -170,11 +156,12 @@ img src=""
               <p id="sidebar-text"></p>
 
                 <div>
-                  <h3  data-step="1" data-intro="This is a tooltip!">Instructions</h3>
-                  <p data-step="4" data-intro="Another step.">To follow a walkthrough demonstration of the features available click the 'show me how' button below.</p>
-                  <p>Alternatively, click on a point to display information including name, description, website, and neighbours about a group!"</p>
-                  <a class="btn btn-success" href="javascript:void(0);" onclick="javascript:leftSidebar.open(); introJs().start();">Show me how</a>
-                </div>
+                  <h3 button data-step="8" data-intro="When you're done with the demo, click on a map point to get information on a particular group. You'll find a name, description, the group's network, some social network links, and a list of the five closest local groups.">First-time User Guide</h3>
+                  <p>Welcome to the Common Ground Map. This info-window is designed to give first-time users a walkthrough demonstration of the features available. To get started, simply click the 'start the demo' button below.</p>
+                  <p>If you want to get right into the data, zoom in to view a point, when you click on the point, this window will display basic ground information including name, description, website, and neighbours about a group.</p>
+                  <a class="btn btn-success" href="javascript:void(0);" onclick="javascript:leftSidebar.open(); introJs().start();">Start the demo</a>
+                  <button data-step="7" data-intro="You can also use this map as a local resource. To zoom to your current location, click on 'find my location'" id="tablinks4" onclick="geolocation();">Find my location</button>
+              </div>
                 <hr>
                 <div>
                 <!--  <div class="span6" data-step="0" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'> -->
@@ -185,7 +172,7 @@ img src=""
               default map view will be whole of UK at zoom level 7 -->
               <button id="tablinks4" onclick="geolocation();">Find my location</button>
               <!-- Placeholder here for another map feature TBD -->
-              <button class="HelpButton" data-step="2" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip' id="tablinks3"  onclick="getHelp();">Addional Features</button>
+              <button class="HelpButton" data-position='right' data-scrollTo='tooltip' id="tablinks3"  onclick="getHelp();">Addional Features</button>
 
 
 
@@ -212,9 +199,9 @@ img src=""
             when user clicks on "additional features" button from above
             -->
           <!-- Nav tabs -->
-          <div class="sidebar-tabs">
+          <div data-step="6" data-intro="To actually see a chart, you have to choose the underlying dataset that you're comparing the groups against. We give you several options. The first one is the Index of Multiple deprivation. Click on this button and you'll be given several options. IMD mashes together dozens of different statistics. To provide some granularity, IMD is further broken down into domains. To get the overall IMD, click on SIMD here. If you'd like to see the 'employment domain' click on emprank. Other options include the 'income domain' shown here as 'income, the 'health domain' shown here as 'hlthrank', and the 'education domain' shown here as 'education'. Also included are the 'urban rural' scale, and a range of 2010 census statistics. In each case, we provide a measurement of groups against the ranking for their census-area." class="sidebar-tabs">
           <ul role="tablist">
-            <li class = ""><a href="#home1" role="tab"><i class="active"></i></a></li>
+            <li data-step="2" data-intro="On the left side is a bar (normally hidden) which will show you social statistics based on the map points. You can open it by clicking on this box." class = ""><a href="#home1" role="tab"><i class="active"></i></a></li>
             <!--<li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
             <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
           </ul>
@@ -232,12 +219,11 @@ img src=""
               <p id="sidebar-text"></p>
             </div><!--end div classs="sidebar-pane"-->
             <div id="viz">
-                <!-- <button class="tablinks3" id="HelpButton" onclick="chartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Display Chart</button> -->
-                <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
-                <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
-                <button class="tablinks3" id="boxplotBtn" onclick="boxplotLoad();" data-step="3" data-intro="Ok, wasn't that fun?" data-position='right' data-scrollTo='tooltip'>Box Plot</button>
+                <button class="tablinks3" id="HelpButton" onclick="scatterPlotLoad();" data-step="3" data-intro="There are three types of chart you can view here. Each shows the same underlying data in different ways. The first, is called a scatterplot. You can reveal it by clicking on the botton with that name. We like scatterplots because they represent every single data point visually. It's as if we dragged all the dots off the map and moved them into bins just below."  data-position='right' data-scrollTo='tooltip'>Scatter Plot</button>
+                <button class="tablinks3" id="HelpButton" onclick="barChartLoad();" data-step="4" data-intro="Scatterplot charts have limitations though, as it is hard to get a more specific sense of the representation. Luckily, we have bar charts as well for you. Just like the columns oon the scatterplot, each bar here represents one community network which is shown on the map, so you can see how they compare to one another." data-position='right' data-scrollTo='tooltip'>Bar Chart</button>
+                <button class="tablinks3" id="boxplotBtn" onclick="boxplotLoad();" data-step="5" data-intro="The third chart type is a boxplot, which gives you a very quick sense of averages and ranges of data." data-position='right' data-scrollTo='tooltip'>Box Plot</button>
 
-                <select onchange="scopeSelected(this);">
+                <select data-step="6" data-intro="You also have the option of calculating these charts based on all the points in our UK database, or restricting to the points that are shown on the screen. You can use this feature by zooming into a specific area you want to measure and then switching to 'only visible' below" onchange="scopeSelected(this);">
                     <option value="0">All Points</option>
                     <option value="1">Only Visible</option>
                 </select>
